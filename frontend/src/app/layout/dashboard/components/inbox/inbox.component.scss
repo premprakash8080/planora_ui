@@ -1,239 +1,493 @@
 /**
  * Inbox Component Styles
  * 
- * Styles for the task inbox/activity feed component
+ * Modern task list layout for the inbox component
  */
 
 .inbox-container {
-  padding: 24px;
-  max-width: 1200px;
+  padding: 32px;
+  max-width: 1400px;
   margin: 0 auto;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100vh;
 }
 
+// ============================================
 // Header Section
+// ============================================
 .inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e9ecef;
   
-  .inbox-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 32px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0 0 8px 0;
+  .header-content {
+    flex: 1;
     
-    .inbox-title-icon {
-      font-size: 36px;
-      width: 36px;
-      height: 36px;
-      color: #1976d2;
+    .inbox-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.5px;
+      
+      .inbox-title-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        color: #1976d2;
+      }
+    }
+    
+    .inbox-subtitle {
+      font-size: 16px;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 400;
     }
   }
   
-  .inbox-subtitle {
-    font-size: 16px;
-    color: #666;
-    margin: 0;
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    
+    .action-button {
+      color: #6c757d;
+      
+      &:hover {
+        background-color: #f8f9fa;
+        color: #1976d2;
+      }
+    }
   }
 }
 
-// Updates List
-.inbox-updates-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+// ============================================
+// Task List Container
+// ============================================
+.task-list-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
-// Update Card
-.inbox-update-card {
+// ============================================
+// List Header
+// ============================================
+.list-header {
+  display: grid;
+  grid-template-columns: 50px 2fr 1.5fr 120px 1.5fr 120px 60px;
+  gap: 16px;
+  padding: 16px 24px;
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  font-size: 13px;
+  color: #495057;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  
+  .header-cell {
+    display: flex;
+    align-items: center;
+    
+    &.checkbox-cell {
+      justify-content: center;
+    }
+  }
+}
+
+// ============================================
+// Task List
+// ============================================
+.task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-list-item {
+  display: grid;
+  grid-template-columns: 50px 2fr 1.5fr 120px 1.5fr 120px 60px;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e9ecef;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 0;
+  transition: all 0.2s ease;
+  background: #ffffff;
   
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
   
-  .inbox-card-content {
-    padding: 20px !important;
+  &:last-child {
+    border-bottom: none;
   }
-}
-
-// Update Main Layout
-.inbox-update-main {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-// Icon Wrapper
-.inbox-icon-wrapper {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 50%;
   
-  .inbox-update-icon {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
+  .task-cell {
+    display: flex;
+    align-items: center;
+    
+    &.checkbox-cell {
+      justify-content: center;
+    }
   }
 }
 
-// Update Content
-.inbox-update-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-// Update Description
-.inbox-update-description {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #333;
-  
-  .inbox-user-name {
-    font-weight: 600;
-    color: #1976d2;
-    margin-right: 4px;
+// ============================================
+// Task Info Cell
+// ============================================
+.task-info-cell {
+  .task-main-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
   }
   
-  .inbox-update-text {
-    color: #666;
+  .task-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    
+    .task-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  .task-details {
+    flex: 1;
+    min-width: 0;
+    
+    .task-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    
+    .task-description {
+      font-size: 14px;
+      color: #6c757d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      
+      .user-name {
+        font-weight: 600;
+        color: #1976d2;
+      }
+      
+      .action-text {
+        color: #6c757d;
+      }
+    }
   }
 }
 
-// Task Info
-.inbox-task-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #666;
-  
-  .inbox-task-name {
+// ============================================
+// Project Cell
+// ============================================
+.project-cell {
+  .project-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    font-size: 14px;
     font-weight: 500;
-    color: #1a1a1a;
-  }
-  
-  .inbox-separator {
-    color: #ccc;
-  }
-  
-  .inbox-project-name {
-    color: #666;
+    color: #495057;
+    
+    .project-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: #6c757d;
+    }
+    
+    .project-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+    }
   }
 }
 
-// Time Wrapper
-.inbox-time-wrapper {
-  flex-shrink: 0;
-  text-align: right;
-  
-  .inbox-time {
+// ============================================
+// Status Cell
+// ============================================
+.status-cell {
+  .status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    &.status-created {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+    
+    &.status-updated {
+      background-color: #e3f2fd;
+      color: #1565c0;
+    }
+    
+    &.status-completed {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+    
+    &.status-assigned {
+      background-color: #fff3e0;
+      color: #e65100;
+    }
+    
+    &.status-commented {
+      background-color: #e8eaf6;
+      color: #283593;
+    }
+  }
+}
+
+// ============================================
+// Assignee Cell
+// ============================================
+.assignee-cell {
+  .assignee-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .assignee-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .assignee-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #495057;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+  }
+}
+
+// ============================================
+// Time Cell
+// ============================================
+.time-cell {
+  .time-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 13px;
-    color: #999;
-    white-space: nowrap;
+    color: #6c757d;
+    
+    .time-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: #adb5bd;
+    }
+    
+    .time-text {
+      white-space: nowrap;
+    }
   }
 }
 
+// ============================================
+// Actions Cell
+// ============================================
+.actions-cell {
+  justify-content: center;
+  
+  .action-button {
+    color: #6c757d;
+    
+    &:hover {
+      background-color: #f8f9fa;
+      color: #1976d2;
+    }
+  }
+}
+
+// ============================================
 // Empty State
+// ============================================
 .inbox-empty-state {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  padding: 120px 20px;
   text-align: center;
   
-  .inbox-empty-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-    color: #ccc;
-    margin-bottom: 16px;
-  }
-  
-  .inbox-empty-title {
-    font-size: 20px;
-    font-weight: 500;
-    color: #666;
-    margin: 0 0 8px 0;
-  }
-  
-  .inbox-empty-text {
-    font-size: 14px;
-    color: #999;
-    margin: 0;
+  .empty-state-content {
+    max-width: 400px;
+    
+    .inbox-empty-icon {
+      font-size: 80px;
+      width: 80px;
+      height: 80px;
+      color: #dee2e6;
+      margin-bottom: 24px;
+    }
+    
+    .inbox-empty-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #495057;
+      margin: 0 0 12px 0;
+    }
+    
+    .inbox-empty-text {
+      font-size: 16px;
+      color: #6c757d;
+      margin: 0 0 32px 0;
+    }
+    
+    .empty-state-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
   }
 }
 
+// ============================================
 // Responsive Design
+// ============================================
+@media (max-width: 1200px) {
+  .list-header,
+  .task-list-item {
+    grid-template-columns: 50px 2fr 1.2fr 100px 1.2fr 100px 50px;
+  }
+}
+
+@media (max-width: 968px) {
+  .list-header,
+  .task-list-item {
+    grid-template-columns: 40px 2fr 1fr 80px;
+    gap: 12px;
+  }
+  
+  .project-cell,
+  .status-cell,
+  .assignee-cell,
+  .time-cell,
+  .actions-cell {
+    display: none;
+  }
+  
+  .list-header {
+    .project-cell,
+    .status-cell,
+    .assignee-cell,
+    .time-cell,
+    .actions-cell {
+      display: none;
+    }
+  }
+  
+  .task-list-item {
+    .task-info-cell {
+      .task-details {
+        .task-description {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .inbox-container {
-    padding: 16px;
+    padding: 20px;
   }
   
   .inbox-header {
-    .inbox-title {
-      font-size: 24px;
+    flex-direction: column;
+    gap: 16px;
+    
+    .header-content {
+      .inbox-title {
+        font-size: 24px;
+        
+        .inbox-title-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+      }
       
-      .inbox-title-icon {
-        font-size: 28px;
-        width: 28px;
-        height: 28px;
+      .inbox-subtitle {
+        font-size: 14px;
       }
     }
   }
   
-  .inbox-update-main {
-    flex-wrap: wrap;
+  .list-header,
+  .task-list-item {
+    padding: 16px;
+    gap: 12px;
   }
   
-  .inbox-time-wrapper {
-    width: 100%;
-    text-align: left;
-    margin-top: 8px;
+  .task-info-cell {
+    .task-main-info {
+      gap: 12px;
+    }
+    
+    .task-icon-wrapper {
+      width: 36px;
+      height: 36px;
+      
+      .task-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    .task-details {
+      .task-name {
+        font-size: 15px;
+      }
+    }
   }
-  
-  .inbox-update-content {
-    flex: 1 1 100%;
-  }
-}
-
-// Color Classes for Update Types
-.text-green-500 {
-  color: #4caf50 !important;
-}
-
-.text-blue-500 {
-  color: #2196f3 !important;
-}
-
-.text-purple-500 {
-  color: #9c27b0 !important;
-}
-
-.text-orange-500 {
-  color: #ff9800 !important;
-}
-
-.text-indigo-500 {
-  color: #3f51b5 !important;
-}
-
-.text-gray-500 {
-  color: #9e9e9e !important;
 }
 

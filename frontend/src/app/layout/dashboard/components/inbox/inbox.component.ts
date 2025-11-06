@@ -166,6 +166,34 @@ export class InboxComponent implements OnInit {
   }
 
   /**
+   * Get icon color based on update type
+   */
+  getIconColor(updateType: string): string {
+    const colorMap: { [key: string]: string } = {
+      'created': '#9c27b0',
+      'updated': '#2196f3',
+      'completed': '#4caf50',
+      'assigned': '#ff9800',
+      'commented': '#3f51b5'
+    };
+    return colorMap[updateType] || '#9e9e9e';
+  }
+
+  /**
+   * Get icon background color based on update type
+   */
+  getIconBackgroundColor(updateType: string): string {
+    const colorMap: { [key: string]: string } = {
+      'created': '#f3e5f5',
+      'updated': '#e3f2fd',
+      'completed': '#e8f5e9',
+      'assigned': '#fff3e0',
+      'commented': '#e8eaf6'
+    };
+    return colorMap[updateType] || '#f5f5f5';
+  }
+
+  /**
    * Handle click on an inbox item
    */
   onUpdateClick(update: InboxUpdate): void {

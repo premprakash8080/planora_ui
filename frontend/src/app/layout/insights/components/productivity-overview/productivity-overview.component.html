@@ -1,0 +1,145 @@
+<div class="productivity-container">
+  <!-- Page Header -->
+  <div class="productivity-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <mat-icon class="title-icon">insights</mat-icon>
+        Productivity Overview
+      </h1>
+      <p class="page-subtitle">Track your productivity metrics and performance trends</p>
+    </div>
+    <div class="header-actions">
+      <mat-form-field appearance="outline" class="period-selector">
+        <mat-label>Time Period</mat-label>
+        <mat-select [(ngModel)]="selectedPeriod">
+          <mat-option value="week">This Week</mat-option>
+          <mat-option value="month">This Month</mat-option>
+          <mat-option value="quarter">This Quarter</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Productivity Metrics Cards -->
+  <div class="metrics-section">
+    <h2 class="section-title">
+      <mat-icon class="section-icon">assessment</mat-icon>
+      Key Metrics
+    </h2>
+    <div class="metrics-grid">
+      <mat-card *ngFor="let metric of productivityMetrics" class="metric-card" [style.border-left-color]="metric.color">
+        <mat-card-content>
+          <div class="metric-content">
+            <div class="metric-icon-wrapper" [style.background]="'linear-gradient(135deg, ' + metric.color + '15, ' + metric.color + '05)'">
+              <mat-icon [style.color]="metric.color" class="metric-icon">
+                {{ metric.icon }}
+              </mat-icon>
+            </div>
+            <div class="metric-info">
+              <div class="metric-label">{{ metric.label }}</div>
+              <div class="metric-value-wrapper">
+                <div class="metric-value">{{ metric.value }}</div>
+                <div class="metric-unit">{{ metric.unit }}</div>
+              </div>
+              <div class="metric-change" 
+                   [class.positive]="metric.changeType === 'increase'" 
+                   [class.negative]="metric.changeType === 'decrease'">
+                <mat-icon class="change-icon">{{ getChangeIcon(metric.changeType) }}</mat-icon>
+                <span>{{ Math.abs(metric.change) }}% {{ metric.changeType === 'increase' ? 'up' : 'down' }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Productivity Trends -->
+  <div class="trends-section">
+    <h2 class="section-title">
+      <mat-icon class="section-icon">show_chart</mat-icon>
+      Weekly Productivity Trends
+    </h2>
+    <mat-card class="trends-card modern-card">
+      <mat-card-content>
+        <div class="trends-grid">
+          <!-- Tasks Completed Chart -->
+          <div class="trend-item">
+            <h3 class="trend-title">Tasks Completed</h3>
+            <div class="trend-chart">
+              <div *ngFor="let trend of productivityTrends" class="chart-bar-wrapper">
+                <div class="chart-bar" 
+                     [style.height.%]="getTasksCompletedHeight(trend.tasksCompleted)"
+                     [style.background]="'linear-gradient(to top, #4caf50, #66bb6a)'">
+                  <span class="bar-value">{{ trend.tasksCompleted }}</span>
+                </div>
+                <span class="bar-label">{{ trend.day }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hours Worked Chart -->
+          <div class="trend-item">
+            <h3 class="trend-title">Hours Worked</h3>
+            <div class="trend-chart">
+              <div *ngFor="let trend of productivityTrends" class="chart-bar-wrapper">
+                <div class="chart-bar" 
+                     [style.height.%]="getHoursWorkedHeight(trend.hoursWorked)"
+                     [style.background]="'linear-gradient(to top, #2196f3, #42a5f5)'">
+                  <span class="bar-value">{{ trend.hoursWorked }}h</span>
+                </div>
+                <span class="bar-label">{{ trend.day }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Efficiency Chart -->
+          <div class="trend-item">
+            <h3 class="trend-title">Efficiency Score</h3>
+            <div class="trend-chart">
+              <div *ngFor="let trend of productivityTrends" class="chart-bar-wrapper">
+                <div class="chart-bar" 
+                     [style.height.%]="getEfficiencyHeight(trend.efficiency)"
+                     [style.background]="'linear-gradient(to top, #9c27b0, #ba68c8)'">
+                  <span class="bar-value">{{ trend.efficiency }}%</span>
+                </div>
+                <span class="bar-label">{{ trend.day }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Productivity Summary -->
+  <div class="summary-section">
+    <mat-card class="summary-card modern-card">
+      <mat-card-content>
+        <h3 class="summary-title">
+          <mat-icon class="summary-icon">summarize</mat-icon>
+          Productivity Summary
+        </h3>
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <div class="stat-label">Total Tasks This Week</div>
+            <div class="stat-value">{{ totalTasksThisWeek }}</div>
+          </div>
+          <div class="summary-stat">
+            <div class="stat-label">Total Hours Worked</div>
+            <div class="stat-value">{{ totalHoursWorked.toFixed(1) }}h</div>
+          </div>
+          <div class="summary-stat">
+            <div class="stat-label">Average Efficiency</div>
+            <div class="stat-value">{{ averageEfficiency.toFixed(1) }}%</div>
+          </div>
+          <div class="summary-stat">
+            <div class="stat-label">Best Day</div>
+            <div class="stat-value">{{ bestDay }}</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

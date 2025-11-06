@@ -54,9 +54,27 @@ export class AppComponent {
         {
           type: 'link',
           label: 'Reporting',
-          route: '/user-management',
+          route: '/insights/report',
           routerLinkActiveOptions: { exact: true }
         },
+        {
+          type: 'link',
+          label: 'Productivity Overview',
+          route: '/insights/productivity-overview',
+          routerLinkActiveOptions: { exact: true }
+        },
+        {
+          type: 'link',
+          label: 'Team Performance',
+          route: '/insights/team-performance',
+          routerLinkActiveOptions: { exact: true }
+        },
+        {
+          type: 'link',
+          label: 'Time Tracking',
+          route: '/insights/time-tracking',
+          routerLinkActiveOptions: { exact: true }
+        }
       ]
     }
   ];

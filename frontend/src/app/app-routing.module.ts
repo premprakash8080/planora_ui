@@ -22,7 +22,10 @@ const routes: Routes = [
         path: "dashboard",
         loadChildren: () => import("./layout/dashboard/dashboard.module").then((m) => m.DashboardModule),
       },
-      
+      {
+        path: "insights",
+        loadChildren: () => import("./layout/insights/insights.module").then((m) => m.InsightsModule),
+      },
     ],
   },
 ];

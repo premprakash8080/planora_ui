@@ -1,0 +1,610 @@
+/**
+ * Time Tracking Component Styles
+ * 
+ * Modern UI styles for time tracking metrics
+ */
+
+.time-tracking-container {
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+// ============================================
+// Page Header
+// ============================================
+.time-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e9ecef;
+  
+  .header-content {
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.5px;
+      
+      .title-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        color: #1976d2;
+      }
+    }
+    
+    .page-subtitle {
+      font-size: 16px;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+}
+
+// ============================================
+// Section Titles
+// ============================================
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
+  
+  .section-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #1976d2;
+  }
+}
+
+// ============================================
+// Summary Section
+// ============================================
+.summary-section {
+  margin-bottom: 48px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.summary-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  background: #ffffff;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+  
+  mat-card-content {
+    padding: 24px !important;
+  }
+}
+
+.summary-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  
+  .summary-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    
+    &.total {
+      color: #1976d2;
+    }
+    
+    &.billable {
+      color: #4caf50;
+    }
+    
+    &.non-billable {
+      color: #9e9e9e;
+    }
+  }
+  
+  .summary-info {
+    flex: 1;
+    
+    .summary-label {
+      font-size: 14px;
+      color: #6c757d;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .summary-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #212529;
+      line-height: 1;
+      letter-spacing: -1px;
+      
+      &.billable {
+        color: #4caf50;
+      }
+      
+      &.non-billable {
+        color: #9e9e9e;
+      }
+    }
+  }
+}
+
+// ============================================
+// Project Summary Section
+// ============================================
+.project-summary-section {
+  margin-bottom: 48px;
+}
+
+.project-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  border-left: 4px solid;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  background: #ffffff;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+  
+  mat-card-content {
+    padding: 24px !important;
+  }
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  
+  .project-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .project-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .project-info {
+    flex: 1;
+    
+    .project-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #212529;
+      margin: 0 0 6px 0;
+    }
+    
+    .project-stats {
+      font-size: 14px;
+      color: #6c757d;
+      
+      .stat-item {
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+.project-time-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+  
+  .time-detail {
+    text-align: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    
+    .time-label {
+      display: block;
+      font-size: 12px;
+      color: #6c757d;
+      margin-bottom: 6px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .time-value {
+      display: block;
+      font-size: 20px;
+      font-weight: 700;
+      color: #212529;
+      
+      &.billable {
+        color: #4caf50;
+      }
+      
+      &.non-billable {
+        color: #9e9e9e;
+      }
+    }
+  }
+}
+
+.project-progress {
+  .progress-bar {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    
+    .progress-fill {
+      height: 100%;
+      transition: width 0.6s ease;
+      
+      &.billable {
+        border-radius: 10px 0 0 10px;
+      }
+      
+      &.non-billable {
+        border-radius: 0 10px 10px 0;
+      }
+    }
+  }
+}
+
+// ============================================
+// Daily Breakdown Section
+// ============================================
+.daily-breakdown-section {
+  margin-bottom: 48px;
+}
+
+.breakdown-card {
+  mat-card-content {
+    padding: 32px !important;
+  }
+}
+
+.modern-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.breakdown-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 16px;
+  height: 250px;
+  padding: 20px 0;
+  margin-bottom: 24px;
+}
+
+.chart-day-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  
+  .chart-bars {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+
+.bar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  
+  .bar-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+  }
+  
+  .bars-wrapper {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    position: relative;
+  }
+  
+  .bar {
+    flex: 1;
+    min-height: 20px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      transform: scaleY(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .bar-value {
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .bar-total {
+    font-size: 12px;
+    font-weight: 600;
+    color: #212529;
+    margin-top: 8px;
+  }
+}
+
+.breakdown-legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e9ecef;
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #495057;
+    font-weight: 500;
+    
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      
+      &.billable {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+      }
+      
+      &.non-billable {
+        background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+      }
+    }
+  }
+}
+
+// ============================================
+// Time Entries Section
+// ============================================
+.time-entries-section {
+  margin-bottom: 32px;
+}
+
+.table-card {
+  mat-card-content {
+    padding: 0 !important;
+    overflow-x: auto;
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.time-entries-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  
+  .table-header-row {
+    th {
+      font-weight: 600;
+      color: #495057;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 2px solid #dee2e6;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      
+      .table-header-cell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        .header-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: #1976d2;
+        }
+      }
+    }
+  }
+  
+  .table-row {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f8f9fa;
+      transform: scale(1.01);
+    }
+    
+    td {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e9ecef;
+      vertical-align: middle;
+    }
+  }
+}
+
+.date-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.project-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .project-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #6c757d;
+  }
+  
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+  }
+}
+
+.task-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.time-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.billable-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  
+  .badge-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  &.billable-yes {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  &.billable-no {
+    background-color: #f5f5f5;
+    color: #6c757d;
+  }
+}
+
+.action-button {
+  color: #6c757d;
+  
+  &:hover {
+    background-color: #f8f9fa;
+    color: #1976d2;
+  }
+}
+
+// ============================================
+// Responsive Design
+// ============================================
+@media (max-width: 768px) {
+  .time-tracking-container {
+    padding: 20px;
+  }
+  
+  .time-header {
+    .header-content {
+      .page-title {
+        font-size: 24px;
+        
+        .title-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
+  
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .project-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .breakdown-chart {
+    height: 200px;
+    gap: 8px;
+  }
+  
+  .time-entries-table {
+    font-size: 14px;
+    
+    .table-header-row th,
+    .table-row td {
+      padding: 12px 16px;
+    }
+  }
+}
+

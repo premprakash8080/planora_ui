@@ -1,63 +1,128 @@
 <div class="inbox-container">
   <!-- Header Section -->
   <div class="inbox-header">
-    <h1 class="inbox-title">
-      <mat-icon class="inbox-title-icon">inbox</mat-icon>
-      Inbox
-    </h1>
-    <p class="inbox-subtitle">Task updates and activity feed</p>
+    <div class="header-content">
+      <h1 class="inbox-title">
+        <mat-icon class="inbox-title-icon">inbox</mat-icon>
+        Inbox
+      </h1>
+      <p class="inbox-subtitle">Task updates and activity feed</p>
+    </div>
+    <div class="header-actions">
+      <button mat-icon-button matTooltip="Filter" class="action-button">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Sort" class="action-button">
+        <mat-icon>sort</mat-icon>
+      </button>
+    </div>
   </div>
 
-  <!-- Updates List -->
-  <div class="inbox-updates-list">
-    <!-- Update Card -->
-    <mat-card 
-      *ngFor="let update of inboxUpdates" 
-      class="inbox-update-card"
-      (click)="onUpdateClick(update)">
-      
-      <mat-card-content class="inbox-card-content">
-        <!-- Icon and Main Content -->
-        <div class="inbox-update-main">
-          <!-- Icon Section -->
-          <div class="inbox-icon-wrapper">
-            <mat-icon 
-              [class]="update.iconColor" 
-              class="inbox-update-icon">
-              {{ update.icon }}
-            </mat-icon>
-          </div>
+  <!-- Task List -->
+  <div class="task-list-container">
+    <!-- List Header -->
+    <div class="list-header">
+      <div class="header-cell checkbox-cell">
+        <mat-checkbox></mat-checkbox>
+      </div>
+      <div class="header-cell task-cell">Task</div>
+      <div class="header-cell project-cell">Project</div>
+      <div class="header-cell status-cell">Status</div>
+      <div class="header-cell assignee-cell">Updated By</div>
+      <div class="header-cell time-cell">Time</div>
+      <div class="header-cell actions-cell">Actions</div>
+    </div>
 
-          <!-- Content Section -->
-          <div class="inbox-update-content">
-            <!-- Update Description -->
-            <div class="inbox-update-description">
-              <span class="inbox-user-name">{{ update.userName }}</span>
-              <span class="inbox-update-text">{{ update.updateDescription }}</span>
+    <!-- Task List Items -->
+    <div class="task-list">
+      <div 
+        *ngFor="let update of inboxUpdates" 
+        class="task-list-item"
+        (click)="onUpdateClick(update)">
+        
+        <!-- Checkbox -->
+        <div class="task-cell checkbox-cell">
+          <mat-checkbox (click)="$event.stopPropagation()"></mat-checkbox>
+        </div>
+
+        <!-- Task Info -->
+        <div class="task-cell task-info-cell">
+          <div class="task-main-info">
+            <div class="task-icon-wrapper" [style.background-color]="getIconBackgroundColor(update.updateType)">
+              <mat-icon 
+                [style.color]="getIconColor(update.updateType)" 
+                class="task-icon">
+                {{ update.icon }}
+              </mat-icon>
             </div>
-
-            <!-- Task and Project Info -->
-            <div class="inbox-task-info">
-              <span class="inbox-task-name">{{ update.taskName }}</span>
-              <span class="inbox-separator">•</span>
-              <span class="inbox-project-name">{{ update.projectName }}</span>
+            <div class="task-details">
+              <div class="task-name">{{ update.taskName }}</div>
+              <div class="task-description">
+                <span class="user-name">{{ update.userName }}</span>
+                <span class="action-text">{{ update.updateDescription }}</span>
+              </div>
             </div>
-          </div>
-
-          <!-- Time Section -->
-          <div class="inbox-time-wrapper">
-            <span class="inbox-time">{{ update.timeAgo }}</span>
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+
+        <!-- Project -->
+        <div class="task-cell project-cell">
+          <div class="project-badge">
+            <mat-icon class="project-icon">folder</mat-icon>
+            <span class="project-name">{{ update.projectName }}</span>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="task-cell status-cell">
+          <span class="status-badge" [ngClass]="'status-' + update.updateType">
+            {{ update.updateType }}
+          </span>
+        </div>
+
+        <!-- Assignee -->
+        <div class="task-cell assignee-cell">
+          <div class="assignee-info">
+            <div class="assignee-avatar">
+              {{ update.userName.charAt(0) }}
+            </div>
+            <span class="assignee-name">{{ update.userName }}</span>
+          </div>
+        </div>
+
+        <!-- Time -->
+        <div class="task-cell time-cell">
+          <div class="time-info">
+            <mat-icon class="time-icon">schedule</mat-icon>
+            <span class="time-text">{{ update.timeAgo }}</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="task-cell actions-cell">
+          <button 
+            mat-icon-button 
+            class="action-button"
+            (click)="$event.stopPropagation()"
+            matTooltip="More options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Empty State (if no updates) -->
   <div *ngIf="inboxUpdates.length === 0" class="inbox-empty-state">
-    <mat-icon class="inbox-empty-icon">inbox</mat-icon>
-    <h3 class="inbox-empty-title">No updates yet</h3>
-    <p class="inbox-empty-text">Task updates will appear here</p>
+    <div class="empty-state-content">
+      <mat-icon class="inbox-empty-icon">inbox</mat-icon>
+      <h3 class="inbox-empty-title">No tasks yet</h3>
+      <p class="inbox-empty-text">Task updates will appear here when available</p>
+      <button mat-raised-button color="primary" class="empty-state-button">
+        <mat-icon>add</mat-icon>
+        Create Task
+      </button>
+    </div>
   </div>
 </div>
 
