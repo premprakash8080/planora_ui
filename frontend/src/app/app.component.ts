@@ -31,7 +31,17 @@ export class AppComponent {
         },
        
       ],
-    },{
+    },
+    {
+      type: "link",
+      label: "Mails",
+      route: "/dashboard/mails",
+      icon: "../assets/img/icons/dashboard-icon.svg",
+      iconActive: "assets/img/icons/dashboard-active-icon.svg",
+      routerLinkActiveOptions: { exact: true },          
+      hasPermission:false
+    },
+    {
       type: "subheading",
       children: [
         {

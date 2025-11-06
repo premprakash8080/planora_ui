@@ -12,6 +12,11 @@ const routes: Routes = [
     path: "inbox",
     component: InboxComponent,
   },
+  {
+    path: "mails",
+    loadChildren: () =>
+      import("../mails/mails.module").then((m) => m.MailsModule),
+  },
 ];
 
 @NgModule({
