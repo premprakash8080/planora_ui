@@ -1,0 +1,28 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { ScheduleDetailComponent } from './components/schedule-detail/schedule-detail.component';
+import { DashboardScheduleComponent } from './components/dashboard-schedule/dashboard-schedule.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NotificationComponent } from 'src/@vex/layout/toolbar/notification/notification.component';
+import { ProfileComponent } from 'src/@vex/layout/toolbar/profile/profile.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+
+@NgModule({
+  declarations: [
+    ScheduleDetailComponent,
+    DashboardScheduleComponent,
+    DashboardComponent,
+    ProfileComponent,
+    NotificationComponent,
+    InboxComponent
+  ],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    SharedModule,
+  ]
+})
+export class DashboardModule { }

@@ -1,0 +1,123 @@
+<div class="max-w-[711px] w-full h-full pt-8c">
+    <!-- <div class="sticky bg-bg-page xl:top-[24px] sm:top-[6px] top-[8px] z-10"> -->
+    <div>
+        <div class="flex justify-between">
+            <h2 class="heading-1 text-black-primary mt-auto">
+                35 Kelburn Street
+            </h2>
+            <div (click)="cancel()" class="mr-8c flex flex-col justify-center">
+                <mat-icon class="w-full text-gray-100">arrow_forward</mat-icon>
+            </div>
+        </div>
+        <div class="border-b-2 border-gray-100 flex 3xl:pt-16c md:pt-14c sm:pt-12c pt-8c md:pb-24c pb-16c">
+            <div>
+                <button mat-button class="fs-16 text-blue-primary bg-blue-secondary rounded-sm">
+                    Upcoming
+                </button>
+            </div>
+            <div class="lg:ml-16c ml-8c flex flex-col justify-center">
+                <h4 class="fs-24 text-gray-100">
+                    9 Feb 2023 • 9:00 - 12:00
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div style="height: calc(100% - 132px);" class="overflow-auto">
+        <div class="border-b-2 border-gray-100 3xl:pb-4c  3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+            <div>
+                <mat-form-field appearance="outline" class="cus-date-picker w-full max-w-[460px] p-0">
+                    <mat-label>Select Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Select a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div
+            class="border-b-2 border-gray-100 3xl:pb-24c xl:px-12c sm:p-10c p-8c lg:pb-18c md:pb-16c pb-8c 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+            <div class="flex flex-wrap xl:-m-12c sm:-m-10c p-8c">
+                <div *ngFor="let item of scheduleData" class="scheduleData xl:p-12c sm:p-10c p-8c  md:w-1/2 w-full">
+                    <div class="flex ">
+                        <div class="w-1/2">
+                            <h4 class=" fs-16 text-gray-100">
+                                {{item.name}}
+                            </h4>
+                        </div>
+                        <div class="w-1/2">
+                            <h4 class="fs-16 text-black-primary">
+                                {{item.address}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="border-b-2 border-gray-100 3xl:pb-24c xl:px-12c sm:p-10c p-8c lg:pb-18c md:pb-16c pb-8c 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+            <div class="xl:mb-24c mb-16c">
+                <h2 class="fs-18 text-gray-200 ">
+                    Assigned
+                </h2>
+            </div>
+            <div class="flex flex-wrap xl:-m-12c sm:-m-10c p-8c">
+                <div *ngFor="let item of scheduleDataAssigned" class="scheduleData xl:p-12c sm:p-10c p-8c  md:w-1/2 w-full">
+                    <div class="flex ">
+                        <div class="w-1/2">
+                            <h4 class="fs-16 text-gray-100">
+                                {{item.name}}
+                            </h4>
+                        </div>
+                        <div class="w-1/2 flex">
+                            <div *ngFor="let img of item.images" class="max-h-24 max-w-24 flex flex-wrap">
+                                <img class="avatar-sm rounded-full mr-[-8px]" [src]="img" alt="">
+                            </div>
+                            <div class="ml-2">
+                                <mat-icon>{{item.icon}}</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b-2 border-gray-100 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+            <div class="xl:mb-24c mb-16c">
+                <h2 class="fs-18 text-gray-200 ">
+                    Notes
+                </h2>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="cus-text-area max-w-[525px] w-full">
+                    <textarea rows="3" matInput
+                        value="Accessible through back gate. No lifts. Stairs have a tight turn."></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div
+            class="border-b-2 border-gray-100 3xl:pb-24c p-10c lg:pb-18c md:pb-16c pb-8c 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+            <div class="xl:mb-24c mb-16c">
+                <h2 class="fs-18 text-gray-200 ">
+                    Stocklist
+                </h2>
+            </div>
+            <div>
+                <div class="flex justify-between lg:w-1/2 w-100">
+                    <h2 class="fs-14 text-gray-100">
+                        Stocklist
+                    </h2>
+                    <h2 class="fs-14 text-gray-100">
+                        QTY
+                    </h2>
+                </div>
+                <div *ngFor="let item of scheduleData" class="flex justify-between lg:w-1/2 w-100 mt-16c">
+                    <h2 class="fs-14 text-gray-200">
+                        {{item.name}}
+                    </h2>
+                    <h2 class="fs-14 text-gray-200">
+                        {{item.qty}}
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

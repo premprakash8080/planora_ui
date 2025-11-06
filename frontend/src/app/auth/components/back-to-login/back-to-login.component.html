@@ -1,0 +1,105 @@
+<div cols="2" rowHeight="100%" class="cus-container wrapper-login  p-0">
+    <div class="mat-elevation-z font-muli">
+        <!-- New Code Start -->
+        <div class="grid grid-cols-1 md:grid-cols-2 h-screen">
+            <div class="welcome-msg hidden md:block">
+                <!-- <img
+            src="assets/img/loginLHS.png"
+            alt="Welcome logo"
+            
+          /> -->
+                <div class="w-full h-full bg-image"></div>
+            </div>
+            <div class="flex flex-col justify-center items-center ">
+                <div class="authorize-details-inner 3xl:w-auto xl:w-3/5 sm:w-4/5 w-11/12	">
+                   <div class="3xl:mb-91 xl:mb-50 md:mb-34 mb-12">
+                       <img src="../../../../assets/img/logo_home.png" class="max-w-full h-auto" />
+                    </div>
+
+                    <!-- <img src="../../../assets/img/WelcomeLogin.svg" class="mb-3" /> -->
+                    <h1
+                        class="font-muli 3xl:text-44 lg:text-34 sm:text-32 xsm:text-28 text-26 font-700 text-black-primary">
+                        Welcome To
+                    </h1>
+                    <h1
+                        class="font-muli 3xl:text-44 lg:text-34 sm:text-32 xsm:text-28 text-26 font-700 3xl:mt-1 text-primary">
+                        Planora Staging
+                    </h1>
+                    <h4
+                        class="font-muli 3xl:text-24 lg:text-18 xsm:text-20 text-18  font-400 3xl:mt-4 lg:mt-2  text-gray-100">
+                        Super Admin
+                    </h4>
+                    <h2 class="font-bold text-[24px] text-[#555555]"
+                        class="3xl:pt-50 xl:pt-34 lg:pt-28 pt-12  3xl:text-32 xl:text-24 text-18 text-gray-200">Register
+                    </h2>
+
+                    <form action="" class="flex flex-col gap-1 login-form  md:pt-20 pt-8">
+                        <mat-form-field class="3xl:mb-32 xl:mb-12  cmn-mat-form-field" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput name="username" required />
+                            <!-- <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mb-8 cmn-mat-form-field">
+                            <mat-label>Username</mat-label>
+                            <input matInput type="text" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mb-8 cmn-mat-form-field">
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{
+                                    hide ? "visibility_off" : "visibility"
+                                    }}</mat-icon>
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mb-8 cmn-mat-form-field">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{
+                                    hideConfirmPassword? "visibility_off" : "visibility"
+                                    }}</mat-icon>
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+
+                        <!-- <p class="text-[10px] mt-0 mb-0 top-[-15px] relative font-medium text-[#555555]">
+                Click the eye to toggle visibility
+              </p> -->
+                        <!-- <div class="flex mb-[10px] top-[-15px] relative items-center mt-0 space-x-2">
+                <mat-checkbox (change)="setIsRemember($event)"
+                  class="example-margin text-sm font-semibold text-gray-500">Remember Me</mat-checkbox>
+              </div> -->
+
+                        <!-- <button type="submit"
+                            class="w-full 3xl:py-12 sm:py-10  py-8 font-muli font-600 text-16 font-semibold bg-[#FF7D00] border-2 border-[#FF7D00] hover:bg-[transparent] hover:text-[#FF7D00] rounded text-white duration-300">
+                            Register
+                        </button> -->
+                        <button  type="submit" mat-button class="cmn-primary-btn-sm py-[5px] w-100">
+                            Register
+                        </button>
+                    </form>
+
+                    <!-- <div class="text-[#FF7D00] text-right text-[18px] font-semibold pt-1 pb-3">
+              <a [routerLink]="['/auth/forgot-password']">Forgot Password?</a>
+            </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

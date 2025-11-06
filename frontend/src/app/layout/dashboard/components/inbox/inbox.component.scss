@@ -1,0 +1,239 @@
+/**
+ * Inbox Component Styles
+ * 
+ * Styles for the task inbox/activity feed component
+ */
+
+.inbox-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Header Section
+.inbox-header {
+  margin-bottom: 32px;
+  
+  .inbox-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    
+    .inbox-title-icon {
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+      color: #1976d2;
+    }
+  }
+  
+  .inbox-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+// Updates List
+.inbox-updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// Update Card
+.inbox-update-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+  
+  .inbox-card-content {
+    padding: 20px !important;
+  }
+}
+
+// Update Main Layout
+.inbox-update-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+// Icon Wrapper
+.inbox-icon-wrapper {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  
+  .inbox-update-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Update Content
+.inbox-update-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// Update Description
+.inbox-update-description {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+  
+  .inbox-user-name {
+    font-weight: 600;
+    color: #1976d2;
+    margin-right: 4px;
+  }
+  
+  .inbox-update-text {
+    color: #666;
+  }
+}
+
+// Task Info
+.inbox-task-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  
+  .inbox-task-name {
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+  
+  .inbox-separator {
+    color: #ccc;
+  }
+  
+  .inbox-project-name {
+    color: #666;
+  }
+}
+
+// Time Wrapper
+.inbox-time-wrapper {
+  flex-shrink: 0;
+  text-align: right;
+  
+  .inbox-time {
+    font-size: 13px;
+    color: #999;
+    white-space: nowrap;
+  }
+}
+
+// Empty State
+.inbox-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  
+  .inbox-empty-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+  
+  .inbox-empty-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #666;
+    margin: 0 0 8px 0;
+  }
+  
+  .inbox-empty-text {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .inbox-container {
+    padding: 16px;
+  }
+  
+  .inbox-header {
+    .inbox-title {
+      font-size: 24px;
+      
+      .inbox-title-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+  
+  .inbox-update-main {
+    flex-wrap: wrap;
+  }
+  
+  .inbox-time-wrapper {
+    width: 100%;
+    text-align: left;
+    margin-top: 8px;
+  }
+  
+  .inbox-update-content {
+    flex: 1 1 100%;
+  }
+}
+
+// Color Classes for Update Types
+.text-green-500 {
+  color: #4caf50 !important;
+}
+
+.text-blue-500 {
+  color: #2196f3 !important;
+}
+
+.text-purple-500 {
+  color: #9c27b0 !important;
+}
+
+.text-orange-500 {
+  color: #ff9800 !important;
+}
+
+.text-indigo-500 {
+  color: #3f51b5 !important;
+}
+
+.text-gray-500 {
+  color: #9e9e9e !important;
+}
+

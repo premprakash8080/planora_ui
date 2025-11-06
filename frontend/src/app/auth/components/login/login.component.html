@@ -1,0 +1,77 @@
+<div cols="2" rowHeight="100%" class="cus-container wrapper-login  p-0">
+  <div class="mat-elevation-z font-muli">
+    <!-- New Code Start -->
+    <div class="grid grid-cols-1 md:grid-cols-2 h-screen">
+      <div class="welcome-msg hidden md:block">
+        <!-- <img
+          src="assets/img/loginLHS.png"
+          alt="Welcome logo"
+          
+        /> -->
+        <div class="w-full h-full bg-image"></div>
+      </div>
+      <div class="flex flex-col justify-center items-center ">
+        <div class="authorize-details-inner sm:w-4/5 w-11/12	max-w-[552px]">
+          <div class="lg:mb-[16.4%] mb-[10%]">
+            <img src="../../../../assets/img/logo_home.png" class="max-w-full h-auto" />
+          </div>
+
+          <!-- <img src="../../../assets/img/WelcomeLogin.svg" class="mb-3" /> -->
+          <h1 class="font-muli heading-1 text-black-primary">
+            Welcome To
+          </h1>
+          <h1 class="font-muli heading-1 text-primary">
+            Planora
+          </h1>
+          <h2 class="font-bold text-[24px] text-[#555555]" class="pt-[9.5%] heading-2 text-gray-200">Login</h2>
+
+          <form action="" (submit)="onSubmit()" class="flex flex-col gap-1 login-form  md:pt-20c pt-8c"
+            [formGroup]="loginForm">
+            <mat-form-field class="mb-10c cmn-mat-form-field" appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" required />
+              <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                getErrorMessage()
+                }}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="cmn-mat-form-field">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
+              <button type="button" class="eye-btn" mat-icon-button matSuffix (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon class="text-22">{{
+                  hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.controls['password'].invalid">
+                Password is required !</mat-error>
+            </mat-form-field>
+
+            <!-- <p class="text-[10px] mt-0 mb-0 top-[-15px] relative font-medium text-[#555555]">
+              Click the eye to toggle visibility
+            </p> -->
+            <!-- <div class="flex mb-[10px] top-[-15px] relative items-center mt-0 space-x-2">
+              <mat-checkbox (change)="setIsRemember($event)"
+                class="example-margin text-sm font-semibold text-gray-500">Remember Me</mat-checkbox>
+            </div> -->
+            <h5 [routerLink]="['/auth/forgot-password']" class="fs-16 text-primary font-muli  mb-[5.6%]">
+              Forgot Password?
+            </h5>
+            <!-- <button type="submit"
+              class="w-full 3xl:py-12 sm:py-10  py-8 font-muli font-600 text-16  bg-[#FF7D00] border-2 border-[#FF7D00] hover:bg-[transparent] hover:text-[#FF7D00] rounded text-white duration-300">
+              Login
+            </button> -->
+            <button type="submit" mat-flat-button color="primary" class="button-default">
+              Login
+            </button>
+          </form>
+
+          <div class="text-[#FF7D00] text-center text-[18px] font-regular pt-1 pb-3">
+            <h5 class="fs-16 text-primary font-muli  mt-[2.6%]">Don't have an account?</h5>
+            <a [routerLink]="['/auth/registration']" class="fs-16 text-primary font-muli  mt-[2.6%]"> Click here to create one </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

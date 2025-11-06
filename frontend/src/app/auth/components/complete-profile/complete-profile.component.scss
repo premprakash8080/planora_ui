@@ -1,0 +1,152 @@
+// input,
+// textarea {
+//   box-sizing: border-box;
+// }
+
+// .wrapper-login {
+//   background-image: url(../../../assets/img/pattern.svg);
+//   background-repeat: repeat;
+//   width: 100%;
+//   padding: 100px;
+//   min-height: 100vh;
+//   overflow: auto;
+//   height: 100%;
+//   margin: auto;
+//   font-family: "Merriweather Sans", sans-serif;
+
+//   @media (max-width: 959px) {
+//     padding: 30px;
+//     height: 100%;
+//     display: block;
+//     overflow: auto;
+//   }
+
+//   @media (max-width: 599px) {
+//     padding: 20px;
+//   }
+
+//   h2,
+//   p,
+//   input,
+//   button {
+//     font-family: "Merriweather Sans", sans-serif;
+//   }
+
+//   .mat-card {
+//     padding: 0;
+
+//     &.authorize-card {
+//       @media (max-width: 959px) {
+//         width: 700px;
+//         margin: 0 auto;
+//       }
+
+//       @media (max-width: 768px) {
+//         width: 100% !important;
+//       }
+//     }
+//   }
+
+//   .admin-bg {
+//     background-color: var(--seconday-20);
+//   }
+
+//   .login-part {
+//     background-color: #fbfaf5;
+//   }
+
+//   .mat-grid-tile {
+//     background-color: #fff;
+//   }
+// }
+
+// .welcome-msg {
+//   text-align: center;
+
+//   @media (max-width: 1279px) {
+//     padding: 30px;
+//   }
+
+//   @media (max-width: 599px) {
+//     padding: 20px;
+//   }
+
+//   img {
+//     max-width: 100%;
+//     width: auto;
+//     margin: 0 auto;
+
+//     &.welcome-img {
+//       margin-bottom: 50px;
+//       width: 100%;
+//       max-width: 300px;
+//       margin-left: 0;
+//     }
+//   }
+// }
+
+// .authorize-details {
+//   background-color: #fbfaf5;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 40px;
+
+//   @media (max-width: 1279px) {
+//     padding: 30px;
+//   }
+
+//   @media (max-width: 599px) {
+//     padding: 20px;
+//   }
+
+//   .authorize-details-inner {
+//     width: 100%;
+//     max-width: 80%;
+//     margin: 0 auto;
+
+//     @media (max-width: 1279px) {
+//       max-width: 100%;
+//     }
+//   }
+// }
+.bg-image {
+  background-image: url('../../../../assets/img/loginLHS.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.file-uploader {
+  width: 140px;
+  height: 140px;
+  position: relative;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-uploader-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-page);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: 1px solid var(--gray-100);
+  padding: 20px;
+  text-align: center;
+}
+
+.file-icon {
+  font-size: 16px;
+  color: var(--gray-100);
+}
+
+.file-label-text {
+  margin-top: 8px;
+  font-size: 14px;
+}

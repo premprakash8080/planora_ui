@@ -1,0 +1,84 @@
+<div class="pt-16c px-16c bg-gray-light">
+  <div>
+    <h2 class="fs-16 text-gray-100">
+      View Projects
+    </h2>
+  </div>
+  <div class="flex flex-wrap md:-m-16c -m-8c cus-h-vh">
+    <!-- <div class="md:p-16c p-8c h-full sm:w-2/4 sm:mt-0 mt-8c w-full rounded-lg relative"> -->
+    <div class="md:p-16c p-8c h-full mt-8c w-full rounded-lg relative">
+      <div class="flex flex-wrap overflow-auto items-start cus-schedule-card-height">
+        <div (click)="openSideBar()" *ngFor="let card of data"
+          class="cmn-card-wrapper flex items-center my-8c w-full md:min-h-100 min-h-[100px] rounded-lg bg-white shadow-sm hover:shadow-md transition cursor-pointer">
+          <!-- Left: Image (20%) -->
+          <!-- <div class="flex items-center justify-center w-1/5 p-4 rounded-lg" [ngClass]="card.color"> -->
+          <div class="w-1/5 flex justify-center items-center p-8c">
+            <img class="w-[60px] h-[60px] object-contain rounded-md" src="../../../../../assets/img/select_course_icn.svg"
+              alt="project_image" />
+          </div>
+
+          <!-- Right: Project Info (80%) -->
+          <div class="w-4/5 flex flex-col justify-center p-8c">
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="fs-16 text-gray-800 font-semibold">
+                {{ card.name }}
+              </h4>
+              <!-- <div class="w-[12px] h-[12px] rounded-full" [class]="card.color"></div> -->
+            </div>
+
+            <h2 class="fs-14 text-gray-500">{{ card.name }}</h2>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- <mat-sidenav disableClose="false" backdropDisable="true" mode="over" class="3xl:p-40 xl:p-24 sm:p-16 p-8c max-w-[711px] w-full side-bar-height"
+  position="end" #snavForSchedule (opened)="events.push('open!')" (closed)="events.push('close!')"
+  [opened]="isSidenavOpen">
+  <mat-nav-list class="h-full">
+    <app-schedule-detail (closeScheduleSidebarEvent)="closeSidebar()"></app-schedule-detail>
+  </mat-nav-list>
+</mat-sidenav> -->
+
+<!-- <mat-drawer-container class="container">
+  <mat-drawer class="3xl:p-40c xl:p-24c sm:p-16c p-8c  max-w-[711px] md:w-full w-10/12 side-bar-height"  position="end" #snavForSchedule mode="over">
+    <app-schedule-detail (closeScheduleSidebarEvent)="closeSidebar()"></app-schedule-detail>
+  </mat-drawer>
+  <mat-drawer-content>
+  </mat-drawer-content>
+</mat-drawer-container> -->
+
+
+<mat-sidenav-container class="container">
+  <mat-sidenav class="3xl:p-40c xl:p-24c sm:p-16c p-8c max-w-[711px] md:w-full w-10/12 side-bar-height" position="end"
+    #snavForSchedule mode="over">
+    <app-schedule-detail (closeScheduleSidebarEvent)="closeSidebar()"></app-schedule-detail>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav [opened]="isOpen$ | async "
+    class="xxl:p-24c sm:p-16c p-8c sm:max-w-[408px] max-w-[300px] w-full cmn-sidebar-height right-side-bar h-screen"
+    position="end" #snav mode="over">
+    <app-profile (closeSidebarEvent)="closeSidebar()"></app-profile>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav [opened]="isOpenNotificationBar$ | async "
+    class="xxl:p-24c sm:p-16c p-8c sm:max-w-[408px] max-w-[300px] w-full cmn-sidebar-height right-side-bar h-screen"
+    position="end" #snavForNotification mode="over">
+    <app-notification></app-notification>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

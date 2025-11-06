@@ -1,0 +1,63 @@
+<div class="inbox-container">
+  <!-- Header Section -->
+  <div class="inbox-header">
+    <h1 class="inbox-title">
+      <mat-icon class="inbox-title-icon">inbox</mat-icon>
+      Inbox
+    </h1>
+    <p class="inbox-subtitle">Task updates and activity feed</p>
+  </div>
+
+  <!-- Updates List -->
+  <div class="inbox-updates-list">
+    <!-- Update Card -->
+    <mat-card 
+      *ngFor="let update of inboxUpdates" 
+      class="inbox-update-card"
+      (click)="onUpdateClick(update)">
+      
+      <mat-card-content class="inbox-card-content">
+        <!-- Icon and Main Content -->
+        <div class="inbox-update-main">
+          <!-- Icon Section -->
+          <div class="inbox-icon-wrapper">
+            <mat-icon 
+              [class]="update.iconColor" 
+              class="inbox-update-icon">
+              {{ update.icon }}
+            </mat-icon>
+          </div>
+
+          <!-- Content Section -->
+          <div class="inbox-update-content">
+            <!-- Update Description -->
+            <div class="inbox-update-description">
+              <span class="inbox-user-name">{{ update.userName }}</span>
+              <span class="inbox-update-text">{{ update.updateDescription }}</span>
+            </div>
+
+            <!-- Task and Project Info -->
+            <div class="inbox-task-info">
+              <span class="inbox-task-name">{{ update.taskName }}</span>
+              <span class="inbox-separator">•</span>
+              <span class="inbox-project-name">{{ update.projectName }}</span>
+            </div>
+          </div>
+
+          <!-- Time Section -->
+          <div class="inbox-time-wrapper">
+            <span class="inbox-time">{{ update.timeAgo }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Empty State (if no updates) -->
+  <div *ngIf="inboxUpdates.length === 0" class="inbox-empty-state">
+    <mat-icon class="inbox-empty-icon">inbox</mat-icon>
+    <h3 class="inbox-empty-title">No updates yet</h3>
+    <p class="inbox-empty-text">Task updates will appear here</p>
+  </div>
+</div>
+

@@ -1,0 +1,97 @@
+<div [class.container]="isVerticalLayout$ | async" class="toolbar w-full px-gutter flex items-center">
+  <button (click)="openSidenav()" [class.hidden]="!mobileQuery" mat-icon-button type="button">
+    <mat-icon svgIcon="mat:menu"></mat-icon>
+  </button>
+
+  <a *ngIf="isVerticalLayout$ | async" [routerLink]="['/']" class="ltr:mr-4 rtl:ml-4 block flex items-center">
+    <img alt="Logo" class="w-8 select-none" src="assets/img/logo.svg" />
+    <!-- <h1 [class.hidden]="!mobileQuery" class="title ltr:pl-4 rtl:pr-4 m-0 select-none">VEX</h1> -->
+  </a>
+
+  <!-- 
+
+  <mat-menu #addNewMenu="matMenu" [overlapTrigger]="false" xPosition="after" yPosition="below">
+    <button mat-menu-item>
+      <mat-icon svgIcon="mat:person_add"></mat-icon>
+      <span>Add Contact</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon svgIcon="mat:done_all"></mat-icon>
+      <span>Add Task</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon svgIcon="mat:assignment_turned_in"></mat-icon>
+      <span>Add Project</span>
+    </button>
+
+    <button [matMenuTriggerFor]="documentMenu" mat-menu-item>
+      <mat-icon svgIcon="mat:ballot"></mat-icon>
+      <span>Add Document</span>
+    </button>
+  </mat-menu> -->
+
+
+
+
+
+
+  <div *ngIf="(isVerticalLayout$ | async) && isNavbarInToolbar$ | async" [class.hidden]="mobileQuery"
+    class="px-gutter flex-none flex items-center">
+    <vex-navigation-item *ngFor="let item of navigationItems" [item]="item"></vex-navigation-item>
+  </div>
+
+  <span class="flex-1"></span>
+
+  <div class="-mx-1 flex items-center">
+    <div class="px-1">
+      <button (click)="openSearch()" mat-icon-button type="button">
+        <mat-icon color="primary" svgIcon="mat:search"></mat-icon>
+      </button>
+    </div>
+
+    <div class="flex flex-col align-center justify-center mr-16c">
+      <mat-icon (click)="notificationSidebarOpen()" class="text-gray-100">notifications</mat-icon>
+    </div>
+
+    <!-- <div class="px-1">
+      <button  mat-icon-button type="button">
+        <mat-icon color="primary" svgIcon="mat:bookmarks"></mat-icon>
+      </button>
+    </div> -->
+
+    <div (click)="openSidebar()" class="avatar max-h-24 max-w-24 rounded-full">
+      <img class="max-w-full h-auto rounded-full" src="../../../assets/img/media-1.jpg" alt="calender">
+    </div>
+    <!-- 
+    <div class="px-1">
+      <button [matMenuTriggerFor]="languageMenu" mat-icon-button type="button">
+        <mat-icon svgIcon="flag:united-states"></mat-icon>
+      </button>
+    </div> -->
+
+    <div *ngIf="userVisible$ | async" class="px-1">
+      <vex-toolbar-user></vex-toolbar-user>
+    </div>
+
+    <mat-menu #languageMenu="matMenu" overlapTrigger="false" xPosition="before" yPosition="below">
+      <button mat-menu-item>
+        <mat-icon svgIcon="flag:united-states"></mat-icon>
+        <span>English</span>
+      </button>
+
+      <button mat-menu-item>
+        <mat-icon svgIcon="flag:germany"></mat-icon>
+        <span>German</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<vex-navigation *ngIf="(isVerticalLayout$ | async) && isNavbarBelowToolbar$ | async"
+  [class.hidden]="mobileQuery"></vex-navigation>
+
+
+
+  

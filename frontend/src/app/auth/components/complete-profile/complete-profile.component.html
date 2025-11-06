@@ -1,0 +1,123 @@
+<div cols="2" rowHeight="100%" class="cus-container wrapper-login  p-0">
+    <div class="mat-elevation-z font-muli">
+        <!-- New Code Start -->
+        <div class="grid grid-cols-1 md:grid-cols-2 h-screen">
+            <div class="welcome-msg hidden md:block">
+                <!-- <img
+            src="assets/img/loginLHS.png"
+            alt="Welcome logo"
+            
+          /> -->
+                <div class="w-full h-full bg-image"></div>
+            </div>
+            <div *ngIf="showCompleteProfileScreen" class="flex flex-col justify-center items-center ">
+                <div class="authorize-details-inner max-w-[552px] xl:w-3/5 sm:w-4/5 w-11/12	">
+                    <div class="mb-[10%] max-w-[88px]">
+                        <img src="../../../../assets/img/logo_home.png" class="max-w-full h-auto" />
+                    </div>
+                    <!-- <img src="../../../assets/img/WelcomeLogin.svg" class="mb-3" /> -->
+                    <h1 class="heading-1 text-black-primary">
+                        Account Created
+                    </h1>
+
+                    <h2 class="mt-[5.4%] fs-16 text-black-primary">
+                        Woohoo!
+                        Now that you have created your account, it’s time to complete your profile.
+                    </h2>
+
+                    <form action="" class="flex flex-col gap-1 login-form  mt-[5.6%] ">
+                        <div class="file-uploader mb-[5.6%]">
+                            <input type="file" id="fileInput" (change)="onFileSelected($event)">
+                            <label for="fileInput">
+                                <div class="file-uploader-label">
+                                    <div class="file-label-text">Upload Profile Picture</div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <mat-form-field appearance="outline" class="mb-[2%] cmn-mat-form-field">
+                            <mat-label>First Name</mat-label>
+                            <input matInput type="text" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mb-[2%] cmn-mat-form-field">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput type="text" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mb-[2%] cmn-mat-form-field">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput type="text" name="password" required />
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            </button>
+                            <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                                getErrorMessage()
+                                }}</mat-error> -->
+                        </mat-form-field>
+
+
+                        <!-- <p class="text-[10px] mt-0 mb-0 top-[-15px] relative font-medium text-[#555555]">
+                Click the eye to toggle visibility
+              </p> -->
+                        <!-- <div class="flex mb-[10px] top-[-15px] relative items-center mt-0 space-x-2">
+                <mat-checkbox (change)="setIsRemember($event)"
+                  class="example-margin text-sm font-semibold text-gray-500">Remember Me</mat-checkbox>
+              </div> -->
+
+                        <!-- <button type="submit" (click)="showCompleteProfileLink()"
+                            class="w-full 3xl:py-12 sm:py-10 py-8 font-muli font-600 text-16  bg-primary border-2 border-primary hover:bg-[transparent] hover:text-primary rounded text-white duration-300">
+                            Complete Profile
+                        </button> -->
+                        <button (click)="showCompleteProfileLink()" type="submit" mat-flat-button color="primary"
+                            class=" button-large">
+                            Complete Profile
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+            <div *ngIf="showDoneScreen" class="flex flex-col justify-center items-center ">
+                <div class="authorize-details-inner xl:w-3/5 sm:w-4/5 w-11/12	">
+                    <div class="3xl:mb-[31.4%] xl:mb-[20%] lg:mb-[8%] mb-[5%]">
+                        <img src="../../../assets/img/logo_home.png" class="max-w-full h-auto" />
+                    </div>
+                    <!-- <div class="avatar-lg bg-green-primary rounded-full rounded-full">
+                        <img class="max-w-full h-auto" src="" alt="calender">
+                    </div> -->
+                    <div class="avatar-lg rounded-full">
+                        <img src="../../../assets/img/ic_check_circle_24px.png" alt="">
+                    </div>
+                    <h1 class="heading-1 pt-[5.2%] text-black-primary">
+                        Profile Completed
+                    </h1>
+
+                    <h2 class="font-bold text-[24px] text-[#555555]"
+                        class="pt-[5.1%] pb-[5.4%] fs-16 text-black-primary">
+                        Congratulations! You have completed your profile. Click proceed to continue.
+                    </h2>
+
+
+                    <!-- <button type="submit" [routerLink]="['/auth/login']" routerLinkActive="router-link-active"
+                        class="w-full 3xl:py-12 sm:py-10   py-8 font-muli font-600 text-16  bg-green-primary border-2 border-green-primary hover:bg-[transparent] hover:text-green-primary rounded text-white duration-300">
+                        Proceed
+                    </button> -->
+                    <button [routerLink]="['/auth/login']" routerLinkActive="router-link-active" type="submit"
+                        mat-flat-button color="primary" class="button-large bg-green-primary">
+                        Proceed
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-datepicker-toggle {
+    color: rgba(0, 0, 0, 0.54);
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.mat-datepicker-toggle:hover {
+    color: var(--primary);
+}
+
+.scheduleData:nth-child(odd) {
+    padding-left: 0 !important;
+}
+@media screen and (max-width: 960px) {
+    .scheduleData:nth-child(odd) {
+        padding-left: 10px !important;
+    }
+}

@@ -1,0 +1,32 @@
+// .wrapper-login {
+//   background-image: url(../../../assets/img/pattern.svg);
+//   background-repeat: repeat;
+//   font-family: "Merriweather Sans", sans-serif;
+//   width: 100%;
+//   padding: 100px;
+//   min-height: 100vh;
+//   overflow: auto;
+//   height: 100%;
+//   margin: auto;
+
+//   @media (max-width: 959px) {
+//     padding: 30px;
+//     height: 100%;
+//     display: block;
+//     overflow: auto;
+//   }
+
+//   @media (max-width: 599px) {
+//     padding: 20px;
+//   }
+
+//   .mat-grid-tile {
+//     background-color: #fff;
+//   }
+// }
+.bg-image{
+  background-image: url('../../../../assets/img/loginLHS.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}

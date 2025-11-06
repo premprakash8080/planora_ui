@@ -1,0 +1,94 @@
+<div *ngIf="showCompleteProfileScreen" class="h-full">
+  <div class="flex flex-wrap items-center justify-between">
+    <h2 class="heading-1 text-black-primary mt-auto">
+      My Profile
+    </h2>
+    <button (click)="showCompleteProfileLink()" mat-button class="fs-16 rounded-sm" color="primary">
+      Edit </button>
+  </div>
+  <div class="flex min-w-[100%] lg:mt-24c mt-16c">
+    <div
+      class="avatar-xl lg:max-h-[120px] md:max-h-[80px] max-h-[60px] lg:max-w-[120px] md:max-w-[80px] max-w-[60px] rounded-full 3xl:mr-32c lg:mr-14c mr-8c">
+      <img class="max-w-full h-auto rounded-full" src="../../../assets/img/media-1.jpg" alt="calender">
+    </div>
+    <div class="flex flex-col justify-center align-center">
+      <h2 class="heading-2 text-gray-200 ">
+        Jake Shorter
+      </h2>
+    </div>
+  </div>
+  <form action="" class="flex flex-col gap-1 login-form pt-[10.3%]">
+    <mat-form-field appearance="outline" class="mb-[4px] cmn-mat-form-field">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" name="password" required />
+
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput name="username" required />
+
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput name="username" required />
+
+    </mat-form-field>
+  </form>
+</div>
+<div *ngIf="showDoneScreen" class="h-full">
+  <div class="flex justify-between">
+    <h2 class=" heading-1 text-black-primary  mt-auto">
+      Edit Profile
+    </h2>
+  </div>
+  <div class="flex min-w-[100%] pt-[6.9%]">
+    <div
+      class="avatar-xl lg:max-h-[120px] relative md:max-h-[80px] max-h-[60px] lg:max-w-[120px] md:max-w-[80px] max-w-[60px] rounded-full 3xl:mr-32c lg:mr-14c mr-8c">
+      <input type="file" class="w-full h-full absolute opacity-0" id="fileInput" (change)="onFileSelected($event)">
+      <img class="max-w-full h-auto rounded-full" src="../../../../assets/img/media-1.jpg" alt="calender">
+      <img  src="../../../../assets/img/camera.svg" class="absolute sm:w-[27px] w-[20px]" alt="">
+    </div>
+  </div>
+  <form action="" class="flex flex-col gap-1 login-form pt-[10.3%]">
+    <mat-form-field appearance="outline" class="mb-[4px] cmn-mat-form-field">
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" name="password" required />
+      <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+            getErrorMessage()
+                }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput name="username" required />
+      <!-- <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                      getErrorMessage()
+                      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput name="username" required />
+      <!-- <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                      getErrorMessage()
+                      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput name="username" type="email" required />
+      <!-- <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                      getErrorMessage()
+                      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="mb-[4px]  cmn-mat-form-field" appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput name="username" required />
+      <!-- <mat-error *ngIf="loginForm.controls['username'].invalid">{{
+                      getErrorMessage()
+                      }}</mat-error> -->
+    </mat-form-field>
+  </form>
+  <div class="text-end">
+    <button (click)=closeSidebar() mat-button class="fs-16 text-primary bg-bg-page rounded-sm px-0">Cancel</button>
+    <button (click)="goBackToProfile()" mat-button
+      class="fs-16 text-green-primary bg-bg-page rounded-sm px-0">Save</button>
+  </div>
+</div>

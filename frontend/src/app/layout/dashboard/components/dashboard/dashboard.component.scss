@@ -1,0 +1,36 @@
+// .cmn-shedule-box {
+//     min-height: 212px;
+//     max-height: 212px;
+//     background: var(--bg-page) ;
+//     box-shadow: 3px 3px 12px #A0A1B129;
+//     border-radius: 12px;
+//     opacity: 1;
+// }
+
+.cmn-padding-wrapper {
+    padding: 2.5% 8% 16px 12%;
+}
+
+.cus-h-vh {
+    height: calc(100vh - 130px)
+}
+
+.header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (max-width: 960px) {
+    .cmn-padding-wrapper {
+        padding: 16px 16px 0 16px;
+    }
+}

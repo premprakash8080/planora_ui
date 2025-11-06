@@ -1,0 +1,74 @@
+.cmn-padding-wrapper {
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 2%;
+}
+
+.cus-h-vh {
+  height: calc(100vh - 86px);
+}
+
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.side-bar-height {
+  height: calc(100vh - 56px)
+}
+
+.container {
+  position: relative;
+}
+
+.mat-drawer-container {
+  position: static;
+}
+
+.mat-drawer-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  pointer-events: none !important;
+}
+
+.mat-drawer-content {
+  position: relative;
+  z-index: 2;
+}
+
+.cus-schedule-card-height {
+  height: calc(100% - 54px) !important;
+}
+
+
+@media screen and (max-width: 1536px) {
+
+  .cus-schedule-card-height {
+      height: calc(100% - 70px) !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .cus-schedule-card-height {
+      height: calc(100% - 40px) !important;
+  }
+}
+@media screen and (max-width: 639px) {
+  .cus-h-vh {
+    height: auto;
+  }
+
+  .cus-schedule-card-height {
+    height: auto !important;
+    max-height: 350px;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,278 @@
+<div class="flex flex-wrap md:flex-row -m-8c">
+  <div class="w-full  2xl:w-3/5 p-8c">
+    <div class="cmn-padding-wrapper">
+      <div class=" flex flex-wrap -m-8c items-stretch">
+        <div class="p-8c w-full">
+          <h2 class="heading-1 text-black-primary">
+            G’day, Jake!
+          </h2>
+        </div>
+        <div class="p-8c 2xl:w-1/4 sm:w-2/4 w-full">
+          <div
+            class="cmn-card-wrapper h-full items-stretch 3xl:min-h-[212px] xl:min-h-[200px] min-h-180px  flex flex-col ">
+            <div class="avatar rounded-full">
+              <img class="max-w-full h-auto" src="../../../assets/img/boxes-icon.png" alt="">
+            </div>
+            <h4 class="mt-12c fs-24 text-gray-200">
+              Upcoming
+            </h4>
+            <h2 class="heading-1 text-gray-200 mt-auto">
+              16
+            </h2>
+          </div>
+        </div>
+        <div class="p-8c 2xl:w-1/4 sm:w-2/4 w-full">
+          <div
+            class="cmn-card-wrapper h-full items-stretch 3xl:min-h-[212px] xl:min-h-[200px] min-h-180px  flex flex-col ">
+            <div class="avatar rounded-full">
+              <img class="max-w-full h-auto" src="../../../assets/img/house-icon.png" alt="">
+            </div>
+            <h4 class="mt-12c fs-24 text-gray-200">
+              Over Due
+            </h4>
+            <h2 class="heading-1 text-gray-200 mt-auto">
+              37
+            </h2>
+          </div>
+        </div>
+        <div class="p-8c 2xl:w-1/4 sm:w-2/4 w-full">
+          <div
+            class="cmn-card-wrapper h-full items-stretch 3xl:min-h-[212px] xl:min-h-[200px] min-h-180px  flex flex-col ">
+            <div class="avatar rounded-full">
+              <!-- <img class="max-w-full h-auto" src="../../../assets/img/calender-theme-icon.svg" alt="calender"> -->
+              <img class="max-w-full h-auto" src="../../../assets/img/calender-icon.png" alt="">
+
+            </div>
+            <h4 class="mt-12c fs-24 text-gray-200">
+              On-Going
+            </h4>
+            <h2 class="heading-1 text-gray-200 mt-auto">
+              21
+            </h2>
+          </div>
+        </div>
+        <div class="p-8c 2xl:w-1/4 sm:w-2/4 w-full">
+          <div
+            class="cmn-card-wrapper h-full items-stretch 3xl:min-h-[212px] xl:min-h-[200px] min-h-180px  flex flex-col ">
+            <div class="avatar rounded-full">
+              <img class="max-w-full h-auto" src="../../../assets/img/ic_check_circle_24px.png" alt="">
+            </div>
+            <h4 class="mt-12c fs-24 text-gray-200">
+              Complete
+            </h4>
+            <h2 class="heading-1 text-gray-200 mt-auto">
+              156
+            </h2>
+          </div>
+        </div>
+
+        <div class="p-8c w-full">
+          <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col ">
+            <div class="flex flex-wrap">
+              <div class="avatar bg-red-primary rounded-full ">
+                <img class="max-w-full h-auto" src="../../../assets/img/calender-theme-icon.svg" alt="calendar">
+              </div>
+              <div class="flex flex-col justify-center ml-8c">
+                <h4 class="fs-24 text-gray-200">
+                  Notice board
+                </h4>
+              </div>
+              <div class="ml-auto">
+                <button mat-stroked-button color="primary" type="button" (click)="editNotice()" *ngIf="!editing"
+                  mat-button class="button-small-outline"
+                  style="--mdc-outlined-button-outline-color:var(--red-primary)">
+                  Edit
+                </button>
+                <button *ngIf="editing" (click)="clearNotice()" color="" mat-button
+                  class="button-small text-gray-100 mr-12c"> Clear Board </button>
+                <button type="button" (click)="broadcastNotice()" color="primary" *ngIf="editing" mat-flat-button
+                  class="button-small">
+                  Broadcast
+                </button>
+              </div>
+            </div>
+
+            <div id="noticeBoard" class="max-h-[200px] overflow-auto" *ngIf="!editing">
+              <div class="border-b-2 border-text-gray-200 3xl:pb-24c lg:pb-18c md:pb-16c pb-8c">
+                <h4 class="fs-16 mt-12c text-gray-100">
+                  07 Feb 2023</h4>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-black-primary">
+                  Hi Team!
+                </h2>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-black-primary">
+                  We will be having our end of month meeting this Friday 5:30pm. Please make sure you’re back on site
+                  before
+                  that time. Cheers!
+                </h2>
+              </div>
+              <div
+                class="border-b-2 border-text-gray-200 3xl:pb-24c lg:pb-18c md:pb-16c pb-8c 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+                <h4 class="fs-16 mt-12c text-gray-300">
+                  07 Feb 2023</h4>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-gray-300">
+                  Hi Team!
+                </h2>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-gray-300">
+                  We will be having our end of month meeting this Friday 5:30pm. Please make sure you’re back on site
+                  before
+                  that time. Cheers!
+                </h2>
+              </div>
+              <div
+                class="border-b-2 border-text-gray-200 3xl:pb-24c lg:pb-18c md:pb-16c pb-8c 3xl:pt-32c lg:pt-24c md:pt-18c pt-10c">
+                <h4 class="fs-16 mt-12c text-gray-300">
+                  07 Feb 2023</h4>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-gray-300">
+                  Hi Team!
+                </h2>
+                <h2 class="fs-18 md:mt-12c mt-8cc text-gray-300">
+                  We will be having our end of month meeting this Friday 5:30pm. Please make sure you’re back on site
+                  before
+                  that time. Cheers!
+                </h2>
+              </div>
+            </div>
+
+            <div id="noticeBoard" class="3xl:mt-16c mt-12c" *ngIf="editing">
+              <!-- <h4 class="fs-16 mt-12c text-gray-100">
+                07 Feb 2023
+              </h4> -->
+              <mat-form-field appearance="outline" class="cus-text-area w-full">
+                <textarea matInput [(ngModel)]="editedMessage" id="messageInput"
+                  class="fs-18 md:mt-12c track md:text-primary" rows="8"></textarea>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="p-8c w-full">
+          <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col ">
+            <div class="flex flex-col justify-center ml-8c">
+              <h4 class="fs-24 text-gray-200">
+                People
+              </h4>
+            </div>
+
+            <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 p-6">
+              <div *ngFor="let user of data"
+                class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-200">
+                <!-- Top section -->
+                <div class="flex flex-col items-center py-6">
+                  <div class="w-20 h-20 rounded-full overflow-hidden border-4" [ngClass]="user.color">
+                    <img [src]="user.image" alt="{{ user.name }}" class="w-full h-full object-cover" />
+                  </div>
+                  <h3 class="mt-4 font-semibold text-gray-800 text-lg">{{ user.name }}</h3>
+                  <p class="text-gray-500 text-sm">{{ user.team }}</p>
+                  <div class="flex items-center text-gray-400 text-sm mt-2">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 5h2l3.6 7.59-1.35 2.45A1 1 0 0 0 8 17h8a1 1 0 0 0 .95-.68L21 5H3z" />
+                    </svg>
+                    {{ user.phone }}
+                  </div>
+                </div>
+
+                <!-- Footer icons -->
+                <div class="flex justify-around bg-gray-100 py-3 border-t">
+                  <button class="text-gray-500 hover:text-blue-600">
+                    <img class="max-w-full h-auto" src="../../../assets/img/call_blue_icn.svg" alt="">
+                  </button>
+                  <button class="text-gray-500 hover:text-blue-600">
+                  <img class="max-w-full h-auto" src="../../../assets/img/mail_blue_icn.svg" alt="">
+                  </button>
+                  <button class="text-gray-500 hover:text-blue-600">
+                     <img class="max-w-full h-auto" src="../../../assets/img/chat_icn.svg" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="p-8c w-full">
+          <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col ">
+            <div class="ml-auto">
+              <!-- <select name="" id="">
+              <option value="" selected>FY 2022/2023</option>
+              <option value="">FY 2022/2023</option>
+              <option value="">FY 2022/2023</option>
+            </select> -->
+              <mat-form-field appearance="outline" class="cus-select">
+                <mat-select [(value)]="selectedValue" required>
+                  <mat-option value="FY 2022/2023">FY 2022/2023</mat-option>
+                  <mat-option value="FY 2022/2023">FY 2023/2024</mat-option>
+                  <mat-option value="FY 2022/2023">FY 2024/2025</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class=" max-w-[710px]">
+              <img class="max-w-full h-auto" src="../../../../../assets/img/dummy_chart.png" alt="">
+            </div>
+            <div class="lg:mt-20c mt-16c flex flex-wrap 3xl:gap-30c lg:gap-14c gap-10c">
+              <div>
+                <div>
+                  <h4 class="mt-12c fs-14 text-gray-100">
+                    New Jobs this Month</h4>
+                </div>
+                <div class="flex items-center mt-8c">
+                  <div>
+                    <h2 class="heading-1 text-gray-200">
+                      5
+                    </h2>
+                  </div>
+                  <div class="max-w-32px max-h-[17px] 3xl:ml-24c lg:ml-16c ml-8c">
+                    <img class="max-w-full h-auto lg:w-100 w-[25px] "
+                      src="../../../assets/img/Icon feather-trending-up.png" alt="">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <h4 class="mt-12c fs-14 text-gray-100">
+                    Houses Out this Month</h4>
+                </div>
+                <div class="flex items-center mt-8c">
+                  <div>
+                    <h2 class="heading-1 text-gray-200">
+                      6
+                    </h2>
+                  </div>
+                  <div class="max-w-32px max-h-[17px] 3xl:ml-24c lg:ml-16c ml-8c">
+                    <img class="max-w-full h-auto lg:w-100 w-[25px] "
+                      src="../../../assets/img/Icon feather-trending-side.png" alt="">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <h4 class="mt-12c fs-14 text-gray-100">
+                    Completed this Month</h4>
+                </div>
+                <div class="flex items-center mt-8c">
+                  <div>
+                    <h2 class="heading-1 text-gray-200">
+                      3
+                    </h2>
+                  </div>
+                  <div class="max-w-32px max-h-[17px] 3xl:ml-24c lg:ml-16c ml-8c">
+                    <img class="max-w-full h-auto lg:w-100 w-[25px] "
+                      src="../../../assets/img/Icon feather-trending-down.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class=" w-full  2xl:w-2/5 p-8c">
+    <app-dashboard-schedule></app-dashboard-schedule>
+  </div>
+</div>

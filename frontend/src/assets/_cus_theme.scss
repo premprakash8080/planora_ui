@@ -1,0 +1,125 @@
+@include mat-core();
+
+$my-primary: (
+  50: #ff7300,
+  100: #ff7300,
+  200: #ff7300,
+  300: #ff7300,
+  400: #ff7300,
+  500: #ff7300,
+  600: #ff7300,
+  700: #ff7300,
+  800: #ff7300,
+  900: #ff7300,
+  A100: #ff7300,
+  A200: #ff7300,
+  A400: #ff7300,
+  A700: #ff7300,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  ),
+);
+
+$my-accent: (
+  50: #b560ff,
+  100: #b560ff,
+  200: #b560ff,
+  300: #b560ff,
+  400: #b560ff,
+  500: #b560ff,
+  600: #b560ff,
+  700: #b560ff,
+  800: #b560ff,
+  900: #b560ff,
+  A100: #b560ff,
+  A200: #b560ff,
+  A400: #b560ff,
+  A700: #b560ff,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  ),
+);
+$my-warn: (
+  50: #fa0030,
+  100: #fa0030,
+  200: #fa0030,
+  300: #fa0030,
+  400: #fa0030,
+  500: #fa0030,
+  600: #fa0030,
+  700: #fa0030,
+  800: #fa0030,
+  900: #fa0030,
+  A100: #fa0030,
+  A200: #fa0030,
+  A400: #fa0030,
+  A700: #fa0030,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  ),
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$pridikt-primary: mat-palette($my-primary);
+$pridikt-accent: mat-palette($my-accent, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$pridikt-warn: mat-palette($my-warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$pridikt-theme: mat-light-theme(
+  (
+    color: (
+      primary: $pridikt-primary,
+      accent: $pridikt-accent,
+      warn: $pridikt-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($pridikt-theme);
