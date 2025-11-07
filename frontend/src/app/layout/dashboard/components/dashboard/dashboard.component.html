@@ -147,52 +147,51 @@
         </div>
 
 
+        <!-- People -->
         <div class="p-8c w-full">
-          <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col ">
+          <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col">
             <div class="flex flex-col justify-center ml-8c">
-              <h4 class="fs-24 text-gray-200">
-                People
-              </h4>
+              <h4 class="fs-24 text-gray-200">People</h4>
+              <p class="text-gray-400 text-sm">Key collaborators across your projects</p>
             </div>
 
-            <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 p-6">
-              <div *ngFor="let user of data"
-                class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-200">
-                <!-- Top section -->
-                <div class="flex flex-col items-center py-6">
-                  <div class="w-20 h-20 rounded-full overflow-hidden border-4" [ngClass]="user.color">
-                    <img [src]="user.image" alt="{{ user.name }}" class="w-full h-full object-cover" />
+            <div class="grid gap-6 p-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+              <mat-card class="people-card" *ngFor="let user of data">
+                <mat-card-header>
+                  <div mat-card-avatar class="people-card__avatar" [ngClass]="user.color">
+                    <img [src]="user.image" [alt]="user.name" />
                   </div>
-                  <h3 class="mt-4 font-semibold text-gray-800 text-lg">{{ user.name }}</h3>
-                  <p class="text-gray-500 text-sm">{{ user.team }}</p>
-                  <div class="flex items-center text-gray-400 text-sm mt-2">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3 5h2l3.6 7.59-1.35 2.45A1 1 0 0 0 8 17h8a1 1 0 0 0 .95-.68L21 5H3z" />
-                    </svg>
-                    {{ user.phone }}
-                  </div>
-                </div>
+                  <mat-card-title>{{ user.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ user.team }}</mat-card-subtitle>
+                </mat-card-header>
 
-                <!-- Footer icons -->
-                <div class="flex justify-around bg-gray-100 py-3 border-t">
-                  <button class="text-gray-500 hover:text-blue-600">
-                    <img class="max-w-full h-auto" src="../../../assets/img/call_blue_icn.svg" alt="">
+                <mat-card-content>
+                  <div class="people-card__meta">
+                    <mat-icon color="accent">call</mat-icon>
+                    <span>{{ user.phone }}</span>
+                  </div>
+                </mat-card-content>
+
+                <mat-divider></mat-divider>
+
+                <mat-card-actions align="end">
+                  <button mat-icon-button color="primary" matTooltip="Call">
+                    <mat-icon>phone</mat-icon>
                   </button>
-                  <button class="text-gray-500 hover:text-blue-600">
-                  <img class="max-w-full h-auto" src="../../../assets/img/mail_blue_icn.svg" alt="">
+                  <button mat-icon-button color="primary" matTooltip="Email">
+                    <mat-icon>mail</mat-icon>
                   </button>
-                  <button class="text-gray-500 hover:text-blue-600">
-                     <img class="max-w-full h-auto" src="../../../assets/img/chat_icn.svg" alt="">
+                  <button mat-icon-button color="primary" matTooltip="Chat">
+                    <mat-icon>chat</mat-icon>
                   </button>
-                </div>
-              </div>
+                </mat-card-actions>
+              </mat-card>
             </div>
-
-
-
           </div>
         </div>
+        <!-- New Jobs this Month -->
+        <!-- Houses Out this Month -->
+        <!-- Completed this Month -->
         <div class="p-8c w-full">
           <div class="cmn-card-wrapper h-full items-stretch xl:min-h-[290px] min-h-[200px] flex flex-col ">
             <div class="ml-auto">

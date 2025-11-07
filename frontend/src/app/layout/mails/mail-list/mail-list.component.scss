@@ -40,15 +40,28 @@
   .header-actions {
     display: flex;
     gap: 8px;
+    align-items: center;
 
-    button {
-      color: #6c757d;
+    // .compose-button {
+    //   display: inline-flex;
+    //   align-items: center;
+    //   gap: 8px;
+    //   padding: 0 16px;
+    //   font-weight: 600;
 
-      &:hover {
-        background-color: #f1f3f5;
-        color: #1976d2;
-      }
-    }
+    //   mat-icon {
+    //     font-size: 18px;
+    //   }
+    // }
+
+    // button {
+    //   color: #6c757d;
+
+    //   &:hover {
+    //     background-color: #f1f3f5;
+    //     color: #1976d2;
+    //   }
+    // }
   }
 }
 

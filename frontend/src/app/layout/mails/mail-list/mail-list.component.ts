@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Mail, MailService } from '../services/mail.service';
+import { MailComposeComponent } from '../mail-compose/mail-compose.component';
 
 @Component({
   selector: 'app-mail-list',
@@ -13,7 +15,8 @@ export class MailListComponent implements OnInit {
 
   constructor(
     private readonly mailService: MailService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +25,18 @@ export class MailListComponent implements OnInit {
 
   openMail(mail: Mail): void {
     this.router.navigate(['dashboard', 'mails', mail.id]);
+  }
+
+  openCompose(): void {
+    const dialogRef = this.dialog.open(MailComposeComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe((sent) => {
+      if (sent) {
+        this.mails = this.mailService.getMails();
+      }
+    });
   }
 
   getAvatarInitials(sender: string): string {

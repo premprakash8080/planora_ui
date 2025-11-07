@@ -10,7 +10,7 @@
     </div>
     <div class="sidenav-toolbar mt-10c flex-none flex items-center justify-center">
       <img src="assets/img/Logo.svg" alt="Logo" class="max-w-[100px] w-full select-none flex-none justify-between" />
-      <!-- <h2 class="vex-sidenav-toolbar__headline flex-auto">{{ 'Super Admin' }}</h2> -->
+      <h2 class="vex-sidenav-toolbar__headline flex-auto">{{ 'Super Admin' }}</h2>
     </div>
 
 
@@ -23,13 +23,13 @@
       <vex-sidenav-item *ngFor="let item of items; trackBy: trackByRoute" [item]="item" [level]="0"></vex-sidenav-item>
     </div>
 
-    <!-- <div class="vex-sidenav-footer flex items-center justify-center opacity-20 px-6 py-6 select-none flex-none">
+    <div class="vex-sidenav-footer flex items-center justify-center opacity-20 px-6 py-6 select-none flex-none">
       <img [src]="imageUrl$ | async" alt="Logo" class="w-8 select-none"/>
-    </div> -->
+    </div>
 
   </vex-scrollbar>
 
-  <!-- <div *ngIf="userVisible$ | async"
+  <div *ngIf="userVisible$ | async"
        class="vex-sidenav-user__container flex-none">
     <div #userProfileMenuOriginRef
          (click)="openProfileMenu(userProfileMenuOriginRef)"
@@ -44,5 +44,5 @@
       </div>
       <mat-icon class="vex-sidenav-user__dropdown-icon flex-none" svgIcon="mat:arrow_drop_down"></mat-icon>
     </div>
-  </div> -->
+  </div>
 </div>

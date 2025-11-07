@@ -27,8 +27,8 @@ export class SidenavItemComponent implements OnInit, OnChanges {
   isSubheading = this.navigationService.isSubheading;
 
   constructor(private router: Router,
-              private cd: ChangeDetectorRef,
-              private navigationService: NavigationService) { }
+    private cd: ChangeDetectorRef,
+    private navigationService: NavigationService) { }
 
   @HostBinding('class')
   get levelClass() {

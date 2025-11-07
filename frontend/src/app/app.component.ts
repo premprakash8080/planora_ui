@@ -26,36 +26,30 @@ export class AppComponent {
           route: "/dashboard",
           icon: "../assets/img/icons/dashboard-icon.svg",
           iconActive: "assets/img/icons/dashboard-active-icon.svg",
-          routerLinkActiveOptions: { exact: true },          
-          hasPermission:false
+          routerLinkActiveOptions: { exact: true },
+          hasPermission: false
         },
-       
-      ],
-    },
-    {
-      type: "link",
-      label: "Mails",
-      route: "/dashboard/mails",
-      icon: "../assets/img/icons/dashboard-icon.svg",
-      iconActive: "assets/img/icons/dashboard-active-icon.svg",
-      routerLinkActiveOptions: { exact: true },          
-      hasPermission:false
-    },
-    {
-      type: "subheading",
-      children: [
         {
           type: "link",
-          label: "Inbox",
-          route: "/dashboard/inbox",
-          icon: "../assets/img/icons/dashboard-icon.svg",
-          iconActive: "assets/img/icons/dashboard-active-icon.svg",
-          routerLinkActiveOptions: { exact: true },          
-          hasPermission:false
+          label: "Members",
+          route: "/dashboard/members",
+          icon: "../assets/img/icons/members-icon.svg",
+          iconActive: "assets/img/icons/members-active-icon.svg",
+          routerLinkActiveOptions: { exact: true },
+          hasPermission: false
         },
+        {
+          type: "link",
+          label: "Mails",
+          route: "/dashboard/mails",
+          icon: "../assets/img/icons/mails-icon.svg",
+          iconActive: "assets/img/icons/mails-active-icon.svg",
+          routerLinkActiveOptions: { exact: true },
+          hasPermission: false
+        }
+
       ],
-    }
-    ,
+    },
     {
       type: 'dropdown',
       label: 'Insights',
@@ -87,28 +81,51 @@ export class AppComponent {
         }
       ]
     }
+    ,{
+      type: "subheading",
+      children: [
+        {
+          type: "link",
+          label: "Projects",
+          route: "/projects",
+          icon: "../assets/img/icons/projects-icon.svg",
+          iconActive: "assets/img/icons/projects-active-icon.svg",
+          routerLinkActiveOptions: { exact: true },
+          hasPermission: false
+        },
+        {
+          type: "link",
+          label: "Tasks",
+          route: "/tasks",
+          icon: "../assets/img/icons/tasks-icon.svg",
+          iconActive: "assets/img/icons/tasks-active-icon.svg",
+          routerLinkActiveOptions: { exact: true },
+          hasPermission: false
+        }
+      ]
+    }
   ];
 
- 
+
   currentAppMenu: Array<any> = this.sidebarMenu;
 
   constructor(
-    
+
     private renderer: Renderer2,
     private platform: Platform,
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCALE_ID) private localeId: string,
-   
-  
+
+
     private navigationService: NavigationService,
     private splashScreenService: SplashScreenService,
     private readonly matIconRegistry: MatIconRegistry,
     private readonly domSanitizer: DomSanitizer,
     private commonService: CommonService,
     private titleService: Title,
-    private userSessionService:UserSessionService
+    private userSessionService: UserSessionService
   ) {
-    
+
     //Settings.defaultLocale = this.localeId;
 
     if (this.platform.BLINK) {
@@ -140,7 +157,7 @@ export class AppComponent {
     );
 
 
-  
+
     /**
      * Add your own routes here
      */
@@ -160,9 +177,9 @@ export class AppComponent {
     this.titleService.setTitle("Planora | Super Admin")
   }
 
-  
+
   ngAfterViewInit(): void {
-   
+
     this.manageMenuItems();
   }
   /**
@@ -174,6 +191,6 @@ export class AppComponent {
     //     s.hasPermission=this.userSessionService.userPermissions.filter(p=>p==s.PermissionId).length>0
     //   })
     // });
-  }   
-   
+  }
+
 }

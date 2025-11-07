@@ -4,11 +4,18 @@ export interface Mail {
   id: string;
   sender: string;
   senderEmail: string;
+  recipient?: string;
   subject: string;
   preview: string;
   body: string;
   timestamp: string;
   isRead: boolean;
+}
+
+export interface ComposeMail {
+  to: string;
+  subject: string;
+  body: string;
 }
 
 @Injectable({
@@ -21,6 +28,7 @@ export class MailService {
       id: '1',
       sender: 'Sarah Johnson',
       senderEmail: 'sarah.johnson@example.com',
+      recipient: 'you@task-manager.com',
       subject: 'Design Review Feedback',
       preview: 'Hi team, I reviewed the latest design mockups and have a few suggestions...',
       body: `Hi team,
@@ -38,6 +46,7 @@ Sarah`,
       id: '2',
       sender: 'Michael Chen',
       senderEmail: 'michael.chen@example.com',
+      recipient: 'you@task-manager.com',
       subject: 'Backend deployment complete',
       preview: 'Deployment complete for the backend services. Everything looks stable...',
       body: `Hello,
@@ -55,6 +64,7 @@ Michael`,
       id: '3',
       sender: 'Emily Rodriguez',
       senderEmail: 'emily.rodriguez@example.com',
+      recipient: 'you@task-manager.com',
       subject: 'Reminder: Sprint planning agenda',
       preview: 'Quick reminder that sprint planning is tomorrow at 10am. Agenda is attached...',
       body: `Hi team,
@@ -76,5 +86,23 @@ Emily`,
 
   getMailById(id: string): Mail | undefined {
     return this.mails.find(mail => mail.id === id);
+  }
+
+  sendMail(mail: ComposeMail): Mail {
+    const now = new Date();
+    const newMail: Mail = {
+      id: now.getTime().toString(),
+      sender: 'You',
+      senderEmail: 'you@task-manager.com',
+      recipient: mail.to,
+      subject: mail.subject,
+      preview: mail.body.length > 90 ? `${mail.body.substring(0, 87)}...` : mail.body,
+      body: mail.body,
+      timestamp: now.toISOString(),
+      isRead: true
+    };
+
+    this.mails = [newMail, ...this.mails];
+    return newMail;
   }
 }
