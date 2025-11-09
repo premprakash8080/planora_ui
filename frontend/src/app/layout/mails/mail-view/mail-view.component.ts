@@ -27,12 +27,12 @@ export class MailViewComponent implements OnInit {
     }
 
     if (!this.mail) {
-      this.router.navigate(['dashboard', 'mails']);
+      this.router.navigate(['/mails']);
     }
   }
 
   goBack(): void {
-    this.router.navigate(['dashboard', 'mails']);
+    this.router.navigate(['/mails']);
   }
 
   reply(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Mail, MailService } from '../services/mail.service';
 import { MailComposeComponent } from '../mail-compose/mail-compose.component';
@@ -16,6 +16,7 @@ export class MailListComponent implements OnInit {
   constructor(
     private readonly mailService: MailService,
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly dialog: MatDialog
   ) { }
 
@@ -24,7 +25,7 @@ export class MailListComponent implements OnInit {
   }
 
   openMail(mail: Mail): void {
-    this.router.navigate(['dashboard', 'mails', mail.id]);
+    this.router.navigate([mail.id], { relativeTo: this.route });
   }
 
   openCompose(): void {

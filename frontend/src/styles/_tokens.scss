@@ -89,7 +89,7 @@ $font-sizes: (
 
 @mixin page-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: space(6) space(8);
 
