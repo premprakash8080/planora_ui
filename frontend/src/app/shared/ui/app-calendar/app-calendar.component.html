@@ -1,0 +1,35 @@
+<div class="app-calendar">
+  <div class="app-calendar__header">
+    <button mat-icon-button type="button" (click)="goPreviousMonth()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <div class="app-calendar__title">
+      {{ activeDate | date: 'MMMM yyyy' }}
+    </div>
+    <button mat-icon-button type="button" (click)="goNextMonth()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="app-calendar__divider"></mat-divider>
+
+  <mat-calendar
+    [selected]="selected"
+    [startAt]="activeDate"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    (selectedChange)="handleSelected($event)"
+  ></mat-calendar>
+
+  <mat-divider class="app-calendar__divider"></mat-divider>
+
+  <div class="app-calendar__footer">
+    <button mat-button type="button" (click)="goToday()">Today</button>
+    <span class="app-calendar__selection" *ngIf="selected">
+      {{ selected | date: 'EEE, MMM d, y' }}
+    </span>
+    <span class="app-calendar__spacer"></span>
+    <button mat-stroked-button type="button" (click)="cancel.emit()">Cancel</button>
+  </div>
+</div>
+

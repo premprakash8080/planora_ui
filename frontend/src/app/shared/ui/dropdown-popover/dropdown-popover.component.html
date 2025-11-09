@@ -1,0 +1,66 @@
+<div class="dropdown-popover">
+  <span
+    class="dropdown-popover__origin"
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    (click)="handleTriggerClick($event)"
+  >
+    <ng-content select="[appDropdownTrigger]"></ng-content>
+  </span>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="open"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayBackdropClass]="'dropdown-popover__backdrop'"
+    (backdropClick)="close()"
+    (detach)="close()"
+  >
+    <div
+      class="dropdown-popover__panel"
+      [style.width.px]="width"
+      [style.maxHeight.px]="maxHeight"
+      tabindex="-1"
+      #panel
+      (click)="$event.stopPropagation()"
+    >
+      <div class="dropdown-popover__inner">
+        <div class="dropdown-popover__search" *ngIf="hasSearch">
+          <mat-icon>search</mat-icon>
+          <input
+            type="search"
+            [placeholder]="searchPlaceholder"
+            [(ngModel)]="searchTerm"
+          />
+        </div>
+
+        <div class="dropdown-popover__list" [style.maxHeight.px]="hasSearch ? maxHeight - 56 : maxHeight">
+          <button
+            type="button"
+            class="dropdown-popover__item"
+            *ngFor="let item of filteredItems"
+            [class.dropdown-popover__item--selected]="item.id === selectedId"
+            (click)="onSelect(item)"
+          >
+            <div class="dropdown-popover__avatar" *ngIf="item.avatarUrl || item.avatarText">
+              <img *ngIf="item.avatarUrl; else initials" [src]="item.avatarUrl" [alt]="item.label" />
+              <ng-template #initials>{{ item.avatarText }}</ng-template>
+            </div>
+
+            <div class="dropdown-popover__color" *ngIf="item.color && !item.avatarUrl && !item.avatarText" [style.background]="item.color"></div>
+
+            <div class="dropdown-popover__details">
+              <span class="dropdown-popover__label">{{ item.label }}</span>
+              <span class="dropdown-popover__description" *ngIf="item.description">{{ item.description }}</span>
+            </div>
+
+            <mat-icon class="dropdown-popover__check" *ngIf="item.id === selectedId">check</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
