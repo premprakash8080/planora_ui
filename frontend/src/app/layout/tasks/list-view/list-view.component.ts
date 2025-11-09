@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Subject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Task, TaskPriority, TaskSection, TaskStatus } from '../task.model';
@@ -30,6 +32,21 @@ export class ListViewComponent implements OnInit, OnDestroy {
   private selectedSectionId: string | null = null;
   private selectedTaskId: string | null = null;
   readonly nameDrafts = new Map<string, string>();
+  readonly teamMembers = [
+    { id: 'john-doe', name: 'John Doe', initials: 'JD' },
+    { id: 'sarah-johnson', name: 'Sarah Johnson', initials: 'SJ' },
+    { id: 'priya-patel', name: 'Priya Patel', initials: 'PP' },
+    { id: 'lucas-nguyen', name: 'Lucas Nguyen', initials: 'LN' },
+    { id: 'aisha-khan', name: 'Aisha Khan', initials: 'AK' }
+  ];
+  readonly statusOptions: Array<{ value: TaskStatus | string; label: string; color: string }> = [
+    { value: 'On Track', label: 'On Track', color: '#22c55e' },
+    { value: 'At Risk', label: 'At Risk', color: '#f97316' },
+    { value: 'Off Track', label: 'Off Track', color: '#ef4444' },
+    { value: 'Done', label: 'Completed', color: '#6366f1' },
+    { value: 'In Progress', label: 'In Progress', color: '#0ea5e9' },
+    { value: 'To Do', label: 'To Do', color: '#94a3b8' }
+  ];
 
   selectedTask: Task | null = null;
   selectedSection: TaskSection | null = null;
@@ -169,6 +186,103 @@ export class ListViewComponent implements OnInit, OnDestroy {
     const approximateCharWidth = 8.2;
 
     return Math.min(Math.max(baseLength * approximateCharWidth + padding, minWidth), maxWidth);
+  }
+
+  selectAssignee(section: TaskSection, task: Task, member: { id: string; name: string; initials: string }, event: Event): void {
+    event.stopPropagation();
+
+    if (!this.currentProjectId) {
+      return;
+    }
+
+    this.taskService.updateTask(this.currentProjectId, section.id, task.id, {
+      assignee: member.name,
+      assigneeAvatar: member.initials
+    });
+  }
+
+  handleDueDateChange(section: TaskSection, task: Task, date: Date | null, trigger: MatMenuTrigger): void {
+    if (!this.currentProjectId || !date) {
+      trigger?.closeMenu();
+      return;
+    }
+
+    const normalized = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+    this.taskService.updateTask(this.currentProjectId, section.id, task.id, { dueDate: normalized });
+    trigger?.closeMenu();
+  }
+
+  selectStatus(section: TaskSection, task: Task, option: { value: string }, event: Event): void {
+    event.stopPropagation();
+
+    if (!this.currentProjectId) {
+      return;
+    }
+    this.statusChanged(section, task, option.value as TaskStatus);
+  }
+
+  getDueDate(task: Task): Date | null {
+    if (!task.dueDate) {
+      return null;
+    }
+    const parsed = new Date(task.dueDate);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  getAvatarInitials(assignee: string | undefined): string {
+    if (!assignee) {
+      return 'NA';
+    }
+
+    const parts = assignee.split(' ').filter(Boolean);
+    if (!parts.length) {
+      return assignee.substring(0, 2).toUpperCase();
+    }
+    return parts.map(part => part.charAt(0)).join('').substring(0, 2).toUpperCase();
+  }
+
+  getStatusColor(status: string | undefined): string {
+    if (!status) {
+      return '#94a3b8';
+    }
+    return this.statusOptions.find(option => option.value === status)?.color ?? '#94a3b8';
+  }
+
+  getStatusLabel(status: string | undefined): string {
+    if (!status) {
+      return 'Set status';
+    }
+    return this.statusOptions.find(option => option.value === status)?.label ?? status;
+  }
+
+  formatDueDate(value: string | undefined): string {
+    if (!value) {
+      return 'No due date';
+    }
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+      return 'No due date';
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const target = new Date(date);
+    target.setHours(0, 0, 0, 0);
+
+    const diff = (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
+
+    if (diff === 0) {
+      return `Today – ${formatDate(target, 'dd MMM', 'en-US')}`;
+    }
+    if (diff === 1) {
+      return `Tomorrow – ${formatDate(target, 'dd MMM', 'en-US')}`;
+    }
+    if (diff === -1) {
+      return `Yesterday – ${formatDate(target, 'dd MMM', 'en-US')}`;
+    }
+
+    return formatDate(target, 'dd MMM yyyy', 'en-US');
   }
 
   addTask(section: TaskSection): void {

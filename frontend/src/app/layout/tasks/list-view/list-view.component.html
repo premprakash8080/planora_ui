@@ -61,13 +61,47 @@
           </div>
 
           <div class="cell assignee">
-            <div class="avatar">{{ task.assignee.charAt(0) }}</div>
-            <span>{{ task.assignee }}</span>
+            <button
+              mat-stroked-button
+              type="button"
+              class="assignee-trigger"
+              [matMenuTriggerFor]="assigneeMenu"
+              (click)="$event.stopPropagation()"
+            >
+              <div class="avatar">{{ getAvatarInitials(task.assignee) }}</div>
+              <span class="assignee-name">{{ task.assignee }}</span>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            <mat-menu #assigneeMenu="matMenu" (click)="$event.stopPropagation()">
+              <button
+                mat-menu-item
+                *ngFor="let member of teamMembers"
+                (click)="selectAssignee(section, task, member, $event)"
+              >
+                <div class="avatar avatar--menu">{{ member.initials }}</div>
+                <span>{{ member.name }}</span>
+              </button>
+            </mat-menu>
           </div>
 
-          <div class="cell due-date">
-            <mat-icon>calendar_today</mat-icon>
-            <span>{{ task.dueDate | date: 'MMM d, yyyy' }}</span>
+          <div class="cell due-date" (click)="$event.stopPropagation()">
+            <button
+              mat-stroked-button
+              type="button"
+              [matMenuTriggerFor]="dueDateMenu"
+              #dueDateTrigger="matMenuTrigger"
+              class="due-date-trigger"
+            >
+              <mat-icon>calendar_today</mat-icon>
+              <span>{{ formatDueDate(task.dueDate) }}</span>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            <mat-menu #dueDateMenu="matMenu" (click)="$event.stopPropagation()" class="due-date-menu">
+              <mat-calendar
+                [selected]="getDueDate(task)"
+                (selectedChange)="handleDueDateChange(section, task, $event, dueDateTrigger)"
+              ></mat-calendar>
+            </mat-menu>
           </div>
 
           <div class="cell priority">
@@ -75,15 +109,27 @@
           </div>
 
           <div class="cell status">
-            <mat-menu #statusMenu="matMenu">
-              <button mat-menu-item *ngFor="let status of statuses" (click)="statusChanged(section, task, status)">
-                {{ status }}
-              </button>
-            </mat-menu>
-            <button mat-button [matMenuTriggerFor]="statusMenu" class="status-trigger" (click)="$event.stopPropagation()">
-              {{ task.status }}
+            <button
+              type="button"
+              mat-stroked-button
+              class="status-trigger"
+              [matMenuTriggerFor]="statusMenu"
+              (click)="$event.stopPropagation()"
+            >
+              <span class="status-dot" [style.backgroundColor]="getStatusColor(task.status)"></span>
+              {{ getStatusLabel(task.status) }}
               <mat-icon>expand_more</mat-icon>
             </button>
+            <mat-menu #statusMenu="matMenu" (click)="$event.stopPropagation()">
+              <button
+                mat-menu-item
+                *ngFor="let option of statusOptions"
+                (click)="selectStatus(section, task, option, $event)"
+              >
+                <span class="status-dot" [style.backgroundColor]="option.color"></span>
+                <span>{{ option.label }}</span>
+              </button>
+            </mat-menu>
           </div>
 
           <div class="cell comments">

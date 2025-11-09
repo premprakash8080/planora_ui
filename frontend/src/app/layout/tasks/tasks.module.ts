@@ -21,6 +21,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { SharedUiModule } from '../../shared/ui/ui.module';
 
 @NgModule({
@@ -50,6 +52,8 @@ import { SharedUiModule } from '../../shared/ui/ui.module';
     MatSelectModule,
     MatDividerModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     SharedUiModule
   ]
 })

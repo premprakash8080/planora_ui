@@ -168,9 +168,28 @@ $subtext: #64748b;
     }
 
     &.assignee {
+      .assignee-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 4px 12px 4px 4px;
+        font-weight: 500;
+
+        mat-icon {
+          font-size: 18px;
+          margin-left: 2px;
+          color: $subtext;
+        }
+      }
+
+      .assignee-name {
+        color: $text;
+      }
+
       .avatar {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
         display: flex;
@@ -180,19 +199,38 @@ $subtext: #64748b;
         color: #fff;
       }
 
-      span {
-        color: $text;
+      .avatar--menu {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+        margin-right: 8px;
       }
     }
 
     &.due-date {
-      mat-icon {
-        font-size: 18px;
-        color: $subtext;
+      .due-date-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 4px 12px 4px 10px;
+        color: $text;
+
+        mat-icon:first-child {
+          font-size: 18px;
+          color: $subtext;
+        }
+
+        mat-icon:last-child {
+          font-size: 18px;
+          color: $subtext;
+        }
       }
 
-      span {
-        color: $text;
+      .due-date-menu {
+        mat-calendar {
+          width: 280px;
+        }
       }
     }
 
@@ -224,16 +262,22 @@ $subtext: #64748b;
       .status-trigger {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
+        gap: 8px;
+        padding: 4px 12px;
         border-radius: 999px;
-        border: 1px solid $border;
         color: $text;
-        background: transparent;
 
         mat-icon {
-          font-size: 16px;
+          font-size: 18px;
+          color: $subtext;
         }
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-flex;
       }
     }
 
@@ -330,5 +374,9 @@ $subtext: #64748b;
       grid-column: span 2;
     }
   }
+
+.mat-menu-panel.due-date-menu {
+  padding: 0;
+}
 }
 
