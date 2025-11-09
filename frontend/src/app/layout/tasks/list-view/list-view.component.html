@@ -47,11 +47,16 @@
             ></mat-checkbox>
           </div>
 
-          <div class="cell name">
+          <div class="cell name" (click)="$event.stopPropagation()">
             <input
-              [value]="task.name"
-              (click)="$event.stopPropagation()"
-              (blur)="inlineNameChanged(section, task, $any($event.target).value)"
+              class="task-name-input"
+              [ngModel]="nameDrafts.get(task.id) ?? task.name"
+              (ngModelChange)="onNameInput(task, $event)"
+              [style.width.px]="getTaskNameWidth(task)"
+              (focus)="handleNameFocus(task)"
+              (blur)="handleNameBlur(section, task, $any($event.target))"
+              (keydown.enter)="handleNameEnter($event, section, task, $any($event.target))"
+              (keydown.escape)="handleNameEscape(task, $any($event.target))"
             />
           </div>
 

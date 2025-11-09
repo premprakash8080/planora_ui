@@ -29,6 +29,7 @@ export class ListViewComponent implements OnInit, OnDestroy {
   private currentProjectId: string | null = null;
   private selectedSectionId: string | null = null;
   private selectedTaskId: string | null = null;
+  readonly nameDrafts = new Map<string, string>();
 
   selectedTask: Task | null = null;
   selectedSection: TaskSection | null = null;
@@ -118,6 +119,56 @@ export class ListViewComponent implements OnInit, OnDestroy {
       return;
     }
     this.taskService.updateTask(this.currentProjectId, section.id, task.id, { name: value });
+  }
+
+  onNameInput(task: Task, value: string): void {
+    this.nameDrafts.set(task.id, value);
+  }
+
+  handleNameFocus(task: Task): void {
+    if (!this.nameDrafts.has(task.id)) {
+      this.nameDrafts.set(task.id, task.name ?? '');
+    }
+  }
+
+  handleNameBlur(section: TaskSection, task: Task, input: HTMLInputElement): void {
+    const draft = (this.nameDrafts.get(task.id) ?? input.value ?? '').trim();
+
+    if (!draft) {
+      input.value = task.name ?? '';
+      this.nameDrafts.delete(task.id);
+      return;
+    }
+
+    if (draft !== (task.name ?? '')) {
+      this.inlineNameChanged(section, task, draft);
+    }
+
+    this.nameDrafts.delete(task.id);
+  }
+
+  handleNameEnter(event: Event, section: TaskSection, task: Task, input: HTMLInputElement): void {
+    event.preventDefault();
+    this.handleNameBlur(section, task, input);
+    input.blur();
+  }
+
+  handleNameEscape(task: Task, input: HTMLInputElement): void {
+    input.value = task.name ?? '';
+    this.nameDrafts.delete(task.id);
+    input.blur();
+  }
+
+  getTaskNameWidth(task: Task): number {
+    const draft = this.nameDrafts.get(task.id);
+    const text = (draft ?? task.name ?? '').trim() || 'New Task';
+    const baseLength = Math.max(text.length, 1);
+    const padding = 28;
+    const minWidth = 80;
+    const maxWidth = 420;
+    const approximateCharWidth = 8.2;
+
+    return Math.min(Math.max(baseLength * approximateCharWidth + padding, minWidth), maxWidth);
   }
 
   addTask(section: TaskSection): void {
