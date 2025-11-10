@@ -56,7 +56,6 @@
           >
             <div
               class="grid-cell grid-cell--name"
-              (click)="$event.stopPropagation()"
             >
               <div class="grid-name-wrapper">
                 <mat-checkbox
@@ -76,13 +75,13 @@
                     handleNameEnter($event, section, task, $any($event.target))
                   "
                   (keydown.escape)="handleNameEscape(task, $any($event.target))"
+                  (click)="$event.stopPropagation()"
                 />
               </div>
             </div>
 
             <div
               class="grid-cell grid-cell--assignee"
-              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 [items]="assigneeItems"
@@ -96,6 +95,7 @@
                   type="button"
                   class="assignee-trigger"
                   appDropdownTrigger
+                  (click)="$event.stopPropagation()"
                 >
                   <app-avatar
                     size="sm"
@@ -114,7 +114,6 @@
 
             <div
               class="grid-cell grid-cell--due"
-              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 #dueDatePopover="appDropdownPopover"
@@ -125,6 +124,7 @@
                   type="button"
                   class="due-date-trigger"
                   appDropdownTrigger
+                  (click)="$event.stopPropagation()"
                 >
                   <mat-icon>calendar_today</mat-icon>
                   <span>{{ formatDueDate(task.dueDate) }}</span>
@@ -152,6 +152,7 @@
                   type="button"
                   class="priority-trigger"
                   appDropdownTrigger
+                  (click)="$event.stopPropagation()"
                 >
                   <span
                     class="priority-pill"
@@ -166,7 +167,6 @@
 
             <div
               class="grid-cell grid-cell--status"
-              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 [items]="statusItems"
@@ -174,7 +174,7 @@
                 [width]="260"
                 (select)="handleStatusSelect(section, task, $event)"
               >
-                <button type="button" class="status-trigger" appDropdownTrigger>
+                <button type="button" class="status-trigger" appDropdownTrigger (click)="$event.stopPropagation()">
                   <span
                     class="status-dot"
                     [style.backgroundColor]="getStatusColor(task.status)"

@@ -12,7 +12,6 @@ import { MailComposeComponent } from '../mail-compose/mail-compose.component';
 export class MailListComponent implements OnInit {
 
   mails: Mail[] = [];
-
   constructor(
     private readonly mailService: MailService,
     private readonly router: Router,

@@ -25,9 +25,14 @@
     <mat-card *ngFor="let mail of mails" class="mail-card" (click)="openMail(mail)">
       <mat-card-content>
         <div class="mail-item">
-          <div class="mail-avatar" [class.unread]="!mail.isRead">
-            {{ getAvatarInitials(mail.sender) }}
-          </div>
+          <app-avatar
+            size="md"
+            [initials]="getAvatarInitials(mail.sender)"
+            [src]="mail.senderAvatarUrl"
+            [color]="mail.senderAvatarColor"
+            [alt]="mail.sender"
+            [class.unread]="!mail.isRead"
+          ></app-avatar>
           <div class="mail-details">
             <div class="mail-header">
               <span class="mail-sender" [class.unread]="!mail.isRead">{{ mail.sender }}</span>

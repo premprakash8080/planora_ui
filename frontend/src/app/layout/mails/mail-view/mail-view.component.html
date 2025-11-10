@@ -22,7 +22,13 @@
       <mat-divider></mat-divider>
 
       <div class="mail-sender">
-        <div class="sender-avatar">{{ currentMail.sender.charAt(0) }}</div>
+        <app-avatar
+          size="md"
+          [src]="currentMail.senderAvatarUrl"
+          [initials]="getAvatarInitials(currentMail.sender)"
+          [color]="currentMail.senderAvatarColor"
+          [alt]="currentMail.sender"
+        ></app-avatar>
         <div class="sender-info">
           <div class="sender-name">{{ currentMail.sender }}</div>
           <div class="sender-email">{{ currentMail.senderEmail }}</div>

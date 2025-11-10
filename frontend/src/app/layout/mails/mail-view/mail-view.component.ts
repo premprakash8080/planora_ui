@@ -36,20 +36,20 @@ export class MailViewComponent implements OnInit {
   }
 
   reply(): void {
-    if (!this.mail) {
-      return;
-    }
-
-    const data: MailComposeData = {
-      to: this.mail.senderEmail,
-      subject: this.mail.subject.startsWith('Re:') ? this.mail.subject : `Re: ${this.mail.subject}`
-    };
-
-    const dialogRef = this.dialog.open(MailComposeComponent, {
-      width: '600px',
-      data
+    this.router.navigate(['/mails/compose'], {
+      queryParams: {
+        to: this.mail?.senderEmail,
+        subject: this.mail ? `Re: ${this.mail.subject}` : 'Re:'
+      }
     });
+  }
 
-    dialogRef.afterClosed().subscribe();
+  getAvatarInitials(sender: string): string {
+    return sender
+      .split(' ')
+      .map(part => part.charAt(0))
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
   }
 }

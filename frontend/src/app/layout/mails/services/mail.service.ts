@@ -4,6 +4,8 @@ export interface Mail {
   id: string;
   sender: string;
   senderEmail: string;
+  senderAvatarUrl?: string;
+  senderAvatarColor?: string;
   recipient?: string;
   subject: string;
   preview: string;
@@ -28,6 +30,7 @@ export class MailService {
       id: '1',
       sender: 'Sarah Johnson',
       senderEmail: 'sarah.johnson@example.com',
+      senderAvatarColor: '#2563eb',
       recipient: 'you@task-manager.com',
       subject: 'Design Review Feedback',
       preview: 'Hi team, I reviewed the latest design mockups and have a few suggestions...',
@@ -46,6 +49,7 @@ Sarah`,
       id: '2',
       sender: 'Michael Chen',
       senderEmail: 'michael.chen@example.com',
+      senderAvatarColor: '#db2777',
       recipient: 'you@task-manager.com',
       subject: 'Backend deployment complete',
       preview: 'Deployment complete for the backend services. Everything looks stable...',
@@ -64,6 +68,7 @@ Michael`,
       id: '3',
       sender: 'Emily Rodriguez',
       senderEmail: 'emily.rodriguez@example.com',
+      senderAvatarColor: '#f97316',
       recipient: 'you@task-manager.com',
       subject: 'Reminder: Sprint planning agenda',
       preview: 'Quick reminder that sprint planning is tomorrow at 10am. Agenda is attached...',

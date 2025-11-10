@@ -94,18 +94,8 @@
   align-items: center;
 }
 
-.mail-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
+.mail-item app-avatar {
+  flex-shrink: 0;
 
   &.unread {
     box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
