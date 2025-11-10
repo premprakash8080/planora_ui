@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use 'sass:math';
+@use 'sass:color';
 
 // Color System
 // primary colors ff7300
@@ -23,6 +24,14 @@ $color-surface-dark: #262626 !default;
 $color-text-heading-dark: #f3f4f6 !default;
 $color-text-body-dark: #e5e7eb !default;
 $color-border-dark: rgba(255, 255, 255, 0.08) !default;
+
+@function primary-shade($lightness: 0%) {
+  @return color.scale($color-primary, $lightness: $lightness);
+}
+
+@function primary-alpha($alpha) {
+  @return color.change($color-primary, $alpha: $alpha);
+}
 
 // Radius
 $radius-sm: 6px !default;

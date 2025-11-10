@@ -1,0 +1,70 @@
+<section class="chat-window" *ngIf="member; else noMember">
+  <header class="chat-window__header">
+    <div class="chat-window__member">
+      <app-avatar
+        size="md"
+        [src]="member.avatarUrl"
+        [initials]="getInitials(member.name)"
+        [color]="member.avatarColor || '#ff7300'"
+        [alt]="member.name"
+      ></app-avatar>
+      <div>
+        <h3>{{ member.name }}</h3>
+        <p *ngIf="member.title">{{ member.title }}</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="chat-window__body" #scrollContainer>
+    <ng-container *ngFor="let group of groupedMessages; trackBy: trackGroup">
+      <div class="chat-window__date-divider">
+        <span>{{ group.label }}</span>
+      </div>
+
+      <article
+        class="chat-window__message"
+        *ngFor="let message of group.items; trackBy: trackMessage"
+        [class.chat-window__message--self]="isSelf(message)"
+      >
+        <app-avatar
+          size="sm"
+          [src]="message.avatarUrl"
+          [initials]="getInitials(message.senderName)"
+          [color]="getAvatarColor(message)"
+          [alt]="message.senderName"
+        ></app-avatar>
+
+        <div class="chat-window__bubble">
+          <header class="chat-window__bubble-meta">
+            <span class="chat-window__author">{{ message.senderName }}</span>
+            <time class="chat-window__timestamp" [attr.datetime]="message.createdAt">{{ formatTimestamp(message.createdAt) }}</time>
+          </header>
+          <p class="chat-window__text" [innerHTML]="renderMessage(message)"></p>
+        </div>
+      </article>
+    </ng-container>
+  </div>
+
+  <div class="chat-window__composer-wrapper">
+    <form class="chat-window__composer" (submit)="submitMessage()">
+      <textarea
+        class="chat-window__textarea"
+        [formControl]="composerControl"
+        placeholder="Write a message..."
+        rows="1"
+        (keydown)="handleKeyDown($event)"
+      ></textarea>
+      <button type="submit" [disabled]="!(composerControl.value?.trim())">Send</button>
+    </form>
+  </div>
+
+</section>
+
+<ng-template #noMember>
+  <section class="chat-window chat-window--empty">
+    <div class="chat-window__empty-state">
+      <h3>Select a teammate to start chatting</h3>
+      <p>Choose someone from the sidebar to open their conversation.</p>
+    </div>
+  </section>
+</ng-template>

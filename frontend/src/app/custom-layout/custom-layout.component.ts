@@ -79,7 +79,8 @@ export class CustomLayoutComponent implements OnDestroy {
           { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
           { label: 'Inbox', icon: 'inbox', route: '/inbox' },
           { label: 'Members', icon: 'group', route: '/members' },
-          { label: 'Mails', icon: 'mail', route: '/mails' }
+          { label: 'Mails', icon: 'mail', route: '/mails' },
+          { label: 'Chat', icon: 'chat', route: '/chat' }
         ]
       },
       {

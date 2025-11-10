@@ -35,6 +35,10 @@ const routes: Routes = [
         loadChildren: () => import("./layout/mails/mails.module").then((m) => m.MailsModule),
       },
       {
+        path: "chat",
+        loadChildren: () => import("./layout/chat/chat.module").then((m) => m.ChatModule),
+      },
+      {
         path: "inbox",
         loadChildren: () => import("./layout/inbox/inbox.module").then((m) => m.InboxModule),
       },
