@@ -54,9 +54,7 @@
             (click)="openTaskDetail(section, task)"
             [class.task-grid-row--selected]="selectedTask?.id === task.id"
           >
-            <div
-              class="grid-cell grid-cell--name"
-            >
+            <div class="grid-cell grid-cell--name">
               <div class="grid-name-wrapper">
                 <mat-checkbox
                   color="primary"
@@ -82,6 +80,7 @@
 
             <div
               class="grid-cell grid-cell--assignee"
+              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 [items]="assigneeItems"
@@ -95,7 +94,6 @@
                   type="button"
                   class="assignee-trigger"
                   appDropdownTrigger
-                  (click)="$event.stopPropagation()"
                 >
                   <app-avatar
                     size="sm"
@@ -104,8 +102,11 @@
                     [color]="getAssigneeColor(task.assignee)"
                     [alt]="task.assignee || 'Unassigned'"
                   ></app-avatar>
-                  <span class="assignee-name" [title]="task.assignee || 'Unassigned'">
-                    {{ task.assignee || 'Unassigned' }}
+                  <span
+                    class="assignee-name"
+                    [title]="task.assignee || 'Unassigned'"
+                  >
+                    {{ task.assignee || "Unassigned" }}
                   </span>
                   <mat-icon class="assignee-expand">expand_more</mat-icon>
                 </button>
@@ -114,6 +115,7 @@
 
             <div
               class="grid-cell grid-cell--due"
+              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 #dueDatePopover="appDropdownPopover"
@@ -124,7 +126,6 @@
                   type="button"
                   class="due-date-trigger"
                   appDropdownTrigger
-                  (click)="$event.stopPropagation()"
                 >
                   <mat-icon>calendar_today</mat-icon>
                   <span>{{ formatDueDate(task.dueDate) }}</span>
@@ -134,14 +135,19 @@
                 <ng-template appDropdownContent>
                   <app-calendar
                     [selected]="getDueDate(task)"
-                    (dateChange)="handleDueDateChange(section, task, $event, dueDatePopover)"
+                    (dateChange)="
+                      handleDueDateChange(section, task, $event, dueDatePopover)
+                    "
                     (cancel)="dueDatePopover.close()"
                   ></app-calendar>
                 </ng-template>
               </app-dropdown-popover>
             </div>
 
-            <div class="grid-cell grid-cell--priority">
+            <div
+              class="grid-cell grid-cell--priority"
+              (click)="$event.stopPropagation()"
+            >
               <app-dropdown-popover
                 [items]="priorityItems"
                 [selectedId]="task.priority"
@@ -152,7 +158,6 @@
                   type="button"
                   class="priority-trigger"
                   appDropdownTrigger
-                  (click)="$event.stopPropagation()"
                 >
                   <span
                     class="priority-pill"
@@ -167,6 +172,7 @@
 
             <div
               class="grid-cell grid-cell--status"
+              (click)="$event.stopPropagation()"
             >
               <app-dropdown-popover
                 [items]="statusItems"
@@ -174,7 +180,7 @@
                 [width]="260"
                 (select)="handleStatusSelect(section, task, $event)"
               >
-                <button type="button" class="status-trigger" appDropdownTrigger (click)="$event.stopPropagation()">
+                <button type="button" class="status-trigger" appDropdownTrigger>
                   <span
                     class="status-dot"
                     [style.backgroundColor]="getStatusColor(task.status)"
