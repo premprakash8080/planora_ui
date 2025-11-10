@@ -8,6 +8,15 @@ import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, 
 import { Task, TaskPriority, TaskSection, TaskStatus } from '../task.model';
 import { TaskService } from '../task.service';
 
+interface TeamMember {
+  id: string;
+  name: string;
+  initials: string;
+  email: string;
+  avatarColor: string;
+  avatarUrl?: string | null;
+}
+
 const PROJECT_NAME_LOOKUP: Record<string, string> = {
   '1': 'Website Redesign',
   '2': 'Mobile App Launch',
@@ -32,12 +41,43 @@ export class ListViewComponent implements OnInit, OnDestroy {
   private selectedSectionId: string | null = null;
   private selectedTaskId: string | null = null;
   readonly nameDrafts = new Map<string, string>();
-  readonly teamMembers = [
-    { id: 'john-doe', name: 'John Doe', initials: 'JD', email: 'john.doe@planora.com' },
-    { id: 'sarah-johnson', name: 'Sarah Johnson', initials: 'SJ', email: 'sarah.johnson@planora.com' },
-    { id: 'priya-patel', name: 'Priya Patel', initials: 'PP', email: 'priya.patel@planora.com' },
-    { id: 'lucas-nguyen', name: 'Lucas Nguyen', initials: 'LN', email: 'lucas.nguyen@planora.com' },
-    { id: 'aisha-khan', name: 'Aisha Khan', initials: 'AK', email: 'aisha.khan@planora.com' }
+  readonly teamMembers: TeamMember[] = [
+    {
+      id: 'john-doe',
+      name: 'John Doe',
+      initials: 'JD',
+      email: 'john.doe@planora.com',
+      avatarColor: '#2563eb',
+      avatarUrl: 'assets/img/avatars/1.jpg'
+    },
+    {
+      id: 'sarah-johnson',
+      name: 'Sarah Johnson',
+      initials: 'SJ',
+      email: 'sarah.johnson@planora.com',
+      avatarColor: '#db2777'
+    },
+    {
+      id: 'priya-patel',
+      name: 'Priya Patel',
+      initials: 'PP',
+      email: 'priya.patel@planora.com',
+      avatarColor: '#f97316'
+    },
+    {
+      id: 'lucas-nguyen',
+      name: 'Lucas Nguyen',
+      initials: 'LN',
+      email: 'lucas.nguyen@planora.com',
+      avatarColor: '#10b981'
+    },
+    {
+      id: 'aisha-khan',
+      name: 'Aisha Khan',
+      initials: 'AK',
+      email: 'aisha.khan@planora.com',
+      avatarColor: '#8b5cf6'
+    }
   ];
   readonly statusOptions: Array<{ value: TaskStatus | string; label: string; color: string }> = [
     { value: 'On Track', label: 'On Track', color: '#22c55e' },
@@ -47,11 +87,13 @@ export class ListViewComponent implements OnInit, OnDestroy {
     { value: 'In Progress', label: 'In Progress', color: '#0ea5e9' },
     { value: 'To Do', label: 'To Do', color: '#94a3b8' }
   ];
-  readonly assigneeItems: DropdownPopoverItem[] = this.teamMembers.map(member => ({
+  readonly assigneeItems: DropdownPopoverItem<TeamMember>[] = this.teamMembers.map(member => ({
     id: member.name,
     label: member.name,
     description: member.email,
     avatarText: member.initials,
+    avatarUrl: member.avatarUrl ?? undefined,
+    avatarColor: member.avatarColor,
     data: member
   }));
   readonly priorityItems: DropdownPopoverItem[] = [
@@ -253,14 +295,14 @@ export class ListViewComponent implements OnInit, OnDestroy {
   }
 
   /** Reusable handler for dropdown-popover selection for assignee */
-  handleAssigneeSelect(section: TaskSection, task: Task, item: DropdownPopoverItem): void {
+  handleAssigneeSelect(section: TaskSection, task: Task, item: DropdownPopoverItem<TeamMember>): void {
     if (!this.currentProjectId) {
       return;
     }
 
-    const member = (item.data as { name: string; initials: string }) ?? this.teamMembers.find(m => m.name === item.id);
+    const member = item.data ?? this.teamMembers.find(m => m.name === item.label);
     const assignee = member?.name ?? item.label;
-    const initials = member?.initials ?? item.label.substring(0, 2).toUpperCase();
+    const initials = member?.initials ?? this.getAvatarInitials(assignee);
 
     const update = {
       assignee,
@@ -323,6 +365,26 @@ export class ListViewComponent implements OnInit, OnDestroy {
       return assignee.substring(0, 2).toUpperCase();
     }
     return parts.map(part => part.charAt(0)).join('').substring(0, 2).toUpperCase();
+  }
+
+  getAssigneeInitials(assignee: string | undefined): string {
+    const member = this.findTeamMember(assignee);
+    return member?.initials ?? this.getAvatarInitials(assignee);
+  }
+
+  getAssigneeAvatar(assignee: string | undefined): string | null {
+    return this.findTeamMember(assignee)?.avatarUrl ?? null;
+  }
+
+  getAssigneeColor(assignee: string | undefined): string | undefined {
+    return this.findTeamMember(assignee)?.avatarColor;
+  }
+
+  private findTeamMember(assignee: string | undefined): TeamMember | undefined {
+    if (!assignee) {
+      return undefined;
+    }
+    return this.teamMembers.find(member => member.name === assignee || member.id === assignee);
   }
 
   /** Map a status code to its theme color for pills and popover */

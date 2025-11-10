@@ -47,7 +47,8 @@
     <mat-card class="table-card modern-card">
       <mat-card-content>
         <div class="table-wrapper">
-          <table mat-table [dataSource]="teamMembers" class="team-table">
+          <div class="table-scroll">
+            <table mat-table [dataSource]="teamMembers" class="team-table">
             
             <!-- Member Column -->
             <ng-container matColumnDef="member">
@@ -59,9 +60,13 @@
               </th>
               <td mat-cell *matCellDef="let member">
                 <div class="member-cell">
-                  <div class="member-avatar" [style.background]="'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
-                    {{ member.avatar }}
-                  </div>
+                  <app-avatar
+                    size="md"
+                    [src]="member.avatarUrl"
+                    [initials]="member.avatarInitials"
+                    [color]="member.avatarColor"
+                    [alt]="member.name"
+                  ></app-avatar>
                   <div class="member-info">
                     <div class="member-name">{{ member.name }}</div>
                     <div class="member-status" [ngClass]="getStatusColor(member.status)">
@@ -174,6 +179,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
           </table>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

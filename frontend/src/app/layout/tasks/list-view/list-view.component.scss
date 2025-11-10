@@ -271,6 +271,10 @@ $subtext: #64748b;
       cursor: pointer;
       transition: background 0.2s ease;
 
+      app-avatar {
+        flex-shrink: 0;
+      }
+
       &:hover {
         background: rgba(37, 99, 235, 0.08);
       }
@@ -294,19 +298,6 @@ $subtext: #64748b;
       white-space: nowrap;
     }
 
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      color: #fff;
-      font-size: 12px;
-    }
-
   }
 
   .assignee-menu--wide {
@@ -317,10 +308,8 @@ $subtext: #64748b;
     .assignee-menu__item {
       padding: 12px 16px;
 
-      .avatar--menu {
-        width: 32px;
-        height: 32px;
-        font-size: 13px;
+      app-avatar {
+        flex-shrink: 0;
       }
 
       .assignee-menu__details {

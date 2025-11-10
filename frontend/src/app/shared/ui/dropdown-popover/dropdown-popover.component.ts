@@ -16,6 +16,7 @@ export interface DropdownPopoverItem<T = unknown> {
   description?: string;
   avatarText?: string;
   avatarUrl?: string;
+  avatarColor?: string;
   color?: string;
   data?: T;
 }
@@ -70,6 +71,19 @@ export class DropdownPopoverComponent<T = unknown> {
       item.label.toLowerCase().includes(term) ||
       (item.description?.toLowerCase().includes(term) ?? false)
     );
+  }
+
+  getItemInitials(item: DropdownPopoverItem): string {
+    const source = item.avatarText || item.label;
+    const parts = source.split(' ').filter(Boolean);
+    if (!parts.length) {
+      return source.substring(0, 2).toUpperCase();
+    }
+    return parts
+      .map(segment => segment.charAt(0))
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
   }
 
   toggle(): void {

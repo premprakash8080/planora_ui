@@ -1,0 +1,15 @@
+<ng-container *ngIf="src; else initialsTemplate">
+  <img
+    class="app-avatar__image"
+    [src]="src"
+    [attr.alt]="alt || initials"
+    loading="lazy"
+  >
+</ng-container>
+
+<ng-template #initialsTemplate>
+  <span class="app-avatar__initials" aria-hidden="true">
+    {{ initials || (alt ? alt[0] : '?') }}
+  </span>
+</ng-template>
+

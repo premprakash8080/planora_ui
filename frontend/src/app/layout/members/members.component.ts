@@ -7,6 +7,9 @@ interface Member {
   role: 'Developer' | 'Designer' | 'Manager' | 'QA' | 'DevOps';
   projectsAssigned: number;
   status: 'Active' | 'Inactive';
+  avatarUrl?: string;
+  avatarColor: string;
+  initials: string;
 }
 
 @Component({
@@ -21,15 +24,81 @@ export class MembersComponent implements OnInit {
   selectedStatus: 'All' | Member['status'] = 'All';
 
   members: Member[] = [
-    { id: '1', name: 'Sarah Johnson', role: 'Developer', projectsAssigned: 5, status: 'Active' },
-    { id: '2', name: 'Michael Chen', role: 'Developer', projectsAssigned: 4, status: 'Active' },
-    { id: '3', name: 'Emily Rodriguez', role: 'Designer', projectsAssigned: 3, status: 'Active' },
-    { id: '4', name: 'David Kim', role: 'DevOps', projectsAssigned: 2, status: 'Inactive' },
-    { id: '5', name: 'Lisa Anderson', role: 'Manager', projectsAssigned: 6, status: 'Active' },
-    { id: '6', name: 'James Wilson', role: 'QA', projectsAssigned: 4, status: 'Active' },
-    { id: '7', name: 'Priya Patel', role: 'Designer', projectsAssigned: 2, status: 'Inactive' },
-    { id: '8', name: 'Oliver Brown', role: 'Developer', projectsAssigned: 5, status: 'Active' }
+    {
+      id: '1',
+      name: 'Sarah Johnson',
+      avatarUrl: 'assets/img/pic_rounded.svg',
+      initials: 'SJ',
+      avatarColor: '#6C5CE7',
+      role: 'Developer',
+      projectsAssigned: 5,
+      status: 'Active'
+    },
+    {
+      id: '2',
+      name: 'Michael Chen',
+      initials: 'MC',
+      avatarColor: '#00B894',
+      role: 'Developer',
+      projectsAssigned: 4,
+      status: 'Active'
+    },
+    {
+      id: '3',
+      name: 'Emily Rodriguez',
+      initials: 'ER',
+      avatarColor: '#0984E3',
+      role: 'Designer',
+      projectsAssigned: 3,
+      status: 'Active'
+    },
+    {
+      id: '4',
+      name: 'David Kim',
+      initials: 'DK',
+      avatarColor: '#E17055',
+      role: 'DevOps',
+      projectsAssigned: 2,
+      status: 'Inactive'
+    },
+    {
+      id: '5',
+      name: 'Lisa Anderson',
+      initials: 'LA',
+      avatarColor: '#6C5CE7',
+      role: 'Manager',
+      projectsAssigned: 6,
+      status: 'Active'
+    },
+    {
+      id: '6',
+      name: 'James Wilson',
+      initials: 'JW',
+      avatarColor: '#D63031',
+      role: 'QA',
+      projectsAssigned: 4,
+      status: 'Active'
+    },
+    {
+      id: '7',
+      name: 'Priya Patel',
+      initials: 'PP',
+      avatarColor: '#E84393',
+      role: 'Designer',
+      projectsAssigned: 2,
+      status: 'Inactive'
+    },
+    {
+      id: '8',
+      name: 'Oliver Brown',
+      initials: 'OB',
+      avatarColor: '#00CEC9',
+      role: 'Developer',
+      projectsAssigned: 5,
+      status: 'Active'
+    }
   ];
+  
 
   displayedMembers: Member[] = [];
   displayedColumns: string[] = ['name', 'role', 'projectsAssigned', 'status'];

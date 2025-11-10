@@ -13,7 +13,9 @@ import { Component, OnInit } from '@angular/core';
 export interface TeamMember {
   id: string;
   name: string;
-  avatar: string;
+  avatarInitials: string;
+  avatarColor?: string;
+  avatarUrl?: string;
   role: string;
   tasksCompleted: number;
   tasksAssigned: number;
@@ -85,7 +87,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '1',
       name: 'Sarah Johnson',
-      avatar: 'SJ',
+      avatarInitials: 'SJ',
+      avatarColor: '#2563eb',
       role: 'Frontend Developer',
       tasksCompleted: 45,
       tasksAssigned: 50,
@@ -96,7 +99,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '2',
       name: 'Michael Chen',
-      avatar: 'MC',
+      avatarInitials: 'MC',
+      avatarColor: '#db2777',
       role: 'Backend Developer',
       tasksCompleted: 38,
       tasksAssigned: 42,
@@ -107,7 +111,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '3',
       name: 'Emily Rodriguez',
-      avatar: 'ER',
+      avatarInitials: 'ER',
+      avatarColor: '#f97316',
       role: 'UI/UX Designer',
       tasksCompleted: 32,
       tasksAssigned: 35,
@@ -118,7 +123,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '4',
       name: 'David Kim',
-      avatar: 'DK',
+      avatarInitials: 'DK',
+      avatarColor: '#10b981',
       role: 'Full Stack Developer',
       tasksCompleted: 42,
       tasksAssigned: 48,
@@ -129,7 +135,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '5',
       name: 'Lisa Anderson',
-      avatar: 'LA',
+      avatarInitials: 'LA',
+      avatarColor: '#8b5cf6',
       role: 'Project Manager',
       tasksCompleted: 28,
       tasksAssigned: 30,
@@ -140,7 +147,8 @@ export class TeamPerformanceComponent implements OnInit {
     {
       id: '6',
       name: 'James Wilson',
-      avatar: 'JW',
+      avatarInitials: 'JW',
+      avatarColor: '#0ea5e9',
       role: 'QA Engineer',
       tasksCompleted: 35,
       tasksAssigned: 40,

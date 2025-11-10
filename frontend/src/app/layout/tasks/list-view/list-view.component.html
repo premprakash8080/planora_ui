@@ -97,12 +97,16 @@
                   class="assignee-trigger"
                   appDropdownTrigger
                 >
-                  <div class="avatar">
-                    {{ getAvatarInitials(task.assignee) }}
-                  </div>
-                  <span class="assignee-name" [title]="task.assignee">{{
-                    task.assignee
-                  }}</span>
+                  <app-avatar
+                    size="sm"
+                    [src]="getAssigneeAvatar(task.assignee)"
+                    [initials]="getAssigneeInitials(task.assignee)"
+                    [color]="getAssigneeColor(task.assignee)"
+                    [alt]="task.assignee || 'Unassigned'"
+                  ></app-avatar>
+                  <span class="assignee-name" [title]="task.assignee || 'Unassigned'">
+                    {{ task.assignee || 'Unassigned' }}
+                  </span>
                   <mat-icon class="assignee-expand">expand_more</mat-icon>
                 </button>
               </app-dropdown-popover>

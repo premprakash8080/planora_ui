@@ -49,8 +49,13 @@
               (click)="onSelect(item)"
             >
               <div class="dropdown-popover__avatar" *ngIf="item.avatarUrl || item.avatarText">
-                <img *ngIf="item.avatarUrl; else initials" [src]="item.avatarUrl" [alt]="item.label" />
-                <ng-template #initials>{{ item.avatarText }}</ng-template>
+                <app-avatar
+                  size="sm"
+                  [src]="item.avatarUrl"
+                  [initials]="getItemInitials(item)"
+                  [color]="item.avatarColor"
+                  [alt]="item.label"
+                ></app-avatar>
               </div>
 
               <div class="dropdown-popover__color" *ngIf="item.color && !item.avatarUrl && !item.avatarText" [style.background]="item.color"></div>

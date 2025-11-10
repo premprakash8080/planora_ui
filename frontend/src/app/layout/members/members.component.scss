@@ -29,40 +29,46 @@
   }
 }
 
-.member-name {
+.members-table {
+  table {
+    width: 100%;
+  }
+
+  th.mat-header-cell {
+    font-size: tokens.font-size(xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-subtle);
+  }
+}
+
+.member-cell {
   display: flex;
   align-items: center;
   gap: tokens.space(3);
+  min-height: 48px;
 
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: tokens.font-size(md);
+  app-avatar {
+    flex-shrink: 0;
   }
+}
 
-  .name-role {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+.member-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-    .name {
-      font-weight: 600;
-      color: var(--color-text-heading);
-    }
+.member-name {
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
 
-    .role {
-      font-size: tokens.font-size(xs);
-      color: var(--color-text-subtle);
-      text-transform: capitalize;
-    }
-  }
+.member-role {
+  font-size: tokens.font-size(xs);
+  color: var(--color-text-subtle);
+  text-transform: capitalize;
 }
 
 .status-badge {
