@@ -15,7 +15,7 @@ export class DashboardScheduleComponent implements OnInit {
   isSidenavOpen = false;
   @Input()
   showIcon: boolean = false;
-  mobileQueryForSideNav: MediaQueryList;
+  mobileQueryForSideNav?: MediaQueryList;
   events: string[] = [];
   opened: boolean | undefined;
   events1: string[] = [];
@@ -46,10 +46,19 @@ export class DashboardScheduleComponent implements OnInit {
   openQuickpanel(): void {
     this.layoutService.openDashboardSchedulePanel();
   }
-  private _mobileQueryListener: () => void;
+  private _mobileQueryListener?: () => void;
 
   ngOnDestroy(): void {
-    this.mobileQueryForSideNav.removeListener(this._mobileQueryListener);
+    if (this.mobileQueryForSideNav && this._mobileQueryListener) {
+      if ('removeEventListener' in this.mobileQueryForSideNav) {
+        this.mobileQueryForSideNav.removeEventListener('change', this._mobileQueryListener);
+      } else {
+        const legacyQuery = this.mobileQueryForSideNav as MediaQueryList & {
+          removeListener?: (listener: (event: MediaQueryListEvent) => void) => void;
+        };
+        legacyQuery.removeListener?.(this._mobileQueryListener as (event: MediaQueryListEvent) => void);
+      }
+    }
   }
 
   openCloseSideBar() {

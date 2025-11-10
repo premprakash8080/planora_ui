@@ -27,38 +27,43 @@
       (click)="$event.stopPropagation()"
     >
       <div class="dropdown-popover__inner">
-        <div class="dropdown-popover__search" *ngIf="hasSearch">
-          <mat-icon>search</mat-icon>
-          <input
-            type="search"
-            [placeholder]="searchPlaceholder"
-            [(ngModel)]="searchTerm"
-          />
-        </div>
+        <ng-container *ngIf="hasCustomContent; else defaultList">
+          <ng-container *ngTemplateOutlet="dropdownContent?.template"></ng-container>
+        </ng-container>
+        <ng-template #defaultList>
+          <div class="dropdown-popover__search" *ngIf="hasSearch">
+            <mat-icon>search</mat-icon>
+            <input
+              type="search"
+              [placeholder]="searchPlaceholder"
+              [(ngModel)]="searchTerm"
+            />
+          </div>
 
-        <div class="dropdown-popover__list" [style.maxHeight.px]="hasSearch ? maxHeight - 56 : maxHeight">
-          <button
-            type="button"
-            class="dropdown-popover__item"
-            *ngFor="let item of filteredItems"
-            [class.dropdown-popover__item--selected]="item.id === selectedId"
-            (click)="onSelect(item)"
-          >
-            <div class="dropdown-popover__avatar" *ngIf="item.avatarUrl || item.avatarText">
-              <img *ngIf="item.avatarUrl; else initials" [src]="item.avatarUrl" [alt]="item.label" />
-              <ng-template #initials>{{ item.avatarText }}</ng-template>
-            </div>
+          <div class="dropdown-popover__list" [style.maxHeight.px]="hasSearch ? maxHeight - 56 : maxHeight">
+            <button
+              type="button"
+              class="dropdown-popover__item"
+              *ngFor="let item of filteredItems"
+              [class.dropdown-popover__item--selected]="item.id === selectedId"
+              (click)="onSelect(item)"
+            >
+              <div class="dropdown-popover__avatar" *ngIf="item.avatarUrl || item.avatarText">
+                <img *ngIf="item.avatarUrl; else initials" [src]="item.avatarUrl" [alt]="item.label" />
+                <ng-template #initials>{{ item.avatarText }}</ng-template>
+              </div>
 
-            <div class="dropdown-popover__color" *ngIf="item.color && !item.avatarUrl && !item.avatarText" [style.background]="item.color"></div>
+              <div class="dropdown-popover__color" *ngIf="item.color && !item.avatarUrl && !item.avatarText" [style.background]="item.color"></div>
 
-            <div class="dropdown-popover__details">
-              <span class="dropdown-popover__label">{{ item.label }}</span>
-              <span class="dropdown-popover__description" *ngIf="item.description">{{ item.description }}</span>
-            </div>
+              <div class="dropdown-popover__details">
+                <span class="dropdown-popover__label">{{ item.label }}</span>
+                <span class="dropdown-popover__description" *ngIf="item.description">{{ item.description }}</span>
+              </div>
 
-            <mat-icon class="dropdown-popover__check" *ngIf="item.id === selectedId">check</mat-icon>
-          </button>
-        </div>
+              <mat-icon class="dropdown-popover__check" *ngIf="item.id === selectedId">check</mat-icon>
+            </button>
+          </div>
+        </ng-template>
       </div>
     </div>
   </ng-template>

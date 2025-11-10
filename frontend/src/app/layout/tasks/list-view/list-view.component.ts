@@ -2,8 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { DropdownPopoverItem } from '../../../shared/ui/dropdown-popover/dropdown-popover.component';
+import { DropdownPopoverComponent, DropdownPopoverItem } from '../../../shared/ui/dropdown-popover/dropdown-popover.component';
 import { Subject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { Task, TaskPriority, TaskSection, TaskStatus } from '../task.model';
@@ -242,15 +241,15 @@ export class ListViewComponent implements OnInit, OnDestroy {
   }
 
   /** Update due date and close the menu when a calendar date is picked */
-  handleDueDateChange(section: TaskSection, task: Task, date: Date | null, trigger: MatMenuTrigger): void {
+  handleDueDateChange(section: TaskSection, task: Task, date: Date | null, popover?: DropdownPopoverComponent): void {
     if (!this.currentProjectId || !date) {
-      trigger?.closeMenu();
+      popover?.close();
       return;
     }
 
     const normalized = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
     this.taskService.updateTask(this.currentProjectId, section.id, task.id, { dueDate: normalized });
-    trigger?.closeMenu();
+    popover?.close();
   }
 
   /** Reusable handler for dropdown-popover selection for assignee */

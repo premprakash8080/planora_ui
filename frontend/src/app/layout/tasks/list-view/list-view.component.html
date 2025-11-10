@@ -1,12 +1,10 @@
-<div class="page-container task-board">
+<div class="page-container task-board task-board--sheet">
   <header class="task-board__header">
     <div>
       <h1>
-       
         <!-- Project Name -->
         <span class="project-name">{{ currentProjectName }}</span>
       </h1>
-   
     </div>
 
     <!-- <div class="task-board__actions">
@@ -34,122 +32,171 @@
       <div class="header-cell header-cell--comments">Comments</div>
     </div>
 
-    <div class="task-section" *ngFor="let section of sections">
-      <button class="section-header" type="button" (click)="toggleSection(section)">
-        <mat-icon class="chevron" [class.expanded]="section.expanded">expand_more</mat-icon>
-        <span class="section-title">{{ section.title }}</span>
-        <span class="task-count">{{ section.tasks.length }} tasks</span>
-      </button>
-
-      <div class="section-body" *ngIf="section.expanded">
-        <div
-          class="task-grid-row"
-          *ngFor="let task of section.tasks"
-          (click)="openTaskDetail(section, task)"
-          [class.task-grid-row--selected]="selectedTask?.id === task.id"
+    <!-- scroll start from here this hole section is scrollable -->
+    <div class="task-list-scroll">
+      <div class="task-section" *ngFor="let section of sections">
+        <button
+          class="section-header"
+          type="button"
+          (click)="toggleSection(section)"
         >
-          <div class="grid-cell grid-cell--name" (click)="$event.stopPropagation()">
-            <div class="grid-name-wrapper">
-              <mat-checkbox
-                color="primary"
-                [checked]="task.completed"
-                (change)="toggleCompleted(section, task)"
-                (click)="$event.stopPropagation()"
-              ></mat-checkbox>
-              <input
-                class="task-grid-name"
-                [ngModel]="nameDrafts.get(task.id) ?? task.name"
-                (ngModelChange)="onNameInput(task, $event)"
-                [style.width.px]="getTaskNameWidth(task)"
-                (focus)="handleNameFocus(task)"
-                (blur)="handleNameBlur(section, task, $any($event.target))"
-                (keydown.enter)="handleNameEnter($event, section, task, $any($event.target))"
-                (keydown.escape)="handleNameEscape(task, $any($event.target))"
-              />
+          <mat-icon class="chevron" [class.expanded]="section.expanded"
+            >expand_more</mat-icon
+          >
+          <span class="section-title">{{ section.title }}</span>
+          <span class="task-count">{{ section.tasks.length }} tasks</span>
+        </button>
+
+        <div class="section-body" *ngIf="section.expanded">
+          <div
+            class="task-grid-row"
+            *ngFor="let task of section.tasks"
+            (click)="openTaskDetail(section, task)"
+            [class.task-grid-row--selected]="selectedTask?.id === task.id"
+          >
+            <div
+              class="grid-cell grid-cell--name"
+              (click)="$event.stopPropagation()"
+            >
+              <div class="grid-name-wrapper">
+                <mat-checkbox
+                  color="primary"
+                  [checked]="task.completed"
+                  (change)="toggleCompleted(section, task)"
+                  (click)="$event.stopPropagation()"
+                ></mat-checkbox>
+                <input
+                  class="task-grid-name"
+                  [ngModel]="nameDrafts.get(task.id) ?? task.name"
+                  (ngModelChange)="onNameInput(task, $event)"
+                  [style.width.px]="getTaskNameWidth(task)"
+                  (focus)="handleNameFocus(task)"
+                  (blur)="handleNameBlur(section, task, $any($event.target))"
+                  (keydown.enter)="
+                    handleNameEnter($event, section, task, $any($event.target))
+                  "
+                  (keydown.escape)="handleNameEscape(task, $any($event.target))"
+                />
+              </div>
+            </div>
+
+            <div
+              class="grid-cell grid-cell--assignee"
+              (click)="$event.stopPropagation()"
+            >
+              <app-dropdown-popover
+                [items]="assigneeItems"
+                [selectedId]="task.assignee ?? null"
+                [width]="520"
+                [maxHeight]="320"
+                [hasSearch]="true"
+                (select)="handleAssigneeSelect(section, task, $event)"
+              >
+                <button
+                  type="button"
+                  class="assignee-trigger"
+                  appDropdownTrigger
+                >
+                  <div class="avatar">
+                    {{ getAvatarInitials(task.assignee) }}
+                  </div>
+                  <span class="assignee-name" [title]="task.assignee">{{
+                    task.assignee
+                  }}</span>
+                  <mat-icon class="assignee-expand">expand_more</mat-icon>
+                </button>
+              </app-dropdown-popover>
+            </div>
+
+            <div
+              class="grid-cell grid-cell--due"
+              (click)="$event.stopPropagation()"
+            >
+              <app-dropdown-popover
+                #dueDatePopover="appDropdownPopover"
+                [width]="360"
+                [maxHeight]="400"
+              >
+                <button
+                  type="button"
+                  class="due-date-trigger"
+                  appDropdownTrigger
+                >
+                  <mat-icon>calendar_today</mat-icon>
+                  <span>{{ formatDueDate(task.dueDate) }}</span>
+                  <mat-icon>expand_more</mat-icon>
+                </button>
+
+                <ng-template appDropdownContent>
+                  <app-calendar
+                    [selected]="getDueDate(task)"
+                    (dateChange)="handleDueDateChange(section, task, $event, dueDatePopover)"
+                    (cancel)="dueDatePopover.close()"
+                  ></app-calendar>
+                </ng-template>
+              </app-dropdown-popover>
+            </div>
+
+            <div class="grid-cell grid-cell--priority">
+              <app-dropdown-popover
+                [items]="priorityItems"
+                [selectedId]="task.priority"
+                [width]="240"
+                (select)="handlePrioritySelect(section, task, $event)"
+              >
+                <button
+                  type="button"
+                  class="priority-trigger"
+                  appDropdownTrigger
+                >
+                  <span
+                    class="priority-pill"
+                    [ngClass]="task.priority.toLowerCase()"
+                  >
+                    {{ task.priority }}
+                  </span>
+                  <mat-icon class="priority-expand">expand_more</mat-icon>
+                </button>
+              </app-dropdown-popover>
+            </div>
+
+            <div
+              class="grid-cell grid-cell--status"
+              (click)="$event.stopPropagation()"
+            >
+              <app-dropdown-popover
+                [items]="statusItems"
+                [selectedId]="task.status"
+                [width]="260"
+                (select)="handleStatusSelect(section, task, $event)"
+              >
+                <button type="button" class="status-trigger" appDropdownTrigger>
+                  <span
+                    class="status-dot"
+                    [style.backgroundColor]="getStatusColor(task.status)"
+                  ></span>
+                  {{ getStatusLabel(task.status) }}
+                  <mat-icon>expand_more</mat-icon>
+                </button>
+              </app-dropdown-popover>
+            </div>
+
+            <div class="grid-cell grid-cell--comments">
+              <mat-icon>chat_bubble_outline</mat-icon>
+              <span>{{
+                task.comments?.length ?? task.commentsCount ?? 0
+              }}</span>
             </div>
           </div>
 
-          <div class="grid-cell grid-cell--assignee" (click)="$event.stopPropagation()">
-            <app-dropdown-popover
-              [items]="assigneeItems"
-              [selectedId]="task.assignee ?? null"
-              [width]="520"
-              [maxHeight]="320"
-              [hasSearch]="true"
-              (select)="handleAssigneeSelect(section, task, $event)"
-            >
-              <button type="button" class="assignee-trigger" appDropdownTrigger>
-                <div class="avatar">{{ getAvatarInitials(task.assignee) }}</div>
-                <span class="assignee-name" [title]="task.assignee">{{ task.assignee }}</span>
-                <mat-icon class="assignee-expand">expand_more</mat-icon>
-              </button>
-            </app-dropdown-popover>
-          </div>
-
-          <div class="grid-cell grid-cell--due" (click)="$event.stopPropagation()">
-            <button
-              mat-stroked-button
-              type="button"
-              [matMenuTriggerFor]="dueDateMenu"
-              #dueDateTrigger="matMenuTrigger"
-              class="due-date-trigger"
-            >
-              <mat-icon>calendar_today</mat-icon>
-              <span>{{ formatDueDate(task.dueDate) }}</span>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-            <mat-menu #dueDateMenu="matMenu" class="due-date-menu">
-              <app-calendar
-                [selected]="getDueDate(task)"
-                (dateChange)="handleDueDateChange(section, task, $event, dueDateTrigger)"
-                (cancel)="dueDateTrigger.closeMenu()"
-              ></app-calendar>
-            </mat-menu>
-          </div>
-
-          <div class="grid-cell grid-cell--priority">
-            <app-dropdown-popover
-              [items]="priorityItems"
-              [selectedId]="task.priority"
-              [width]="240"
-              (select)="handlePrioritySelect(section, task, $event)"
-            >
-              <button type="button" class="priority-trigger" appDropdownTrigger>
-                <span class="priority-pill" [ngClass]="task.priority.toLowerCase()">
-                  {{ task.priority }}
-                </span>
-                <mat-icon class="priority-expand">expand_more</mat-icon>
-              </button>
-            </app-dropdown-popover>
-          </div>
-
-          <div class="grid-cell grid-cell--status" (click)="$event.stopPropagation()">
-            <app-dropdown-popover
-              [items]="statusItems"
-              [selectedId]="task.status"
-              [width]="260"
-              (select)="handleStatusSelect(section, task, $event)"
-            >
-              <button type="button" class="status-trigger" appDropdownTrigger>
-                <span class="status-dot" [style.backgroundColor]="getStatusColor(task.status)"></span>
-                {{ getStatusLabel(task.status) }}
-                <mat-icon>expand_more</mat-icon>
-              </button>
-            </app-dropdown-popover>
-          </div>
-
-          <div class="grid-cell grid-cell--comments">
-            <mat-icon>chat_bubble_outline</mat-icon>
-            <span>{{ task.comments?.length ?? task.commentsCount ?? 0 }}</span>
-          </div>
+          <button class="add-task" type="button" (click)="addTask(section)">
+            <mat-icon>add</mat-icon>
+            Add task…
+          </button>
         </div>
-
-        <button class="add-task" type="button" (click)="addTask(section)">
-          <mat-icon>add</mat-icon>
-          Add task…
-        </button>
       </div>
     </div>
+    <!-- scroll end here this hole section is scrollable -->
   </section>
 </div>
 
@@ -170,4 +217,3 @@
   (close)="closeDetail()"
   (taskUpdated)="handleTaskUpdated($event)"
 ></app-task-detail>
-

@@ -126,7 +126,7 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
     {
       id: 'section-3',
       title: 'Client Issues (6th August 2024)',
-      expanded: false,
+      expanded: true,
       tasks: [
         {
           id: 't5',
@@ -167,7 +167,154 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
           status: 'To Do',
           commentsCount: 2,
           completed: false
-        }
+        },
+        {
+          id: 't9',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't10',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't11',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't12',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't13',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        } 
+      ]
+    },
+    {
+      id: 'section-3',
+      title: 'Client Issues (6th August 2024)',
+      expanded: true,
+      tasks: [
+        {
+          id: 't5',
+          name: 'Update API Documentation',
+          assignee: 'Michael Chen',
+          dueDate: '2025-11-18',
+          priority: 'Medium',
+          status: 'To Do',
+          commentsCount: 1,
+          completed: false
+        },
+        {
+          id: 't6',
+          name: 'Implement Feature Flags',
+          assignee: 'Aisha Khan',
+          dueDate: '2025-11-22',
+          priority: 'High',
+          status: 'In Progress',
+          commentsCount: 6,
+          completed: false
+        },
+        {
+          id: 't7',
+          name: 'QA Regression Suite',
+          assignee: 'Emily Rodriguez',
+          dueDate: '2025-11-15',
+          priority: 'Medium',
+          status: 'To Do',
+          commentsCount: 4,
+          completed: false
+        },
+        {
+          id: 't8',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't9',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't10',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't11',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't12',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        },
+        {
+          id: 't13',
+          name: 'Marketing Launch Plan',
+          assignee: 'Oliver Brown',
+          dueDate: '2025-11-30',
+          priority: 'High',
+          status: 'To Do',
+          commentsCount: 2,
+          completed: false
+        } 
       ]
     }
   ],

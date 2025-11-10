@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
   EventEmitter,
   HostListener,
   Input,
   Output
 } from '@angular/core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
+import { DropdownContentDirective } from './dropdown-content.directive';
 
 export interface DropdownPopoverItem<T = unknown> {
   id: string;
@@ -23,6 +25,7 @@ export interface DropdownPopoverItem<T = unknown> {
   templateUrl: './dropdown-popover.component.html',
   styleUrls: ['./dropdown-popover.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'appDropdownPopover'
 })
 export class DropdownPopoverComponent<T = unknown> {
   @Input() items: DropdownPopoverItem<T>[] = [];
@@ -33,6 +36,8 @@ export class DropdownPopoverComponent<T = unknown> {
   @Input() searchPlaceholder = 'Search…';
 
   @Output() select = new EventEmitter<DropdownPopoverItem<T>>();
+
+  @ContentChild(DropdownContentDirective) dropdownContent?: DropdownContentDirective;
 
   readonly overlayPositions: ConnectedPosition[] = [
     {
@@ -53,6 +58,9 @@ export class DropdownPopoverComponent<T = unknown> {
 
   open = false;
   searchTerm = '';
+  get hasCustomContent(): boolean {
+    return !!this.dropdownContent;
+  }
   get filteredItems(): DropdownPopoverItem<T>[] {
     const term = this.searchTerm.trim().toLowerCase();
     if (!term) {

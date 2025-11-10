@@ -28,7 +28,12 @@ export class SidenavItemComponent implements OnInit, OnChanges {
 
   constructor(private router: Router,
     private cd: ChangeDetectorRef,
-    private navigationService: NavigationService) { }
+    private navigationService: NavigationService) { 
+
+    console.log('item', this.item);
+    }
+
+
 
   @HostBinding('class')
   get levelClass() {

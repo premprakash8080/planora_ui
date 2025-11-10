@@ -22,6 +22,7 @@ import { AppTableComponent } from './app-table/app-table.component';
 import { AppCalendarComponent } from './app-calendar/app-calendar.component';
 import { DropdownPopoverComponent } from './dropdown-popover/dropdown-popover.component';
 import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.directive';
+import { DropdownContentDirective } from './dropdown-popover/dropdown-content.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.di
     AppTableComponent,
     AppCalendarComponent,
     DropdownPopoverComponent,
-    DropdownTriggerDirective
+    DropdownTriggerDirective,
+    DropdownContentDirective
   ],
   imports: [
     CommonModule,
@@ -61,7 +63,8 @@ import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.di
     AppTableComponent,
     AppCalendarComponent,
     DropdownPopoverComponent,
-    DropdownTriggerDirective
+    DropdownTriggerDirective,
+    DropdownContentDirective
   ]
 })
 export class SharedUiModule {}

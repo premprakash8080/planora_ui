@@ -82,3 +82,9 @@
   }
 }
 
+:host-context(.dropdown-popover__panel) .app-calendar {
+  box-shadow: none;
+  border-radius: 0;
+  min-width: 0;
+}
+
