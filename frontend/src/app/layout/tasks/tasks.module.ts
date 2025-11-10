@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { ListViewComponent } from './list-view/list-view.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { SubtaskListComponent } from './task-detail/subtask-list/subtask-list.component';
 import { BoardViewComponent } from './board-view/board-view.component';
 import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 import { CalendarViewComponent } from './calendar-view/calendar-view.component';
@@ -32,7 +33,8 @@ import { SharedUiModule } from '../../shared/ui/ui.module';
     TimelineViewComponent,
     CalendarViewComponent,
     DashboardViewComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    SubtaskListComponent
   ],
   imports: [
     CommonModule,

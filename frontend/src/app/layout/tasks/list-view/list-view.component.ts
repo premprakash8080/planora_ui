@@ -40,6 +40,7 @@ export class ListViewComponent implements OnInit, OnDestroy {
   private currentProjectId: string | null = null;
   private selectedSectionId: string | null = null;
   private selectedTaskId: string | null = null;
+  private selectedParentTaskId: string | null = null;
   readonly nameDrafts = new Map<string, string>();
   readonly teamMembers: TeamMember[] = [
     {
@@ -160,13 +161,31 @@ export class ListViewComponent implements OnInit, OnDestroy {
 
         if (this.selectedSectionId && this.selectedTaskId) {
           const nextSection = sections.find(section => section.id === this.selectedSectionId);
-          const nextTask = nextSection?.tasks.find(task => task.id === this.selectedTaskId);
 
-          if (nextSection && nextTask) {
-            this.selectedSection = nextSection;
-            this.selectedTask = nextTask;
-          } else {
+          if (!nextSection) {
             this.closeDetail();
+            return;
+          }
+
+          if (this.selectedParentTaskId) {
+            const parentTask = nextSection.tasks.find(task => task.id === this.selectedParentTaskId);
+            const childTask = parentTask?.subtasks?.find(subtask => subtask.id === this.selectedTaskId);
+
+            if (parentTask && childTask) {
+              this.selectedSection = nextSection;
+              this.selectedTask = childTask;
+            } else {
+              this.closeDetail();
+            }
+          } else {
+            const nextTask = nextSection.tasks.find(task => task.id === this.selectedTaskId);
+
+            if (nextTask) {
+              this.selectedSection = nextSection;
+              this.selectedTask = nextTask;
+            } else {
+              this.closeDetail();
+            }
           }
         }
       });
@@ -469,6 +488,7 @@ export class ListViewComponent implements OnInit, OnDestroy {
   openTaskDetail(section: TaskSection, task: Task): void {
     this.selectedSectionId = section.id;
     this.selectedTaskId = task.id;
+    this.selectedParentTaskId = null;
     this.selectedSection = section;
     this.selectedTask = task;
   }
@@ -477,6 +497,7 @@ export class ListViewComponent implements OnInit, OnDestroy {
   closeDetail(): void {
     this.selectedSectionId = null;
     this.selectedTaskId = null;
+    this.selectedParentTaskId = null;
     this.selectedSection = null;
     this.selectedTask = null;
   }
@@ -486,7 +507,60 @@ export class ListViewComponent implements OnInit, OnDestroy {
     if (!this.currentProjectId || !this.selectedSectionId || !this.selectedTaskId) {
       return;
     }
-    this.taskService.updateTask(this.currentProjectId, this.selectedSectionId, this.selectedTaskId, changes);
+
+    if (this.selectedParentTaskId) {
+      this.taskService.updateSubtask(
+        this.currentProjectId,
+        this.selectedSectionId,
+        this.selectedParentTaskId,
+        this.selectedTaskId,
+        changes
+      );
+    } else {
+      this.taskService.updateTask(this.currentProjectId, this.selectedSectionId, this.selectedTaskId, changes);
+    }
+
+    if (this.selectedTask) {
+      const next: Task = {
+        ...this.selectedTask,
+        ...changes
+      };
+
+      if (changes.subtasks) {
+        next.subtasks = changes.subtasks;
+      }
+
+      if (changes.comments) {
+        next.comments = changes.comments;
+        next.commentsCount = changes.comments.length;
+      }
+
+      this.selectedTask = next;
+    }
+  }
+
+  handleSubtaskOpen(event: { parentTaskId: string; subtask: Task }): void {
+    if (!this.selectedSectionId) {
+      this.selectedSectionId = this.selectedSection?.id ?? null;
+    }
+
+    if (!this.selectedSectionId) {
+      return;
+    }
+
+    this.selectedParentTaskId = event.parentTaskId;
+    this.selectedTaskId = event.subtask.id;
+
+    const section = this.sections.find(item => item.id === this.selectedSectionId);
+    const parentTask = section?.tasks.find(task => task.id === event.parentTaskId);
+    const nextSubtask = parentTask?.subtasks?.find(task => task.id === event.subtask.id);
+
+    if (section && nextSubtask) {
+      this.selectedSection = section;
+      this.selectedTask = nextSubtask;
+    } else {
+      this.closeDetail();
+    }
   }
 
   /** Provide friendly name for breadcrumbs and title components */

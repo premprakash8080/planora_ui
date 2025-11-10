@@ -22,9 +22,9 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
           description: 'Finalize responsive login screens and states.',
           completed: false,
           subtasks: [
-            { id: 't1-1', title: 'Audit existing flows', completed: true },
-            { id: 't1-2', title: 'Create responsive wireframes', completed: false },
-            { id: 't1-3', title: 'Review with stakeholders', completed: false }
+            { id: 't1-1', name: 'Audit existing flows', completed: true, status: 'Done' },
+            { id: 't1-2', name: 'Create responsive wireframes', completed: false, status: 'In Progress' },
+            { id: 't1-3', name: 'Review with stakeholders', completed: false, status: 'To Do' }
           ],
           comments: [
             {
@@ -51,8 +51,8 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
           status: 'To Do',
           completed: false,
           subtasks: [
-            { id: 't2-1', title: 'Provision backup storage', completed: true },
-            { id: 't2-2', title: 'Configure nightly snapshot', completed: false }
+            { id: 't2-1', name: 'Provision backup storage', completed: true, status: 'Done' },
+            { id: 't2-2', name: 'Configure nightly snapshot', completed: false, status: 'To Do' }
           ],
           comments: [
             {
@@ -80,8 +80,8 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
           status: 'Done',
           completed: true,
           subtasks: [
-            { id: 't3-1', title: 'Recruit participants', completed: true },
-            { id: 't3-2', title: 'Synthesize findings', completed: true }
+            { id: 't3-1', name: 'Recruit participants', completed: true, status: 'Done' },
+            { id: 't3-2', name: 'Synthesize findings', completed: true, status: 'Done' }
           ],
           comments: [],
           commentsCount: 0
@@ -95,9 +95,9 @@ const PROJECT_SECTION_TEMPLATES: ProjectSectionsDictionary = {
           status: 'In Progress',
           completed: false,
           subtasks: [
-            { id: 't4-1', title: 'Define core metrics', completed: true },
-            { id: 't4-2', title: 'Design KPI widgets', completed: false },
-            { id: 't4-3', title: 'Implement drill-down view', completed: false }
+            { id: 't4-1', name: 'Define core metrics', completed: true, status: 'Done' },
+            { id: 't4-2', name: 'Design KPI widgets', completed: false, status: 'In Progress' },
+            { id: 't4-3', name: 'Implement drill-down view', completed: false, status: 'To Do' }
           ],
           comments: [
             {
@@ -585,7 +585,7 @@ export class TaskService {
           ...section,
           tasks: section.tasks.filter(task =>
             task.name.toLowerCase().includes(normalized) ||
-            task.assignee.toLowerCase().includes(normalized)
+            (task.assignee ?? '').toLowerCase().includes(normalized)
           )
         }))
       )
@@ -608,12 +608,13 @@ export class TaskService {
     }));
   }
 
-  private cloneTask(task: Task): Task {
-    const subtasks = task.subtasks?.map(subtask => ({ ...subtask })) ?? [];
+  private cloneTask(task: Task, parentId?: string): Task {
+    const subtasks = task.subtasks?.map(subtask => this.cloneTask(subtask, task.id)) ?? [];
     const comments = task.comments?.map(comment => ({ ...comment })) ?? [];
 
     return {
       ...task,
+      parentId: parentId ?? task.parentId ?? undefined,
       subtasks,
       comments,
       commentsCount: comments.length || task.commentsCount || 0
@@ -627,18 +628,52 @@ export class TaskService {
     };
 
     if (changes.subtasks) {
-      next.subtasks = changes.subtasks.map(subtask => ({ ...subtask }));
+      next.subtasks = changes.subtasks.map(subtask => this.cloneTask(subtask, next.id));
     }
 
     if (changes.comments) {
       next.comments = changes.comments.map(comment => ({ ...comment }));
-      next.commentsCount = changes.comments.length;
+      next.commentsCount = next.comments.length;
     }
 
-    if (changes.dueDate) {
+    if (changes.dueDate !== undefined) {
       next.dueDate = changes.dueDate;
     }
 
+    if (changes.assignee !== undefined) {
+      next.assignee = changes.assignee;
+    }
+
+    next.parentId = next.parentId ?? task.parentId ?? undefined;
+
     return next;
+  }
+
+  updateSubtask(projectId: string, sectionId: string, parentTaskId: string, subtaskId: string, changes: Partial<Task>): void {
+    const subject = this.getProjectSubject(projectId);
+    subject.next(
+      subject.value.map(section => {
+        if (section.id !== sectionId) {
+          return section;
+        }
+
+        return {
+          ...section,
+          tasks: section.tasks.map(task => {
+            if (task.id !== parentTaskId) {
+              return task;
+            }
+
+            const nextSubtasks = (task.subtasks ?? []).map(subtask =>
+              subtask.id === subtaskId
+                ? this.applyTaskChanges(subtask, { ...changes, parentId: parentTaskId })
+                : subtask
+            );
+
+            return this.applyTaskChanges(task, { subtasks: nextSubtasks });
+          })
+        };
+      })
+    );
   }
 }

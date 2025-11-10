@@ -1,12 +1,6 @@
 export type TaskStatus = 'To Do' | 'In Progress' | 'Done' | 'On Track' | 'At Risk' | 'Off Track';
 export type TaskPriority = 'Low' | 'Medium' | 'High';
 
-export interface TaskSubtask {
-  id: string;
-  title: string;
-  completed: boolean;
-}
-
 export interface TaskComment {
   id: string;
   author: string;
@@ -18,15 +12,16 @@ export interface TaskComment {
 export interface Task {
   id: string;
   name: string;
-  assignee: string;
+  assignee?: string;
   assigneeAvatar?: string;
-  dueDate: string;
-  priority: TaskPriority;
-  status: TaskStatus;
+  dueDate?: string;
+  priority?: TaskPriority;
+  status?: TaskStatus;
   description?: string;
   commentsCount?: number;
   completed?: boolean;
-  subtasks?: TaskSubtask[];
+  parentId?: string;
+  subtasks?: Task[];
   comments?: TaskComment[];
 }
 

@@ -35,6 +35,10 @@ const routes: Routes = [
         loadChildren: () => import("./layout/mails/mails.module").then((m) => m.MailsModule),
       },
       {
+        path: "inbox",
+        loadChildren: () => import("./layout/inbox/inbox.module").then((m) => m.InboxModule),
+      },
+      {
         path: "insights",
         loadChildren: () => import("./layout/insights/insights.module").then((m) => m.InsightsModule),
       },

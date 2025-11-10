@@ -36,10 +36,21 @@ export class MailViewComponent implements OnInit {
   }
 
   reply(): void {
-    this.router.navigate(['/mails/compose'], {
-      queryParams: {
-        to: this.mail?.senderEmail,
-        subject: this.mail ? `Re: ${this.mail.subject}` : 'Re:'
+    if (!this.mail) {
+      return;
+    }
+
+    const dialogRef = this.dialog.open<MailComposeComponent, MailComposeData, boolean>(MailComposeComponent, {
+      width: '600px',
+      data: {
+        to: this.mail.senderEmail,
+        subject: `Re: ${this.mail.subject}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(sent => {
+      if (sent) {
+        this.router.navigate(['/mails']);
       }
     });
   }

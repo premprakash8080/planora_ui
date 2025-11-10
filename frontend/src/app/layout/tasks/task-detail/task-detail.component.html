@@ -73,29 +73,19 @@
     <section class="task-detail__block">
       <header class="task-detail__section-header">
         <span>Subtasks</span>
-        <div class="task-detail__section-actions">
-          <input
-            class="task-detail__subtask-input"
-            [formControl]="newSubtaskControl"
-            (keydown.enter)="addSubtask(); $event.preventDefault()"
-            placeholder="Add subtask"
-          />
-          <button mat-stroked-button type="button" color="primary" (click)="addSubtask()" [disabled]="!newSubtaskControl.value.trim()">
-            Add
-          </button>
-        </div>
       </header>
 
-      <div class="task-detail__subtasks" *ngIf="(task.subtasks?.length ?? 0) > 0; else emptySubtasks">
-        <div class="task-detail__subtask" *ngFor="let subtask of task.subtasks">
-          <mat-checkbox [checked]="subtask.completed" (change)="toggleSubtask(subtask)">
-            {{ subtask.title }}
-          </mat-checkbox>
-        </div>
-      </div>
-      <ng-template #emptySubtasks>
-        <p class="task-detail__empty">No subtasks yet. Break the work into smaller steps to track progress.</p>
-      </ng-template>
+      <app-subtask-list
+        [subtasks]="task.subtasks ?? []"
+        [allowAssignee]="true"
+        [allowDueDate]="true"
+        (toggle)="handleSubtaskToggle($event)"
+        (nameChange)="handleSubtaskNameChange($event)"
+        (remove)="handleSubtaskRemove($event)"
+        (create)="handleSubtaskCreate($event)"
+        (open)="handleSubtaskOpen($event)"
+        (assigneeClick)="handleSubtaskOpen($event)"
+      ></app-subtask-list>
     </section>
 
     <section class="task-detail__block">

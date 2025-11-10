@@ -8,7 +8,6 @@ import { DashboardScheduleComponent } from './components/dashboard-schedule/dash
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotificationComponent } from 'src/@vex/layout/toolbar/notification/notification.component';
 import { ProfileComponent } from 'src/@vex/layout/toolbar/profile/profile.component';
-import { InboxComponent } from './components/inbox/inbox.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedUiModule } from '../../shared/ui/ui.module';
 
@@ -19,7 +18,6 @@ import { SharedUiModule } from '../../shared/ui/ui.module';
     DashboardComponent,
     ProfileComponent,
     NotificationComponent,
-    InboxComponent
   ],
   imports: [
     CommonModule,

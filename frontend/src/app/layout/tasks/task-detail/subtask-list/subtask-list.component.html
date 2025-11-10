@@ -1,0 +1,122 @@
+<div class="subtask-list">
+  <div class="subtask-list__items" #listContainer>
+    <ng-container *ngIf="(subtasks?.length ?? 0) > 0; else emptyState">
+      <div
+        class="subtask-row"
+        *ngFor="let subtask of subtasks ?? []"
+        [class.subtask-row--completed]="subtask.completed"
+        (click)="handleRowClick(subtask, $event)"
+      >
+        <div class="subtask-row__main">
+          <button
+            type="button"
+            class="subtask-row__drag"
+            (mousedown)="handleDragMouseDown($event)"
+            title="Drag to reorder"
+            aria-hidden="true"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+
+          <mat-checkbox
+            class="subtask-row__checkbox"
+            color="primary"
+            [checked]="subtask.completed"
+            (change)="handleToggle(subtask)"
+            (click)="$event.stopPropagation()"
+          ></mat-checkbox>
+
+          <input
+            class="subtask-row__input"
+            type="text"
+            [value]="getDraft(subtask)"
+            placeholder="Name this subtask"
+            (focus)="open.emit(subtask)"
+            (input)="handleNameInput(subtask, $any($event.target).value)"
+            (blur)="handleNameBlur(subtask)"
+            (keydown)="handleNameKeydown($event, subtask)"
+          />
+        </div>
+
+        <div class="subtask-row__meta">
+          <button
+            type="button"
+            class="subtask-row__assignee"
+            *ngIf="allowAssignee"
+            (click)="handleAssigneeClick(subtask, $event)"
+          >
+            <app-avatar
+              size="sm"
+              [initials]="getAssigneeInitials(subtask)"
+              [src]="subtask.assigneeAvatar"
+              [alt]="subtask.assignee || 'Assign'"
+            ></app-avatar>
+            <span
+              class="subtask-row__assignee-name"
+              *ngIf="subtask.assignee; else assigneePlaceholder"
+            >
+              {{ subtask.assignee }}
+            </span>
+            <ng-template #assigneePlaceholder>
+              <span class="subtask-row__assignee-placeholder">Assign</span>
+            </ng-template>
+          </button>
+
+          <button
+            type="button"
+            *ngIf="allowDueDate"
+            [ngClass]="getDueDateClass(subtask)"
+            (click)="handleDueDateOpen(subtask, $event)"
+          >
+            <mat-icon>event</mat-icon>
+            <span>{{ getDueDateLabel(subtask) }}</span>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="subtask-row__remove"
+          mat-icon-button
+          (click)="handleRemoveClick(subtask.id, $event)"
+          title="Remove subtask"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="subtask-list__empty">
+      <mat-icon>checklist_rtl</mat-icon>
+      <div>
+        <p class="subtask-list__empty-title">No subtasks yet</p>
+        <p class="subtask-list__empty-subtitle">
+          Break complex work into smaller, trackable pieces.
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="subtask-list__add">
+    <mat-icon>add</mat-icon>
+    <input
+      class="subtask-list__add-input"
+      type="text"
+      [formControl]="newSubtaskControl"
+      placeholder="Add subtask…"
+      (keydown)="handleAddKeydown($event)"
+    />
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="subtask-list__add-button"
+      (click)="handleCreateFromInput()"
+      [disabled]="!newSubtaskControl.value.trim()"
+    >
+      Add subtask
+    </button>
+  </div>
+</div>
+

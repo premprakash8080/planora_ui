@@ -134,49 +134,6 @@
   }
 }
 
-.task-detail__section-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.task-detail__subtask-input {
-  flex: 1;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: var(--radius-sm, 4px);
-  padding: 10px 12px;
-  font-size: 14px;
-  background: var(--color-surface, #ffffff);
-
-  &:focus {
-    outline: 2px solid rgba(37, 99, 235, 0.25);
-    border-color: var(--color-primary, #2563eb);
-  }
-}
-
-.task-detail__subtasks {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.task-detail__subtask {
-  display: flex;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.6);
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.task-detail__empty {
-  margin: 4px 0 0;
-  color: var(--color-text-subtle, #6b7280);
-  font-size: 13px;
-}
-
 .task-detail__comments {
   display: flex;
   flex-direction: column;

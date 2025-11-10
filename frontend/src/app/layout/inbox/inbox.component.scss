@@ -38,6 +38,22 @@
 .task-list {
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+  padding-right: tokens.space(1);
+}
+
+.task-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .task-list-item {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Task, TaskPriority, TaskStatus, TaskSubtask } from '../task.model';
+import { Task, TaskPriority, TaskStatus } from '../task.model';
 
 @Component({
   selector: 'app-task-detail',
@@ -18,17 +18,16 @@ export class TaskDetailComponent implements OnChanges {
 
   @Output() close = new EventEmitter<void>();
   @Output() taskUpdated = new EventEmitter<Partial<Task>>();
+  @Output() subtaskOpen = new EventEmitter<{ parentTaskId: string; subtask: Task }>();
 
   readonly titleControl = new FormControl<string>('', { nonNullable: true });
   readonly descriptionControl = new FormControl<string>('', { nonNullable: true });
-  readonly newSubtaskControl = new FormControl<string>('', { nonNullable: true });
   readonly commentControl = new FormControl<string>('', { nonNullable: true });
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['task'] && this.task) {
       this.titleControl.setValue(this.task.name ?? '', { emitEvent: false });
       this.descriptionControl.setValue(this.task.description ?? '', { emitEvent: false });
-      this.newSubtaskControl.setValue('', { emitEvent: false });
       this.commentControl.setValue('', { emitEvent: false });
     }
   }
@@ -106,36 +105,60 @@ export class TaskDetailComponent implements OnChanges {
     this.taskUpdated.emit({ status: next });
   }
 
-  toggleSubtask(subtask: TaskSubtask): void {
+  handleSubtaskToggle(id: string): void {
     if (!this.task) {
       return;
     }
     const subtasks = (this.task.subtasks ?? []).map(item =>
-      item.id === subtask.id ? { ...item, completed: !item.completed } : item
+      item.id === id ? { ...item, completed: !item.completed } : item
     );
     this.taskUpdated.emit({ subtasks });
   }
 
-  addSubtask(): void {
+  handleSubtaskNameChange(change: { id: string; name: string }): void {
     if (!this.task) {
       return;
     }
-    const value = this.newSubtaskControl.value.trim();
-    if (!value) {
+    const subtasks = (this.task.subtasks ?? []).map(item =>
+      item.id === change.id ? { ...item, name: change.name } : item
+    );
+    this.taskUpdated.emit({ subtasks });
+  }
+
+  handleSubtaskRemove(id: string): void {
+    if (!this.task) {
       return;
     }
+    const next = (this.task.subtasks ?? []).filter(item => item.id !== id);
+    this.taskUpdated.emit({ subtasks: next });
+  }
 
-    const nextSubtasks = [
+  handleSubtaskCreate(title: string): void {
+    if (!this.task) {
+      return;
+    }
+    const next: Task[] = [
       ...(this.task.subtasks ?? []),
       {
         id: `subtask-${Date.now()}`,
-        title: value,
-        completed: false
+        name: title,
+        assignee: '',
+        dueDate: undefined,
+        priority: 'Medium' as TaskPriority,
+        status: 'To Do' as TaskStatus,
+        completed: false,
+        subtasks: [],
+        parentId: this.task.id
       }
     ];
+    this.taskUpdated.emit({ subtasks: next });
+  }
 
-    this.taskUpdated.emit({ subtasks: nextSubtasks });
-    this.newSubtaskControl.setValue('', { emitEvent: false });
+  handleSubtaskOpen(subtask: Task): void {
+    if (!this.task) {
+      return;
+    }
+    this.subtaskOpen.emit({ parentTaskId: this.task.id, subtask });
   }
 
   addComment(): void {
