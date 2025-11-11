@@ -15,7 +15,8 @@ $primary-tint: color.scale($primary, $lightness: 65%);
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
+  max-width: 100vw;
   background: linear-gradient(180deg, color.change($primary, $alpha: 0.14) 0%, color.change($primary-tint, $alpha: 0.08) 100%);
   border-radius: 24px;
   border: 1px solid color.change($primary, $alpha: 0.32);
@@ -65,15 +66,17 @@ $primary-tint: color.scale($primary, $lightness: 65%);
 
 .chat__layout {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  min-height: 90vh;
-  height: 100%;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  height: calc(100vh - 130px);
+  min-height: 0;
   background: linear-gradient(135deg, color.change($primary-light, $alpha: 0.18) 0%, color.change($primary-tint, $alpha: 0.1) 100%);
 }
 
 .chat__sidebar {
   border-right: 1px solid color.change($primary, $alpha: 0.18);
   height: 100%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .chat__window {
@@ -84,16 +87,42 @@ $primary-tint: color.scale($primary, $lightness: 65%);
   min-height: 0;
 }
 
+@media (max-width: 1200px) {
+  .chat__layout {
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 1024px) {
+  .chat {
+    border-radius: 0;
+  }
+
   .chat__layout {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
   }
 
   .chat__sidebar {
     border-right: none;
+    border-bottom: 1px solid color.change($primary, $alpha: 0.16);
+    height: auto;
+    max-height: 240px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 16px;
   }
 
   .chat__window {
-    padding: 18px;
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat__sidebar {
+    max-height: 200px;
+    padding: 14px;
   }
 }

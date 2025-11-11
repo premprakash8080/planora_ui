@@ -9,10 +9,11 @@ $primary-light: color.scale($primary, $lightness: 40%);
   flex-direction: column;
   height: 100%;
   min-height: 100%;
-  padding: 20px 18px;
+  padding: 24px 20px;
   background: tokens.$color-surface;
   border-right: 1px solid color.change($primary, $alpha: 0.16);
   gap: 16px;
+  overflow: hidden;
 }
 
 .chat-sidebar__header {
@@ -36,9 +37,12 @@ $primary-light: color.scale($primary, $lightness: 40%);
 .chat-sidebar__list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 0;
+  margin: 0;
+  min-height: 0;
 }
 
 .chat-sidebar__item {
@@ -124,40 +128,37 @@ $primary-light: color.scale($primary, $lightness: 40%);
   background: #facc15;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .chat-sidebar {
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     padding: 16px;
+    background: transparent;
     border-right: none;
     border-bottom: 1px solid color.change($primary, $alpha: 0.16);
   }
 
+  .chat-sidebar__header {
+    display: none;
+  }
+
   .chat-sidebar__list {
     flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    padding: 0;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
   }
 
   .chat-sidebar__item {
-    grid-template-columns: 32px;
-    grid-auto-rows: auto;
-    flex-direction: column;
-    min-width: 78px;
-    padding: 10px;
-    text-align: center;
-
-    app-avatar {
-      margin: 0 auto;
-    }
-  }
-
-  .chat-sidebar__item-body {
-    align-items: center;
-  }
-
-  .chat-sidebar__item-top {
-    flex-direction: column;
-    gap: 4px;
+    min-width: 160px;
   }
 }
+
+@media (max-width: 768px) {
+  .chat-sidebar__item {
+    min-width: 140px;
+  }
+}
+

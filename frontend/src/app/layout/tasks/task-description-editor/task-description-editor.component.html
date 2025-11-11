@@ -1,25 +1,19 @@
 <div class="description-card">
   <header class="description-card__header">
+    <h4>Description</h4>
     <span class="description-card__meta" *ngIf="lastEditedLabel">{{ lastEditedLabel }}</span>
   </header>
 
   <div
     class="description-editor"
-    [class.description-editor--focused]="focused"
-    [class.description-editor--empty]="isEmpty"
-    [class.description-editor--editing]="editing"
+    [class.is-focused]="focused"
     (click)="activateEditor()"
   >
-    <div class="description-editor__view" *ngIf="!editing">
-      <div *ngIf="!isEmpty" class="description-editor__rendered" [innerHTML]="safeContent"></div>
-      <div *ngIf="isEmpty" class="description-editor__placeholder">
-        {{ placeholder }}
-      </div>
-    </div>
+    <div *ngIf="!editing && !isEmpty" class="description-view" [innerHTML]="safeContent"></div>
+    <div *ngIf="!editing && isEmpty" class="description-placeholder">{{ placeholder }}</div>
 
-    <div class="description-editor__workspace" *ngIf="editing">
+    <div *ngIf="editing" class="description-input">
       <quill-editor
-        class="description-editor__editor"
         [formControl]="control"
         [modules]="modules"
         [styles]="editorStyles"
@@ -28,23 +22,20 @@
         (onContentChanged)="handleContentChanged($event)"
       ></quill-editor>
 
-      <div class="description-editor__toolbar" [id]="toolbarId" quillToolbar>
-        <div class="description-editor__toolbar-inner">
-          <span class="ql-formats">
-            <button type="button" class="ql-bold" aria-label="Bold"></button>
-            <button type="button" class="ql-italic" aria-label="Italic"></button>
-            <button type="button" class="ql-underline" aria-label="Underline"></button>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-list" value="bullet" aria-label="Bulleted list"></button>
-            <button type="button" class="ql-list" value="ordered" aria-label="Numbered list"></button>
-          </span>
-          <span class="ql-formats">
-            <button type="button" class="ql-link" aria-label="Insert link"></button>
-          </span>
-        </div>
+      <div class="editor-toolbar" [id]="toolbarId" quillToolbar>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="bullet"></button>
+          <button class="ql-list" value="ordered"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-link"></button>
+        </span>
       </div>
     </div>
   </div>
 </div>
-

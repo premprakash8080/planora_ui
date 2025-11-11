@@ -115,9 +115,9 @@ button {
   background: rgba(71, 85, 105, 0.6);
 }
 
-.page-container {
-  @include tokens.page-container ;
-}
+// .page-container {
+//   @include tokens.page-container ;
+// }
 
 .page-title {
   font-size: tokens.font-size('2xl');
