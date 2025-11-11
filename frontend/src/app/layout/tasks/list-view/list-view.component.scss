@@ -16,7 +16,8 @@ $subtext: #64748b;
 .task-board {
   padding: 32px;
   background: $bg;
-  min-height: 100vh;
+  min-height: 100%;
+  padding-bottom: 1.5rem;
   font-family: 'Inter', 'Roboto', sans-serif;
   color: $text;
 }
@@ -50,12 +51,12 @@ $subtext: #64748b;
 }
 
 .task-list-scroll {
-  flex: 1; 
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
   padding-bottom: 16px;
-  max-height: calc(100vh - 200px); 
+  max-height: calc(100vh - 240px);
 }
 
 .task-list-scroll::-webkit-scrollbar {
@@ -79,7 +80,7 @@ $subtext: #64748b;
   position: sticky;
   top: 0;
   background-color: $panel;
-  z-index: 2; // this is for the section header to be sticky  
+  z-index: 2; // this is for the section header to be sticky
   border-bottom: 1px solid $border;
 }
 
