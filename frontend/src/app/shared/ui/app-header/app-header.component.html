@@ -49,19 +49,67 @@
       <mat-icon>help_outline</mat-icon>
     </button>
 
-    <div class="app-header__profile" role="button" tabindex="0" matRipple>
-      <ng-container *ngIf="userAvatarUrl; else initials">
-        <img [src]="userAvatarUrl" alt="Avatar" />
-      </ng-container>
-      <ng-template #initials>
-        <span class="avatar-initials">{{ userInitials }}</span>
+    <app-dropdown-popover #profileMenu="appDropdownPopover" [width]="220">
+      <button
+        type="button"
+        class="app-header__profile"
+        appDropdownTrigger
+        matRipple
+        aria-haspopup="menu"
+        aria-label="Account options"
+      >
+        <app-avatar
+          size="md"
+          [src]="userAvatarUrl"
+          [initials]="userInitials"
+          [alt]="userInitials"
+        ></app-avatar>
+        <div class="app-header__profile-info">
+          <span class="app-header__profile-name">{{ userInitials }}</span>
+          <span class="app-header__profile-role">{{ userRole }}</span>
+        </div>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+
+      <ng-template appDropdownContent>
+        <div class="app-header__profile-menu" role="menu">
+          <div class="app-header__profile-summary">
+            <app-avatar
+              size="md"
+              [src]="userAvatarUrl"
+              [initials]="userInitials"
+              [alt]="userInitials"
+            ></app-avatar>
+            <div class="app-header__profile-summary-info">
+              <span class="app-header__profile-name">{{ userInitials }}</span>
+              <span class="app-header__profile-role">{{ userRole }}</span>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <button
+            type="button"
+            class="app-header__profile-menu-item"
+            (click)="handleProfile(profileMenu)"
+            role="menuitem"
+          >
+            <mat-icon>person</mat-icon>
+            <span>View profile</span>
+          </button>
+
+          <button
+            type="button"
+            class="app-header__profile-menu-item app-header__profile-menu-item--danger"
+            (click)="handleLogout(profileMenu)"
+            role="menuitem"
+          >
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </div>
       </ng-template>
-      <div class="app-header__profile-info">
-        <span class="app-header__profile-name">{{ userInitials }}</span>
-        <span class="app-header__profile-role">{{ userRole }}</span>
-      </div>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </div>
+    </app-dropdown-popover>
   </div>
 </header>
 

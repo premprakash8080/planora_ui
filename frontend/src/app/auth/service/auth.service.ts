@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "src/app/shared/services/http.service";
-import { ENDPOINTS } from "./api.collection";
+import { ENDPOINTS } from "../service/api.collection";
 import { UserSessionService } from "src/app/shared/services/user-session.service";
 import { SessionService } from "src/app/shared/services/session.service";
 import { StorageService } from "src/app/shared/services/storage.service";
@@ -45,7 +45,7 @@ export class AuthenticationService {
   }
   public verifyToken(token: any) {
     let params = { token: token };
-    return this.httpService.post(ENDPOINTS.API_ENDPOINT_VERIFY_TOKEN, params);
+    return this.httpService.post(ENDPOINTS.verifyToken, params);
   }
   public resetPassword(newPassword: any, confirmPassword: any, userId: number) {
     let params = {
@@ -53,11 +53,11 @@ export class AuthenticationService {
       confirm_password: confirmPassword,
       id: userId,
     };
-    return this.httpService.post(ENDPOINTS.API_ENDPOINT_RESET_PASSWORD, params);
+    return this.httpService.post(ENDPOINTS.resetPassword, params);
   }
 
-  public getUserPermissions(roleId:number)
-  {
-    return this.httpService.get(ENDPOINTS.get_permissions_by_role_id+'/'+roleId);
-  }
+  // public getUserPermissions(roleId:number)
+  // {
+  //   return this.httpService.get(ENDPOINTS.get_permissions_by_role_id+'/'+roleId);
+  // }
 }

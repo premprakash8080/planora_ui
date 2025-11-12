@@ -8,6 +8,8 @@ import { SnackBarService } from 'src/app/shared/services/snackbar.service';
 import { UserCreds } from 'src/app/core/models/core.models';
 import { CreationPermissions, DeliveryPermissions } from 'src/@vex/enums/Enumeration';
 import { AuthenticationService } from '../../service/auth.service';
+import { ENDPOINTS } from '../../service/api.collection';
+import { HttpService } from 'src/app/shared/services/http.service';
 
 @Component({
   selector: 'vex-login',
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private userSessionService: UserSessionService,
     private snackBarService: SnackBarService,
+    private httpService: HttpService,
   ) {
     //this.titleService.setTitle("Login");
     // this.getAllCompanyAccounts();
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit {
         }
         this.userSessionService.accessToken = res.token;
         this.userSessionService.userSession = res.user;
-        this.authenticationService.getUserPermissions(res.user.role).subscribe(res => {
+        this.httpService.get(ENDPOINTS.getPermissionsByRoleId+'/'+res.user.role).subscribe((res: any) => {
           let permissions: number[] = [];
 
           res.permissions.forEach((p: any) => {

@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { DropdownPopoverComponent } from '../dropdown-popover/dropdown-popover.component';
 
 @Component({
   selector: 'app-header',
@@ -18,9 +25,21 @@ export class AppHeaderComponent {
   @Output() menuToggle = new EventEmitter<void>();
   @Output() createClicked = new EventEmitter<void>();
   @Output() searchChanged = new EventEmitter<string>();
+  @Output() profileSelected = new EventEmitter<void>();
+  @Output() logoutSelected = new EventEmitter<void>();
 
   onSearchChange(value: string): void {
     this.searchChanged.emit(value);
+  }
+
+  handleProfile(menu: DropdownPopoverComponent | null): void {
+    this.profileSelected.emit();
+    menu?.close();
+  }
+
+  handleLogout(menu: DropdownPopoverComponent | null): void {
+    this.logoutSelected.emit();
+    menu?.close();
   }
 }
 

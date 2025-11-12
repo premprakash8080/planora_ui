@@ -107,6 +107,8 @@
     border-radius: var(--radius-lg);
     padding: tokens.space(2) tokens.space(3);
     border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
 
     &:hover {
@@ -114,11 +116,8 @@
       border-color: rgba(37, 99, 235, 0.12);
     }
 
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
+    app-avatar {
+      flex-shrink: 0;
     }
 
     .avatar-initials {
@@ -153,6 +152,77 @@
     &-role {
       font-size: tokens.font-size(xs);
       color: var(--color-text-subtle);
+    }
+  }
+
+  &__profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: tokens.space(2);
+    padding: tokens.space(3);
+    min-width: 220px;
+
+    mat-divider {
+      margin: tokens.space(2) 0;
+    }
+  }
+
+  &__profile-summary {
+    display: flex;
+    align-items: center;
+    gap: tokens.space(3);
+  }
+
+  &__profile-summary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__profile-menu-item {
+    display: inline-flex;
+    align-items: center;
+    gap: tokens.space(2);
+    width: 100%;
+    padding: tokens.space(2) tokens.space(3);
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    font-size: tokens.font-size(sm);
+    color: var(--color-text-heading);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    mat-icon {
+      font-size: 20px;
+      color: var(--color-text-subtle);
+    }
+
+    &:hover {
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--color-primary);
+
+      mat-icon {
+        color: var(--color-primary);
+      }
+    }
+
+    &--danger {
+      color: #dc2626;
+
+      mat-icon {
+        color: #ef4444;
+      }
+
+      &:hover {
+        background: rgba(220, 38, 38, 0.08);
+        color: #b91c1c;
+
+        mat-icon {
+          color: #b91c1c;
+        }
+      }
     }
   }
 }
