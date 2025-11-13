@@ -1,0 +1,471 @@
+/**
+ * Team Performance Component Styles
+ * 
+ * Modern UI styles for team performance metrics
+ */
+
+.team-performance-container {
+  padding: 32px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+// ============================================
+// Page Header
+// ============================================
+.team-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e9ecef;
+  
+  .header-content {
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.5px;
+      
+      .title-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        color: #1976d2;
+      }
+    }
+    
+    .page-subtitle {
+      font-size: 16px;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+}
+
+// ============================================
+// Section Titles
+// ============================================
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
+  
+  .section-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #1976d2;
+  }
+}
+
+// ============================================
+// Metrics Section
+// ============================================
+.metrics-section {
+  margin-bottom: 48px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.metric-card {
+  border-left: 4px solid;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+  
+  mat-card-content {
+    padding: 24px !important;
+  }
+}
+
+.metric-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.metric-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  .metric-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.metric-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.metric-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #212529;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.metric-unit {
+  font-size: 18px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+// ============================================
+// Team Members Section
+// ============================================
+.team-members-section {
+  margin-bottom: 32px;
+}
+
+.table-card {
+  mat-card-content {
+    padding: 0 !important;
+    overflow-x: auto;
+  }
+}
+
+.modern-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.table-scroll {
+  max-height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.45);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.team-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  
+  .table-header-row {
+    th {
+      font-weight: 600;
+      color: #495057;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 2px solid #dee2e6;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      
+      .table-header-cell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        .header-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: #1976d2;
+        }
+      }
+    }
+  }
+  
+  .table-row {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f8f9fa;
+      transform: scale(1.01);
+    }
+    
+    td {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e9ecef;
+      vertical-align: middle;
+    }
+  }
+}
+
+// ============================================
+// Member Cell
+// ============================================
+.member-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  app-avatar {
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .member-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    .member-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #212529;
+    }
+    
+    .member-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+      
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      
+      &.status-active {
+        color: #28a745;
+        
+        .status-dot {
+          background-color: #28a745;
+          box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+        }
+      }
+      
+      &.status-away {
+        color: #ffc107;
+        
+        .status-dot {
+          background-color: #ffc107;
+          box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+        }
+      }
+      
+      &.status-offline {
+        color: #6c757d;
+        
+        .status-dot {
+          background-color: #6c757d;
+        }
+      }
+    }
+  }
+}
+
+.role-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.task-count {
+  font-size: 16px;
+  font-weight: 600;
+  color: #495057;
+  
+  &.completed {
+    color: #28a745;
+  }
+}
+
+.completion-rate-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+  
+  .completion-percentage {
+    font-weight: 700;
+    min-width: 55px;
+    font-size: 15px;
+    color: #212529;
+  }
+  
+  .completion-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    
+    .completion-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.productivity-score-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 150px;
+  
+  .score-value {
+    font-weight: 700;
+    min-width: 40px;
+    font-size: 16px;
+  }
+  
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    
+    .score-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.status-active {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  &.status-away {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  &.status-offline {
+    background-color: #f8f9fa;
+    color: #6c757d;
+  }
+}
+
+// ============================================
+// Responsive Design
+// ============================================
+@media (max-width: 768px) {
+  .team-performance-container {
+    padding: 20px;
+  }
+  
+  .team-header {
+    .header-content {
+      .page-title {
+        font-size: 24px;
+        
+        .title-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .team-table {
+    font-size: 14px;
+    
+    .table-header-row th,
+    .table-row td {
+      padding: 12px 16px;
+    }
+  }
+  
+  .completion-rate-cell,
+  .productivity-score-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: auto;
+    
+    .completion-bar,
+    .score-bar {
+      width: 100%;
+    }
+  }
+}
+

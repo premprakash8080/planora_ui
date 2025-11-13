@@ -1,0 +1,166 @@
+<div class="page-container report-page">
+  <app-page-title
+    title="Analytics Report"
+    description="Comprehensive insights into your project performance"
+  >
+    <ng-container pageActions>
+      <app-button variant="ghost">
+        <mat-icon>calendar_today</mat-icon>
+        Last 30 Days
+      </app-button>
+      <app-button variant="primary">
+        <mat-icon>file_download</mat-icon>
+        Export
+      </app-button>
+    </ng-container>
+  </app-page-title>
+
+  <section class="report-metrics">
+    <app-card
+      *ngFor="let metric of reportMetrics"
+      class="metric-card"
+      padding="md"
+      [ngStyle]="{ 'border-top-color': metric.color }"
+    >
+      <div class="metric-content">
+        <div
+          class="metric-icon-wrapper"
+          [style.background]="'linear-gradient(135deg, ' + metric.color + '20, ' + metric.color + '05)'"
+        >
+          <mat-icon [style.color]="metric.color" class="metric-icon">
+            {{ metric.icon }}
+          </mat-icon>
+        </div>
+        <div class="metric-info">
+          <div class="metric-label">{{ metric.metric }}</div>
+          <div class="metric-value-wrapper">
+            <div class="metric-value">{{ metric.value }}</div>
+            <div
+              class="metric-change"
+              [class.positive]="metric.changeType === 'increase'"
+              [class.negative]="metric.changeType === 'decrease'"
+            >
+              <mat-icon class="change-icon">{{ getChangeIcon(metric.changeType) }}</mat-icon>
+              <span class="change-text">{{ Math.abs(metric.change) }}%</span>
+              <span class="change-label">{{ metric.changeType === 'increase' ? 'Up' : 'Down' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </section>
+
+  <div class="report-grid">
+    <app-card class="report-panel" padding="lg">
+      <header class="panel-header">
+        <div class="panel-title">
+          <mat-icon>pie_chart</mat-icon>
+          <div>
+            <h2>Task Status Distribution</h2>
+            <p>Breakdown of tasks by status</p>
+          </div>
+        </div>
+        <button mat-icon-button matTooltip="Download">
+          <mat-icon>download</mat-icon>
+        </button>
+      </header>
+
+      <div class="status-list">
+        <div *ngFor="let status of taskStatusAnalytics" class="status-item">
+          <div class="status-info">
+            <div class="status-indicator" [style.background-color]="status.color"></div>
+            <div class="status-meta">
+              <span class="status-label">{{ status.status }}</span>
+              <span class="status-percentage">{{ status.percentage }}%</span>
+            </div>
+            <span class="status-count">{{ status.count }}</span>
+          </div>
+          <div class="status-progress-bar">
+            <div
+              class="status-progress-fill"
+              [style.width.%]="status.percentage"
+              [style.background]="status.color"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+
+    <app-card class="report-panel" padding="lg">
+      <header class="panel-header">
+        <div class="panel-title">
+          <mat-icon>trending_up</mat-icon>
+          <div>
+            <h2>Project Performance</h2>
+            <p>Completion rates and project status</p>
+          </div>
+        </div>
+        <button mat-icon-button matTooltip="View details">
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+      </header>
+
+      <app-table>
+        <table mat-table [dataSource]="projectPerformance">
+          <ng-container matColumnDef="projectName">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="table-header-cell">
+                <mat-icon class="header-icon">folder</mat-icon>
+                Project
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let project">
+              <div class="project-name-cell">
+                <div class="project-icon-wrapper">
+                  <mat-icon class="project-icon">folder</mat-icon>
+                </div>
+                <span class="project-name-text">{{ project.projectName }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalTasks">
+            <th mat-header-cell *matHeaderCellDef>Total Tasks</th>
+            <td mat-cell *matCellDef="let project">{{ project.totalTasks }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="completed">
+            <th mat-header-cell *matHeaderCellDef>Completed</th>
+            <td mat-cell *matCellDef="let project">{{ project.completed }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="completionRate">
+            <th mat-header-cell *matHeaderCellDef>Completion</th>
+            <td mat-cell *matCellDef="let project">
+              <div class="completion-rate-cell">
+                <span class="completion-percentage">{{ project.completionRate }}%</span>
+                <div class="completion-bar">
+                  <div
+                    class="completion-fill"
+                    [style.width.%]="project.completionRate"
+                    [style.background]="project.completionRate >= 70 ? 'linear-gradient(90deg, #22c55e, #16a34a)' : project.completionRate >= 50 ? 'linear-gradient(90deg, #f59e0b, #d97706)' : 'linear-gradient(90deg, #ef4444, #dc2626)'"
+                  ></div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let project">
+              <span class="status-chip" [ngClass]="getStatusColor(project.status)">
+                <mat-icon class="badge-icon">
+                  {{ project.status === 'On Track' ? 'check_circle' : project.status === 'At Risk' ? 'warning' : 'error' }}
+                </mat-icon>
+                {{ project.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </app-table>
+    </app-card>
+  </div>
+</div>
