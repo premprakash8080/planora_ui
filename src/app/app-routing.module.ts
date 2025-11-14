@@ -43,6 +43,14 @@ const routes: Routes = [
         loadChildren: () => import("./layout/insights/insights.module").then((m) => m.InsightsModule),
       },
       {
+        path: "profile",
+        loadChildren: () => import("./layout/profile/profile.module").then((m) => m.ProfileModule),
+      },
+      {
+        path: "settings",
+        loadChildren: () => import("./layout/settings/settings.module").then((m) => m.SettingsModule),
+      },
+      {
         path: "**",
         redirectTo: "dashboard",
         pathMatch: "full",

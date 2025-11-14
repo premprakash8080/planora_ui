@@ -85,21 +85,6 @@
     }
   }
 
-  &__create {
-    display: inline-flex;
-    align-items: center;
-    gap: tokens.space(2);
-    font-weight: 600;
-
-    mat-icon {
-      font-size: 20px;
-    }
-
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
   &__profile {
     display: inline-flex;
     align-items: center;

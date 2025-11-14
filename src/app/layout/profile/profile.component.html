@@ -1,0 +1,89 @@
+<div class="page-container profile-page">
+  <app-page-title
+    title="My Profile"
+    description="View and manage your profile information"
+  >
+    <ng-container pageActions>
+      <app-button variant="primary" (pressed)="onEdit()">
+        <mat-icon>edit</mat-icon>
+        Edit Profile
+      </app-button>
+    </ng-container>
+  </app-page-title>
+
+  <div class="profile-content">
+    <app-card padding="lg" class="profile-card">
+      <div class="profile-header">
+        <app-avatar
+          [src]="user.avatarUrl"
+          [initials]="user.initials"
+          [color]="user.avatarColor"
+          [alt]="user.name"
+          size="lg"
+        ></app-avatar>
+        
+        <div class="profile-info">
+          <h2 class="profile-name">{{ user.name }}</h2>
+          <p class="profile-role">{{ user.role }}</p>
+          <span class="profile-department">{{ user.department }}</span>
+        </div>
+      </div>
+    </app-card>
+
+    <app-card padding="lg" class="profile-details-card">
+      <h3 class="card-title">Personal Information</h3>
+      <div class="detail-list">
+        <div class="detail-item">
+          <mat-icon class="detail-icon">person</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Full Name</span>
+            <span class="detail-value">{{ user.name }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">email</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">{{ user.email }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">phone</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Phone</span>
+            <span class="detail-value">{{ user.phone }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">work</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Role</span>
+            <span class="detail-value">{{ user.role }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">business</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Department</span>
+            <span class="detail-value">{{ user.department }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">location_on</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Location</span>
+            <span class="detail-value">{{ user.location }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">calendar_today</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Joined</span>
+            <span class="detail-value">{{ user.joinDate }}</span>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+
