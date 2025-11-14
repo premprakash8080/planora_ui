@@ -45,7 +45,7 @@
           >
           <input
             class="section-title-input"
-            [ngModel]="sectionTitleDrafts.get(section.id) ?? section.title"
+            [ngModel]="getSectionTitleDraft(section)"
             (ngModelChange)="onSectionTitleInput(section, $event)"
             [style.width.px]="getSectionTitleWidth(section)"
             (focus)="handleSectionTitleFocus(section)"

@@ -254,6 +254,11 @@ export class ListViewComponent implements OnInit, OnDestroy {
     input.blur();
   }
 
+  /** Get section title draft or fallback to actual title */
+  getSectionTitleDraft(section: TaskSection): string {
+    return this.sectionTitleDrafts.get(section.id) ?? section.title ?? '';
+  }
+
   /** Approximate width so section title field grows with its content */
   getSectionTitleWidth(section: TaskSection): number {
     const draft = this.sectionTitleDrafts.get(section.id);

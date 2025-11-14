@@ -46,10 +46,35 @@
 .task-detail__body {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 24px 28px 32px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  scroll-behavior: smooth;
+
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.5);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(148, 163, 184, 0.7);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
 }
 
 .task-detail__block {

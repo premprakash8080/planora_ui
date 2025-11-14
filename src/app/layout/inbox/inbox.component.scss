@@ -40,20 +40,32 @@
   flex-direction: column;
   max-height: calc(100vh - 320px);
   overflow-y: auto;
-  padding-right: tokens.space(1);
-}
+  overflow-x: hidden;
+  padding: 0 tokens.space(1) 24px 0;
+  scroll-behavior: smooth;
 
-.task-list::-webkit-scrollbar {
-  width: 6px;
-}
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
 
-.task-list::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.45);
-  border-radius: 999px;
-}
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.5);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
 
-.task-list::-webkit-scrollbar-track {
-  background: transparent;
+    &:hover {
+      background-color: rgba(148, 163, 184, 0.7);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
 }
 
 .task-list-item {
