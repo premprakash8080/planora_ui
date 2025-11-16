@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-// import { DropdownPopoverItem } from '../../../shared/ui/dropdown-popover/dropdown-popover.component';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { DropdownPopoverItem } from '../../../shared/ui/dropdown-popover/dropdown-popover.component';
 
 interface NavTab {
@@ -14,11 +15,13 @@ interface NavTab {
   templateUrl: './task-header.component.html',
   styleUrls: ['./task-header.component.scss']
 })
-export class TaskHeaderComponent {
+export class TaskHeaderComponent implements OnInit, OnDestroy {
   @Input() projectTitle = 'Cross-functional project plan';
   @Input() isFavorite = false;
   @Input() selectedStatus = 'in-progress';
-  @Input() activeTab = 'list';
+  
+  activeTab = 'list';
+  private routeSubscription?: Subscription;
 
   @Output() titleChange = new EventEmitter<string>();
   @Output() favoriteChange = new EventEmitter<boolean>();
@@ -54,6 +57,61 @@ export class TaskHeaderComponent {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
+  ngOnInit(): void {
+    // Set initial active tab from current route
+    this.updateActiveTabFromRoute();
+    
+    // Subscribe to route changes to update active tab
+    this.routeSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateActiveTabFromRoute();
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
+  private updateActiveTabFromRoute(): void {
+    // Get the current route snapshot
+    let route = this.route;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    
+    const routePath = route.snapshot.routeConfig?.path || '';
+    
+    // Handle parameterized routes (e.g., 'list/:taskId' -> 'list')
+    let routeSegment = routePath.split('/')[0];
+    
+    // If routeSegment is empty or is a parameter (starts with ':'), check the URL
+    if (!routeSegment || routeSegment.startsWith(':')) {
+      const url = this.router.url;
+      const segments = url.split('/').filter(segment => segment.length > 0 && !segment.match(/^\d+$/));
+      // Find the last segment that matches a tab ID
+      for (let i = segments.length - 1; i >= 0; i--) {
+        const segment = segments[i];
+        if (this.tabs.find(tab => tab.id === segment)) {
+          routeSegment = segment;
+          break;
+        }
+      }
+    }
+    
+    // Check if the segment matches any tab ID
+    const matchingTab = this.tabs.find(tab => tab.id === routeSegment);
+    
+    if (matchingTab) {
+      this.activeTab = matchingTab.id;
+    } else {
+      // Default to 'list' if no match found or if we're at the root
+      this.activeTab = 'list';
+    }
+  }
+
   // Computed
   get projectInitials(): string {
     return this.projectTitle
@@ -88,6 +146,8 @@ export class TaskHeaderComponent {
   }
 
   onTabChange(tabId: string) {
+    // Update active tab immediately for responsive UI
+    this.activeTab = tabId;
     this.tabChange.emit(tabId);
     const segment = this.getRouteForTab(tabId);
     if (segment) {
@@ -136,8 +196,11 @@ export class TaskHeaderComponent {
       case 'overview':
         return 'overview';
       case 'workflow':
+        return 'workflow';
       case 'messages':
+        return 'messages';
       case 'files':
+        return 'files';
       default:
         return null;
     }

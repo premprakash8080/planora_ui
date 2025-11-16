@@ -6,6 +6,9 @@ import { TimelineViewComponent } from './views/timeline-view/timeline-view.compo
 import { CalendarViewComponent } from './views/calendar-view/calendar-view.component';
 import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
 import { ProjectOverviewComponent } from './views/project-overview/project-overview.component';
+import { TaskFilesComponent } from './views/task-files/task-files.component';
+import { TaskWorkflowComponent } from './views/task-workflow/task-workflow.component';
+import { TaskMessagesComponent } from './views/task-messages/task-messages.component';
 
 const routes: Routes = [
   {
@@ -40,6 +43,18 @@ const routes: Routes = [
   {
     path: 'overview',
     component: ProjectOverviewComponent
+  },
+  {
+    path: 'workflow',
+    component: TaskWorkflowComponent
+  },
+  {
+    path: 'messages',
+    component: TaskMessagesComponent
+  },
+  {
+    path: 'files',
+    component: TaskFilesComponent
   }
 ];
 

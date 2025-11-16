@@ -140,6 +140,7 @@
 .nav-tab {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 10px 16px;
   color: $color-muted;
@@ -147,6 +148,8 @@
   border: none;
   border-radius: $radius-md $radius-md 0 0;
   font-weight: 500;
+  font-size: font-size(sm);
+  line-height: 1.5;
   cursor: pointer;
   white-space: nowrap;
   transition: all .18s ease;
@@ -163,11 +166,23 @@
     background: mix($color-background, $color-surface, 50%);
   }
 
-  .tab-icon { font-size:18px; }
+  .tab-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 }
 
 .nav-more {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: $color-muted;
   background: transparent;
   border: none;
@@ -178,6 +193,16 @@
   &:hover {
     background: mix($color-background, $color-surface, 30%);
     color: $color-text-body;
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

@@ -1,5 +1,17 @@
-.tasks-view {
+@use 'src/styles/tokens' as *;
+
+.tasks-view--placeholder {
   min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background, #f9fafb);
+  color: var(--color-text-body, #374151);
+  font-family: $font-family-base;
+}
+
+.placeholder-content {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,8 +19,6 @@
   gap: 16px;
   text-align: center;
   padding: 32px;
-  color: var(--color-text-body, #374151);
-  background: var(--color-surface, #ffffff);
 
   mat-icon {
     font-size: 48px;
@@ -31,4 +41,3 @@
     color: var(--color-text-subtle, #6b7280);
   }
 }
-

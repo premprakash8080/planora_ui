@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksRoutingModule } from './tasks-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ListViewComponent } from './views/list-view/list-view.component';
 import { TaskDetailComponent } from './views/task-detail/task-detail.component';
 import { SubtaskListComponent } from './views/subtask-list/subtask-list.component';
@@ -33,6 +34,10 @@ import { TaskRowComponent } from './views/list-view/components/task-row/task-row
 import { AddTaskButtonComponent } from './views/list-view/components/add-task-button/add-task-button.component';
 import { TaskHeaderComponent } from './task-header/task-header.component';
 import { ProjectOverviewComponent } from './views/project-overview/project-overview.component';
+import { TaskCardComponent } from './views/board-view/task-card/task-card.component';
+import { TaskWorkflowComponent } from './views/task-workflow/task-workflow.component';
+import { TaskMessagesComponent } from './views/task-messages/task-messages.component';
+import { TaskFilesComponent } from './views/task-files/task-files.component';
 
 @NgModule({
   declarations: [
@@ -49,13 +54,18 @@ import { ProjectOverviewComponent } from './views/project-overview/project-overv
     TaskRowComponent,
     AddTaskButtonComponent,
     TaskHeaderComponent,
-    ProjectOverviewComponent
+    ProjectOverviewComponent,
+    TaskCardComponent,
+    TaskWorkflowComponent,
+    TaskMessagesComponent,
+    TaskFilesComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     TasksRoutingModule,
+    DragDropModule,
     MatTableModule,
     MatCheckboxModule,
     MatSortModule,

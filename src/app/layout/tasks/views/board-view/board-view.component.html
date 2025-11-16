@@ -1,8 +1,47 @@
-<div class="tasks-view tasks-view--placeholder">
-  <app-task-header [projectTitle]="'Board View'"></app-task-header>
-  <mat-icon>view_kanban</mat-icon>
-  <h2>Board View</h2>
-  <p>Kanban-style task boards are coming soon. Stay tuned!</p>
-  <button mat-flat-button color="primary" disabled>In Progress</button>
-</div>
+<div class="tasks-view tasks-view--board">
+  <app-task-header [projectTitle]="'Cross-functional project plan'"></app-task-header>
 
+  <div class="board-toolbar">
+    <button mat-stroked-button>
+      <mat-icon>add</mat-icon> Add task
+      <mat-icon class="dropdown">arrow_drop_down</mat-icon>
+    </button>
+
+    <!-- <div class="toolbar-right">
+      <button mat-icon-button><mat-icon>filter_list</mat-icon> Filter</button>
+      <button mat-icon-button><mat-icon>sort</mat-icon> Sort</button>
+      <button mat-icon-button><mat-icon>group_work</mat-icon> Group</button>
+      <button mat-icon-button><mat-icon>tune</mat-icon> Options</button>
+      <button mat-icon-button><mat-icon>search</mat-icon></button>
+    </div> -->
+  </div>
+
+  <div class="board-container" cdkDropListGroup>
+    <div
+      *ngFor="let col of columns"
+      class="column"
+      cdkDropList
+      [cdkDropListData]="col.tasks"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="column-header">
+        <h3 class="column-title">
+          {{ col.title }}
+          <span class="task-count">{{ col.taskCount }}</span>
+        </h3>
+      </div>
+
+      <div class="task-list">
+        <app-task-card
+          *ngFor="let task of col.tasks; trackBy: trackByTaskId"
+          [task]="task"
+          cdkDrag
+        ></app-task-card>
+
+        <button class="add-task-btn" *ngIf="col.id !== 'untitled'">
+          <mat-icon>add</mat-icon> Add task
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
