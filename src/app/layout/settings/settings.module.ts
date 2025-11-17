@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatOptionModule } from '@angular/material/core';
 
-import { SettingsComponent } from './settings.component';
+import { SettingsComponent } from './components/settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SharedUiModule } from '../../shared/ui/ui.module';
 

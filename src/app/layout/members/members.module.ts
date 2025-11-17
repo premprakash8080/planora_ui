@@ -11,11 +11,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
 
-import { MembersComponent } from './members.component';
+import { MembersComponent } from './components/members.component';
 import { MembersRoutingModule } from './members-routing.module';
 import { SharedUiModule } from '../../shared/ui/ui.module';
-import { AddMemberComponent } from './add-member/add-member.component';
-import { ViewMemberComponent } from './view-member/view-member.component';
+import { AddMemberComponent } from './components/add-member/add-member.component';
+import { ViewMemberComponent } from './components/view-member/view-member.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './components/profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { SharedUiModule } from '../../shared/ui/ui.module';
 

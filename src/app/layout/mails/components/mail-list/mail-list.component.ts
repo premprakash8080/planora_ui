@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Mail, MailService } from '../services/mail.service';
+import { Mail, MailService } from '../../services/mail.service';
 import { MailComposeComponent } from '../mail-compose/mail-compose.component';
 
 @Component({

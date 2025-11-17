@@ -46,21 +46,34 @@
   color: var(--color-text-heading);
 }
 
-.profile-role {
+.profile-email {
   margin: 0;
   font-size: tokens.font-size(md);
   color: var(--color-text-subtle);
-  text-transform: capitalize;
 }
 
-.profile-department {
+.profile-status {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 999px;
   font-size: tokens.font-size(xs);
   font-weight: 600;
-  background: rgba(37, 99, 235, 0.12);
-  color: #2563eb;
+  text-transform: capitalize;
+  
+  &.status-active {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+  }
+  
+  &.status-inactive {
+    background: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+  }
+  
+  &.status-suspended {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+  }
 }
 
 .card-title {
@@ -106,5 +119,69 @@
   font-size: tokens.font-size(md);
   font-weight: 500;
   color: var(--color-text-heading);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: tokens.space(4);
+  padding: tokens.space(12);
+  min-height: 400px;
+  
+  .loading-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--color-text-subtle);
+    animation: spin 2s linear infinite;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--color-text-subtle);
+    font-size: tokens.font-size(md);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.no-user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: tokens.space(4);
+  padding: tokens.space(12);
+  min-height: 400px;
+  text-align: center;
+  
+  .error-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--color-text-subtle);
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: tokens.font-size(xl);
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  
+  p {
+    margin: 0;
+    color: var(--color-text-subtle);
+    font-size: tokens.font-size(md);
+  }
 }
 

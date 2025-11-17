@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ComposeMail, MailService } from '../services/mail.service';
+import { ComposeMail, MailService } from '../../services/mail.service';
 
 export interface MailComposeData {
   to?: string;
