@@ -55,13 +55,18 @@
       (select)="onProfileSelect($event)"
     >
       <div class="app-header__profile" role="button" tabindex="0" matRipple appDropdownTrigger>
-        <ng-container *ngIf="userAvatarUrl; else initials">
-          <img [src]="userAvatarUrl" alt="Avatar" />
-        </ng-container>
-        <ng-template #initials>
-          <span class="avatar-initials">{{ userInitials }}</span>
-        </ng-template>
-        <div class="app-header__profile-info">
+        <app-avatar
+          size="md"
+          [initials]="userInitials"
+          [src]="userAvatarUrl"
+          [color]="user?.avatar_color"
+          class="user-avatar"
+        ></app-avatar>
+        <div class="app-header__profile-info" *ngIf="user">
+          <span class="app-header__profile-name">{{ user.full_name }}</span>
+          <span class="app-header__profile-role">{{ userRole }}</span>
+        </div>
+        <div class="app-header__profile-info" *ngIf="!user">
           <span class="app-header__profile-name">{{ userInitials }}</span>
           <span class="app-header__profile-role">{{ userRole }}</span>
         </div>

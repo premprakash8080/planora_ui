@@ -39,6 +39,7 @@ import { TaskWorkflowComponent } from './views/task-workflow/task-workflow.compo
 import { TaskMessagesComponent } from './views/task-messages/task-messages.component';
 import { TaskFilesComponent } from './views/task-files/task-files.component';
 
+
 @NgModule({
   declarations: [
     ListViewComponent,
