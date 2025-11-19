@@ -1,0 +1,170 @@
+<aside class="task-detail" [class.task-detail--open]="open">
+  <header class="task-detail__header">
+    <div class="task-detail__meta">
+      <span class="task-detail__meta-label">{{ projectName }}</span>
+      <mat-icon>chevron_right</mat-icon>
+      <span class="task-detail__meta-label">{{ sectionTitle || 'Tasks' }}</span>
+    </div>
+
+    <div class="task-detail__header-actions">
+      <app-dropdown-popover
+        [items]="taskActionItems"
+        [width]="300"
+        (select)="handleTaskAction($event)"
+      >
+        <button
+          mat-icon-button
+          type="button"
+          class="task-detail__menu-button"
+          appDropdownTrigger
+          aria-label="Task options"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </app-dropdown-popover>
+
+      <button mat-icon-button type="button" (click)="close.emit()" aria-label="Close task detail">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <div class="task-detail__body" *ngIf="task">
+    <section class="task-detail__block task-detail__card task-detail__title">
+      <input
+        class="task-detail__title-input"
+        [formControl]="titleControl"
+        (blur)="onTitleBlur()"
+        placeholder="Task title"
+      />
+    </section>
+
+    <section class="task-detail__block task-detail__card task-detail__grid">
+      <div class="task-detail__field">
+        <span class="task-detail__field-label">Assignee</span>
+        <app-dropdown-popover
+          [items]="assigneeItems"
+          [selectedId]="task.assignee ?? null"
+          [width]="520"
+          [maxHeight]="320"
+          [hasSearch]="true"
+          (select)="handleAssigneeSelect($event)"
+        >
+          <button type="button" class="task-detail__assignee-trigger" appDropdownTrigger>
+            <app-avatar
+              size="sm"
+              [src]="getAssigneeAvatar(task.assignee)"
+              [initials]="getAssigneeInitials(task.assignee)"
+              [color]="getAssigneeColor(task.assignee)"
+            ></app-avatar>
+            <div class="task-detail__assignee-info">
+              <span class="task-detail__assignee-name">{{ task.assignee || 'Unassigned' }}</span>
+              <span class="task-detail__assignee-email" *ngIf="getAssigneeDescription(task.assignee)">
+                {{ getAssigneeDescription(task.assignee) }}
+              </span>
+            </div>
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </app-dropdown-popover>
+      </div>
+
+      <div class="task-detail__field">
+        <span class="task-detail__field-label">Due date</span>
+        <input
+          class="task-detail__field-input"
+          type="date"
+          [value]="toDateInputValue(task.dueDate)"
+          (change)="updateDueDate($any($event.target).value)"
+        />
+      </div>
+
+      <div class="task-detail__field">
+        <span class="task-detail__field-label">Status</span>
+        <mat-select [value]="task.status" (selectionChange)="updateStatus($event.value)">
+          <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="task-detail__field">
+        <span class="task-detail__field-label">Priority</span>
+        <mat-select [value]="task.priority" (selectionChange)="updatePriority($event.value)">
+          <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+        </mat-select>
+      </div>
+    </section>
+
+    <section class="task-detail__block task-detail__card task-detail__block-description">
+      <header class="task-detail__section-header">
+        <span>Description</span>
+      </header>
+      <textarea
+        class="task-detail__description-input"
+        rows="6"
+        [formControl]="descriptionControl"
+        (blur)="handleDescriptionSave(descriptionControl.value || '')"
+        placeholder="Add a description..."
+      ></textarea>
+    </section>
+
+    <section class="task-detail__block task-detail__card">
+      <header class="task-detail__section-header">
+        <span>Subtasks</span>
+      </header>
+
+      <app-subtask-list
+        [subtasks]="task.subtasks ?? []"
+        [allowAssignee]="true"
+        [allowDueDate]="true"
+        (toggle)="handleSubtaskToggle($event)"
+        (nameChange)="handleSubtaskNameChange($event)"
+        (remove)="handleSubtaskRemove($event)"
+        (create)="handleSubtaskCreate($event)"
+        (subtaskOpen)="handleSubtaskOpen($event)"
+        (assigneeClick)="handleSubtaskOpen($event)"
+      ></app-subtask-list>
+    </section>
+
+    <section class="task-detail__block task-detail__card">
+      <header class="task-detail__section-header">
+        <span>Comments</span>
+      </header>
+
+      <div class="task-detail__comments" *ngIf="(task.comments?.length ?? 0) > 0; else emptyComments">
+        <div class="task-detail__comment" *ngFor="let comment of task.comments">
+          <div class="task-detail__comment-avatar">
+            {{ comment.author.charAt(0) }}
+          </div>
+          <div class="task-detail__comment-body">
+            <div class="task-detail__comment-meta">
+              <span class="task-detail__comment-author">{{ comment.author }}</span>
+              <span class="task-detail__comment-date">{{ comment.createdAt | date: 'MMM d, y, h:mm a' }}</span>
+            </div>
+            <p class="task-detail__comment-message">{{ comment.message }}</p>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyComments>
+        <p class="task-detail__empty">No comments yet. Start a conversation with your team.</p>
+      </ng-template>
+
+      <div class="task-detail__comment-compose">
+        <textarea
+          class="task-detail__comment-input"
+          rows="3"
+          [formControl]="commentControl"
+          placeholder="Leave a comment…"
+        ></textarea>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="addComment()"
+          [disabled]="!commentControl.value.trim()"
+        >
+          Post comment
+        </button>
+      </div>
+    </section>
+  </div>
+</aside>
+

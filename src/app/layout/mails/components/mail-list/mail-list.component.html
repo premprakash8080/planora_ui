@@ -8,49 +8,54 @@
       <p class="page-subtitle">View the latest updates and notifications</p>
     </div>
     <div class="header-actions">
-      <button mat-raised-button color="primary"  class="compose-button" (click)="openCompose()">
+      <button mat-raised-button color="primary" class="compose-button" (click)="openCompose()">
         <mat-icon>edit</mat-icon>
         Compose
       </button>
-      <button mat-icon-button matTooltip="Refresh">
+      <button mat-icon-button matTooltip="Refresh" (click)="refreshMails()">
         <mat-icon>refresh</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="Filter">
-        <mat-icon>filter_list</mat-icon>
       </button>
     </div>
   </div>
 
-  <div class="mail-list">
-    <mat-card *ngFor="let mail of mails" class="mail-card" (click)="openMail(mail)">
-      <mat-card-content>
-        <div class="mail-item">
-          <app-avatar
-            size="md"
-            [initials]="getAvatarInitials(mail.sender)"
-            [src]="mail.senderAvatarUrl"
-            [color]="mail.senderAvatarColor"
-            [alt]="mail.sender"
-            [class.unread]="!mail.isRead"
-          ></app-avatar>
-          <div class="mail-details">
-            <div class="mail-header">
-              <span class="mail-sender" [class.unread]="!mail.isRead">{{ mail.sender }}</span>
-              <span class="mail-timestamp">{{ mail.timestamp | date: 'short' }}</span>
-            </div>
-            <div class="mail-subject" [class.unread]="!mail.isRead">
-              {{ mail.subject }}
-            </div>
-            <div class="mail-preview">
-              {{ mail.preview }}
-            </div>
-          </div>
-          <div class="mail-status">
-            <mat-icon *ngIf="!mail.isRead" class="status-icon unread">fiber_manual_record</mat-icon>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-divider></mat-divider>
-    </mat-card>
+  <!-- Filter Tabs -->
+  <div class="mail-filters">
+    <button 
+      mat-button 
+      [class.active]="filterType === 'all'"
+      (click)="onFilterChange('all')">
+      All
+      <span class="filter-count" *ngIf="filterCounts.all > 0">({{ filterCounts.all }})</span>
+    </button>
+    <button 
+      mat-button 
+      [class.active]="filterType === 'unread'"
+      (click)="onFilterChange('unread')">
+      Unread
+      <span class="filter-count" *ngIf="filterCounts.unread > 0">({{ filterCounts.unread }})</span>
+    </button>
+    <button 
+      mat-button 
+      [class.active]="filterType === 'starred'"
+      (click)="onFilterChange('starred')">
+      Starred
+      <span class="filter-count" *ngIf="filterCounts.starred > 0">({{ filterCounts.starred }})</span>
+    </button>
+    <button 
+      mat-button 
+      [class.active]="filterType === 'archived'"
+      (click)="onFilterChange('archived')">
+      Archived
+      <span class="filter-count" *ngIf="filterCounts.archived > 0">({{ filterCounts.archived }})</span>
+    </button>
   </div>
+
+  <!-- Mail Tab Component -->
+  <app-mail-tab
+    #mailTab
+    [filterType]="filterType"
+    [emptyMessage]="getEmptyMessage()"
+    (mailDeleted)="onMailDeleted()"
+    (mailStarred)="onMailStarred()">
+  </app-mail-tab>
 </div>

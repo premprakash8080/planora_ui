@@ -30,6 +30,7 @@ export class AppSidebarComponent {
 
   @Output() collapsedChange = new EventEmitter<boolean>();
   @Output() navigate = new EventEmitter<SidebarNavItem>();
+  @Output() createProject = new EventEmitter<void>();
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;

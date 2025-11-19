@@ -32,7 +32,7 @@
 
       <!-- Task List Items -->
        <!-- make scrollable -->
-      <div class="task-list">
+      <div class="task-list" *ngIf="!loading; else loadingTemplate">
         <div 
           *ngFor="let update of inboxUpdates" 
           class="task-list-item"
@@ -111,12 +111,22 @@
     </div>
   </app-card>
 
+  <!-- Loading Template -->
+  <ng-template #loadingTemplate>
+    <app-loading 
+      size="lg" 
+      variant="spinner" 
+      message="Loading inbox activities..."
+      [fullScreen]="false">
+    </app-loading>
+  </ng-template>
+
   <!-- Empty State (if no updates) -->
-  <div *ngIf="inboxUpdates.length === 0" class="inbox-empty-state">
+  <div *ngIf="!loading && inboxUpdates.length === 0" class="inbox-empty-state">
     <div class="empty-state-content">
       <mat-icon class="inbox-empty-icon">inbox</mat-icon>
-      <h3 class="inbox-empty-title">No tasks yet</h3>
-      <p class="inbox-empty-text">Task updates will appear here when available</p>
+      <h3 class="inbox-empty-title">No activities yet</h3>
+      <p class="inbox-empty-text">Task updates and activities will appear here when available</p>
       <app-button variant="primary">
         <mat-icon>add</mat-icon>
         Create Task

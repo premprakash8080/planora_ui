@@ -37,6 +37,7 @@
               type="search"
               [placeholder]="searchPlaceholder"
               [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange($event)"
             />
           </div>
 
@@ -46,6 +47,7 @@
               class="dropdown-popover__item"
               *ngFor="let item of filteredItems"
               [class.dropdown-popover__item--selected]="item.id === selectedId"
+              [style.color]="item.color"
               (click)="onSelect(item)"
             >
               <div class="dropdown-popover__avatar" *ngIf="item.avatarUrl || item.avatarText">

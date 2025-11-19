@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ListViewComponent } from './views/list-view/list-view.component';
-import { TaskDetailComponent } from './views/task-detail/task-detail.component';
-import { SubtaskListComponent } from './views/subtask-list/subtask-list.component';
-import { TaskDescriptionEditorComponent } from './views/task-description-editor/task-description-editor.component';
-import { BoardViewComponent } from './views/board-view/board-view.component';
-import { TimelineViewComponent } from './views/timeline-view/timeline-view.component';
-import { CalendarViewComponent } from './views/calendar-view/calendar-view.component';
-import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
+import { ListViewComponent } from './components/views/list-view/list-view.component';
+import { TaskDetailComponent } from './components/views/task-detail/task-detail.component';
+import { SubtaskListComponent } from './components/views/subtask-list/subtask-list.component';
+import { TaskDescriptionEditorComponent } from './components/views/task-description-editor/task-description-editor.component';
+import { BoardViewComponent } from './components/views/board-view/board-view.component';
+import { TimelineViewComponent } from './components/views/timeline-view/timeline-view.component';
+import { CalendarViewComponent } from './components/views/calendar-view/calendar-view.component';
+import { DashboardViewComponent } from './components/views/dashboard-view/dashboard-view.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
@@ -28,16 +28,19 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { QuillModule } from 'ngx-quill';
 import { SharedUiModule } from '../../shared/ui/ui.module';
-import { AddSectionButtonComponent } from './views/list-view/components/add-section-button/add-section-button.component';
-import { TaskSectionComponent } from './views/list-view/components/task-section/task-section.component';
-import { TaskRowComponent } from './views/list-view/components/task-row/task-row.component';
-import { AddTaskButtonComponent } from './views/list-view/components/add-task-button/add-task-button.component';
-import { TaskHeaderComponent } from './task-header/task-header.component';
-import { ProjectOverviewComponent } from './views/project-overview/project-overview.component';
-import { TaskCardComponent } from './views/board-view/task-card/task-card.component';
-import { TaskWorkflowComponent } from './views/task-workflow/task-workflow.component';
-import { TaskMessagesComponent } from './views/task-messages/task-messages.component';
-import { TaskFilesComponent } from './views/task-files/task-files.component';
+import { AddSectionButtonComponent } from './components/views/list-view/components/add-section-button/add-section-button.component';
+import { TaskSectionComponent } from './components/views/list-view/components/task-section/task-section.component';
+import { TaskRowComponent } from './components/views/list-view/components/task-row/task-row.component';
+import { AddTaskButtonComponent } from './components/views/list-view/components/add-task-button/add-task-button.component';
+import { TaskHeaderComponent } from './components/task-header/task-header.component';
+import { ProjectOverviewComponent } from './components/views/project-overview/project-overview.component';
+import { TaskCardComponent } from './components/views/board-view/task-card/task-card.component';
+import { TaskWorkflowComponent } from './components/views/task-workflow/task-workflow.component';
+import { TaskMessagesComponent } from './components/views/task-messages/task-messages.component';
+import { TaskFilesComponent } from './components/views/task-files/task-files.component';
+import { ProjectMembersModalComponent } from './components/project-members-modal/project-members-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -59,7 +62,8 @@ import { TaskFilesComponent } from './views/task-files/task-files.component';
     TaskCardComponent,
     TaskWorkflowComponent,
     TaskMessagesComponent,
-    TaskFilesComponent
+    TaskFilesComponent,
+    ProjectMembersModalComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +86,8 @@ import { TaskFilesComponent } from './views/task-files/task-files.component';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
     QuillModule.forRoot(),
     SharedUiModule
   ]

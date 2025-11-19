@@ -26,18 +26,30 @@
   <nav class="app-sidebar__nav">
     <ng-container *ngFor="let section of sections; trackBy: trackBySection">
       <div class="app-sidebar__section">
-        <button
-          type="button"
-          class="app-sidebar__section-trigger"
-          *ngIf="section.title"
-          (click)="toggleSection(section)"
-          [attr.aria-expanded]="!(section.collapsible && section.collapsed)"
-        >
-          <span>{{ section.title }}</span>
-          <mat-icon *ngIf="section.collapsible">
-            {{ section.collapsed ? 'expand_more' : 'expand_less' }}
-          </mat-icon>
-        </button>
+        <div class="app-sidebar__section-header" *ngIf="section.title">
+          <button
+            type="button"
+            class="app-sidebar__section-trigger"
+            (click)="toggleSection(section)"
+            [attr.aria-expanded]="!(section.collapsible && section.collapsed)"
+          >
+            <span>{{ section.title }}</span>
+            <mat-icon *ngIf="section.collapsible">
+              {{ section.collapsed ? 'expand_more' : 'expand_less' }}
+            </mat-icon>
+          </button>
+          <button
+            *ngIf="section.id === 'projects' && !collapsed"
+            mat-icon-button
+            type="button"
+            class="app-sidebar__section-action"
+            (click)="createProject.emit()"
+            aria-label="Create new project"
+            title="Create new project"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
 
         <ul
           class="app-sidebar__list"

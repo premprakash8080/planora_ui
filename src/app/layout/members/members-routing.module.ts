@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MembersComponent } from './components/members.component';
+import { MembersComponent } from './components/list-member/members.component';
 import { AddMemberComponent } from './components/add-member/add-member.component';
 import { ViewMemberComponent } from './components/view-member/view-member.component';
 

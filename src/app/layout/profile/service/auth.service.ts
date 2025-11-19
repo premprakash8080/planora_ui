@@ -42,11 +42,14 @@ export class AuthenticationService {
 
   /**
    * Get user profile
-   * @returns Observable with user profile
+   * @returns Observable with user profile response
    */
-  getProfile(): Observable<User> {
+  getProfile(): Observable<UserProfileResponse> {
     return this.httpService.get(ENDPOINTS.getProfile).pipe(
-      map((response: User) => {
+      map((response: UserProfileResponse) => {
+        if (response.success && response.data) {
+          this.userSessionService.userSession = response.data.user;
+        }
         return response;
       }),
       catchError((error) => {
@@ -58,21 +61,21 @@ export class AuthenticationService {
   /**
    * Update user profile
    * @param profileData Profile data to update
-   * @returns Observable with updated user profile
+   * @returns Observable with updated user profile response
    */
-  // updateProfile(profileData: Partial<User>): Observable<UserProfileResponse> {
-  //   return this.httpService.put(ENDPOINTS.updateProfile, profileData).pipe(
-  //     map((response: UserProfileResponse) => {
-  //       if (response.success && response.data) {
-  //         this.userSessionService.userSession = response.data.user;
-  //       }
-  //       return response;
-  //     }),
-  //     catchError((error) => {
-  //       return throwError(() => this.handleError(error));
-  //     })
-  //   );
-  // }
+  updateProfile(profileData: Partial<User>): Observable<UserProfileResponse> {
+    return this.httpService.put(ENDPOINTS.updateProfile, profileData).pipe(
+      map((response: UserProfileResponse) => {
+        if (response.success && response.data) {
+          this.userSessionService.userSession = response.data.user;
+        }
+        return response;
+      }),
+      catchError((error) => {
+        return throwError(() => this.handleError(error));
+      })
+    );
+  }
 
   /**
    * Logout user

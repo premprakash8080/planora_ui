@@ -118,6 +118,25 @@
     background: rgba(37, 99, 235, 0.08);
   }
 
+  // Danger/delete action styling
+  &[style*="color: #ef4444"],
+  &[style*="color:#ef4444"] {
+    color: #ef4444 !important;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #dc2626 !important;
+    }
+
+    .dropdown-popover__label {
+      color: inherit;
+    }
+
+    .dropdown-popover__description {
+      color: rgba(239, 68, 68, 0.7);
+    }
+  }
+
   &:last-child {
     margin-bottom: 8px;
   }

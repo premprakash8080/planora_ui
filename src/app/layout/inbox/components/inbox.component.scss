@@ -3,10 +3,11 @@
 .inbox-page {
   display: flex;
   flex-direction: column;
-  // gap: tokens.space(6);
+  padding: tokens.space(10);
   min-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: tokens.space(10);
 }
 
 .task-list-container {

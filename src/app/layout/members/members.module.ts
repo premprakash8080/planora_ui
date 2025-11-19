@@ -10,8 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { MembersComponent } from './components/members.component';
+import { MembersComponent } from './components/list-member/members.component';
 import { MembersRoutingModule } from './members-routing.module';
 import { SharedUiModule } from '../../shared/ui/ui.module';
 import { AddMemberComponent } from './components/add-member/add-member.component';
@@ -38,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatOptionModule,
     MatSortModule,
+    MatProgressSpinnerModule,
     SharedUiModule
   ]
 })

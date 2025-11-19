@@ -8,5 +8,6 @@ export const ENDPOINTS = {
   // Authentication endpoints
   getProfile: `${environment.apiBaseUrl}/api/users/profile`,
   verifyToken: `${environment.apiBaseUrl}/api/users/validate/token`,
+  updateProfile: `${environment.apiBaseUrl}/api/users/update`,
  
 };

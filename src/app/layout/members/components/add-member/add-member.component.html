@@ -12,12 +12,12 @@
           <mat-label>Full Name</mat-label>
           <input
             matInput
-            formControlName="name"
+            formControlName="full_name"
             placeholder="Enter full name"
             required
           />
-          <mat-error *ngIf="memberForm.get('name')?.invalid && memberForm.get('name')?.touched">
-            {{ getErrorMessage('name') }}
+          <mat-error *ngIf="memberForm.get('full_name')?.invalid && memberForm.get('full_name')?.touched">
+            {{ getErrorMessage('full_name') }}
           </mat-error>
         </mat-form-field>
 
@@ -53,7 +53,7 @@
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" required>
             <mat-option *ngFor="let status of statuses" [value]="status">
-              {{ status }}
+              {{ status | titlecase }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="memberForm.get('status')?.invalid && memberForm.get('status')?.touched">
@@ -62,11 +62,27 @@
         </mat-form-field>
       </div>
 
+      <div class="form-row" *ngIf="!isEditMode">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter password"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('password')?.invalid && memberForm.get('password')?.touched">
+            {{ getErrorMessage('password') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
       <div class="form-actions">
-        <app-button variant="secondary" type="button" (pressed)="onCancel()">
+        <app-button variant="secondary" type="button" (pressed)="onCancel()" [disabled]="loading">
           Cancel
         </app-button>
-        <app-button variant="primary" type="submit" [disabled]="memberForm.invalid">
+        <app-button variant="primary" type="submit" [disabled]="memberForm.invalid || loading">
           <mat-icon>{{ isEditMode ? 'save' : 'person_add' }}</mat-icon>
           {{ isEditMode ? 'Update Member' : 'Add Member' }}
         </app-button>

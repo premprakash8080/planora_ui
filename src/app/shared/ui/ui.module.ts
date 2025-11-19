@@ -21,6 +21,7 @@ import { AppButtonComponent } from './app-button/app-button.component';
 import { AppTableComponent } from './app-table/app-table.component';
 import { AppCalendarComponent } from './app-calendar/app-calendar.component';
 import { AppAvatarComponent } from './app-avatar/app-avatar.component';
+import { AppLoadingComponent } from './app-loading/app-loading.component';
 import { DropdownPopoverComponent } from './dropdown-popover/dropdown-popover.component';
 import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.directive';
 import { DropdownContentDirective } from './dropdown-popover/dropdown-content.directive';
@@ -35,6 +36,7 @@ import { DropdownContentDirective } from './dropdown-popover/dropdown-content.di
     AppTableComponent,
     AppCalendarComponent,
     AppAvatarComponent,
+    AppLoadingComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
     DropdownContentDirective
@@ -65,6 +67,7 @@ import { DropdownContentDirective } from './dropdown-popover/dropdown-content.di
     AppTableComponent,
     AppCalendarComponent,
     AppAvatarComponent,
+    AppLoadingComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
     DropdownContentDirective

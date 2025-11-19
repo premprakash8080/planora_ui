@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -59,5 +59,9 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({ imports: [RouterModule.forRoot(routes)], exports: [RouterModule] })
+@NgModule({ imports: [RouterModule.forRoot(routes, {
+  preloadingStrategy: PreloadAllModules,
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled'
+})], exports: [RouterModule] })
 export class AppRoutingModule {}
