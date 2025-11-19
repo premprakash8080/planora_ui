@@ -40,13 +40,17 @@ export class DashboardService {
    * Get task dashboard statistics
    */
   getTaskDashboardStats(): Observable<DashboardStats> {
-    return this.httpService.get(ENDPOINTS.getTaskDashboard).pipe(
-      map((response: { upcomingTasks: number; overdueTasks: number; inProgressTasks: number; doneTasks: number }) => {
+    return this.httpService.get(ENDPOINTS.getDashboardCounts).pipe(
+      map((response: { data: { upcomingTasks: number; overdueTasks: number; inProgressTasks: number; doneTasks: number } }) => {
+        console.log(response.data.upcomingTasks);
+        console.log(response.data.overdueTasks);
+        console.log(response.data.inProgressTasks);
+        console.log(response.data.doneTasks);
         return {
-          upcoming: response.upcomingTasks|| 0,
-          overdue: response.overdueTasks || 0,
-          ongoing: response.inProgressTasks || 0,
-          complete: response.doneTasks|| 0
+          upcoming: response.data.upcomingTasks|| 0,
+          overdue: response.data.overdueTasks || 0,
+          ongoing: response.data.inProgressTasks || 0,
+          complete: response.data.doneTasks|| 0
         };
       }),
       catchError((error) => {

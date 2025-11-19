@@ -14,4 +14,5 @@ export const ENDPOINTS = {
   getMonthlyStats: `${environment.apiBaseUrl}/api/dashboard/monthly-stats`,
   getNoticeBoard: `${environment.apiBaseUrl}/api/dashboard/notice-board`,
   updateNoticeBoard: `${environment.apiBaseUrl}/api/dashboard/notice-board`,
+  getDashboardCounts: `${environment.apiBaseUrl}/api/dashboard/task-dashboard-counts`,
 };
