@@ -95,6 +95,20 @@
     align-items: center;
     gap: tokens.space(3);
 
+    button[mat-icon-button] {
+      color: var(--color-text-body);
+      transition: color 0.3s ease, background-color 0.3s ease;
+
+      &:hover {
+        background: var(--color-surface-hover);
+        color: var(--color-primary);
+      }
+
+      mat-icon {
+        color: inherit;
+      }
+    }
+
     @media (max-width: 768px) {
       width: 100%;
       justify-content: flex-end;
@@ -168,6 +182,16 @@
       font-size: tokens.font-size(xs);
       color: var(--color-text-subtle);
     }
+
+    &-arrow {
+      color: var(--color-text-subtle);
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+  }
+
+  &__profile:hover &__profile-arrow {
+    color: var(--color-primary);
+    transform: translateY(2px);
   }
 }
 

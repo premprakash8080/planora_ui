@@ -100,11 +100,17 @@
 
   &__collapse {
     margin-left: auto;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease, color 0.3s ease;
+    color: var(--color-text-body);
     
     &:hover {
       background: var(--color-surface-hover);
+      color: var(--color-primary);
       transform: scale(1.1);
+    }
+
+    mat-icon {
+      color: inherit;
     }
   }
 
@@ -171,6 +177,20 @@
     text-transform: uppercase;
     padding: 0 tokens.space(1);
     cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--color-text-body);
+    }
+
+    mat-icon {
+      color: inherit;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    &:hover mat-icon {
+      color: var(--color-primary);
+    }
   }
 
   &__section-action {
@@ -178,10 +198,17 @@
     height: 24px;
     padding: 0;
     opacity: 0.6;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, background 0.2s ease, color 0.3s ease;
+    color: var(--color-text-body);
 
     &:hover {
       opacity: 1;
+      background: var(--color-surface-hover);
+      color: var(--color-primary);
+    }
+
+    mat-icon {
+      color: inherit;
     }
   }
 
