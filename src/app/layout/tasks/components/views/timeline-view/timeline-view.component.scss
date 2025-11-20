@@ -57,9 +57,9 @@
      transition: background 0.2s ease;
 
      &.active {
-       background: #ffffff;
-       color: var(--color-primary, #3b82f6);
-       box-shadow: $shadow-xs;
+       background: var(--color-surface);
+       color: var(--color-primary);
+       box-shadow: var(--shadow-xs);
      }
    }
  }
@@ -124,7 +124,7 @@
      text-align: center;
      font-size: font-size(sm);
     border-right: 1px solid var(--color-border, #e5e7eb);
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0));
+    background: linear-gradient(180deg, var(--color-surface-hover), transparent);
     padding: 4px 0;
    }
  }
@@ -149,7 +149,7 @@
   gap: 2px;
 
    &.is-weekend {
-    background: rgba(148, 163, 184, 0.15);
+    background: var(--color-surface-secondary);
    }
 
    .day-weekday {
@@ -163,7 +163,7 @@
    top: 0;
    bottom: -16px;
    width: 2px;
-   background: var(--color-primary, #3b82f6);
+   background: var(--color-primary);
    opacity: 0.6;
    pointer-events: none;
  }
@@ -203,6 +203,7 @@
 .timeline-empty-state {
   mat-icon {
     font-size: 64px;
-    color: #cbd5f5;
+    color: var(--color-primary);
+    opacity: 0.3;
   }
 }

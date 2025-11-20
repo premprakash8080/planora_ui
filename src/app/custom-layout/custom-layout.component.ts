@@ -1,13 +1,14 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { filter, map, shareReplay, takeUntil } from 'rxjs/operators';
 import { SidebarSection, SidebarNavItem } from '../shared/ui/app-sidebar/app-sidebar.component';
 import { ProjectService, Project } from '../layout/tasks/services/project.service';
 import { ProjectDialogComponent } from './components/project-dialog/project-dialog.component';
 import { ThemeService } from '../shared/services/theme.service';
+import { fadeIn, slideInUp } from '../shared/animations/app.animations';
 
 interface ProjectNavItem {
   id: string;
@@ -19,7 +20,8 @@ interface ProjectNavItem {
   selector: 'vex-custom-layout',
   templateUrl: './custom-layout.component.html',
   styleUrls: ['./custom-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn, slideInUp]
 })
 export class CustomLayoutComponent implements OnInit, OnDestroy {
   readonly isMobile$: Observable<boolean> = this.breakpointObserver

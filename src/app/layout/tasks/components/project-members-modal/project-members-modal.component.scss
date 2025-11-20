@@ -228,55 +228,56 @@
 }
 
 /* Dark theme */
+[data-theme="dark"],
 .dark-theme {
   .project-members-modal {
-    background: $color-surface-dark;
+    background: var(--color-surface);
   }
 
   .modal-header {
-    border-bottom-color: $color-border-dark;
+    border-bottom-color: var(--color-border);
 
     .modal-title {
-      color: $color-text-body-dark;
+      color: var(--color-text-body);
     }
   }
 
   .add-member-section {
-    border-bottom-color: $color-border-dark;
+    border-bottom-color: var(--color-border);
 
     .add-member-input-wrapper {
       .add-member-input {
-        background: $color-background-dark;
-        border-color: $color-border-dark;
-        color: $color-text-body-dark;
+        background: var(--color-background);
+        border-color: var(--color-border);
+        color: var(--color-text-body);
 
         &::placeholder {
-          color: $color-muted;
+          color: var(--color-muted);
         }
 
         &:focus {
-          background: $color-surface-dark;
-          border-color: $color-primary;
+          background: var(--color-surface);
+          border-color: var(--color-primary);
         }
 
         &:hover {
-          border-color: $color-primary-dark;
+          border-color: var(--color-primary);
         }
       }
 
       .search-icon {
-        color: $color-muted;
+        color: var(--color-muted);
       }
     }
   }
 
   .members-list {
     .members-count {
-      color: $color-muted;
+      color: var(--color-muted);
     }
 
     .member-item {
-      border-bottom-color: $color-border-dark;
+      border-bottom-color: var(--color-border);
 
       &:hover {
         background: transparent;
@@ -285,13 +286,13 @@
       .member-info {
         .member-name-email {
           .member-name {
-            color: $color-text-body-dark;
+            color: var(--color-text-body);
           }
         }
 
         .member-role-badge {
-          color: $color-primary;
-          background: rgba($color-primary, 0.15);
+          color: var(--color-primary);
+          background: rgba(139, 92, 246, 0.15);
         }
       }
     }

@@ -26,12 +26,14 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(148, 163, 184, 0.5);
+      background-color: var(--color-border);
       border-radius: 999px;
       transition: background-color 0.2s ease;
+      opacity: 0.6;
 
       &:hover {
-        background-color: rgba(148, 163, 184, 0.7);
+        background-color: var(--color-border);
+        opacity: 0.8;
       }
     }
 
@@ -41,7 +43,7 @@
 
     // Firefox scrollbar
     scrollbar-width: thin;
-    scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+    scrollbar-color: var(--color-border) transparent;
   }
 
   table {
@@ -51,7 +53,7 @@
   }
 
   thead {
-    background: rgba(148, 163, 184, 0.12);
+    background: var(--color-surface-secondary);
 
     th {
       font-size: tokens.font-size(sm);
@@ -67,6 +69,11 @@
   tbody tr {
     transition: background 0.2s ease;
     border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+
+    &:hover {
+      background: var(--color-surface-hover);
+    }
   }
 
   tbody td {
@@ -78,7 +85,7 @@
 
 :host(.app-table--striped) {
   .app-table tbody tr:nth-child(even) {
-    background: rgba(148, 163, 184, 0.08);
+    background: var(--color-surface-secondary);
   }
 }
 

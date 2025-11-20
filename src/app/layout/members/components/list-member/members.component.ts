@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { Member, MemberService } from '../../service/member.service';
+import { PaginationConfig } from 'src/app/shared/ui/app-pagination/app-pagination.component';
 
 interface DisplayMember {
   id: number;
@@ -32,9 +33,20 @@ export class MembersComponent implements OnInit, AfterViewInit {
 
   members: Member[] = [];
   displayedMembers: DisplayMember[] = [];
+  paginatedMembers: DisplayMember[] = [];
   dataSource = new MatTableDataSource<DisplayMember>([]);
   displayedColumns: string[] = ['name', 'role', 'projectsAssigned', 'status'];
   loading = false;
+
+  // Pagination
+  paginationConfig: PaginationConfig = {
+    currentPage: 1,
+    totalPages: 1,
+    pageSize: 10,
+    totalItems: 0,
+    showPageSize: true,
+    pageSizeOptions: [5, 10, 25, 50, 100]
+  };
 
   roles: Array<'All' | string> = ['All', 'Developer', 'Designer', 'Manager', 'QA', 'DevOps'];
   statuses: Array<'All' | Member['status']> = ['All', 'active', 'inactive', 'suspended'];
@@ -101,8 +113,52 @@ export class MembersComponent implements OnInit, AfterViewInit {
       initials: member.initials || this.getInitials(member.full_name || ''),
       projectsAssigned: member.projectsAssigned || 0
     }))];
+    
+    // Update pagination
+    this.updatePagination();
     // Update the data source
-    this.dataSource.data = this.displayedMembers;
+    this.dataSource.data = this.paginatedMembers;
+  }
+
+  /**
+   * Update pagination configuration and paginated data
+   */
+  private updatePagination(): void {
+    const totalItems = this.displayedMembers.length;
+    const totalPages = Math.ceil(totalItems / this.paginationConfig.pageSize);
+    
+    this.paginationConfig = {
+      ...this.paginationConfig,
+      totalItems,
+      totalPages: totalPages || 1,
+      currentPage: Math.min(this.paginationConfig.currentPage, totalPages || 1)
+    };
+
+    // Get paginated slice
+    const startIndex = (this.paginationConfig.currentPage - 1) * this.paginationConfig.pageSize;
+    const endIndex = startIndex + this.paginationConfig.pageSize;
+    this.paginatedMembers = this.displayedMembers.slice(startIndex, endIndex);
+  }
+
+  /**
+   * Handle page change
+   */
+  onPageChange(page: number): void {
+    this.paginationConfig.currentPage = page;
+    this.updatePagination();
+    this.dataSource.data = this.paginatedMembers;
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Handle page size change
+   */
+  onPageSizeChange(size: number): void {
+    this.paginationConfig.pageSize = size;
+    this.paginationConfig.currentPage = 1;
+    this.updatePagination();
+    this.dataSource.data = this.paginatedMembers;
+    this.cdr.markForCheck();
   }
 
   /**

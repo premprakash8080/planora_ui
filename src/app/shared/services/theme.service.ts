@@ -77,21 +77,34 @@ export class ThemeService {
   }
 
   /**
-   * Apply theme to document
+   * Apply theme to document with smooth transition
    */
   private applyTheme(theme: Theme): void {
     const html = document.documentElement;
     const body = document.body;
 
-    if (theme === 'dark') {
-      this.renderer.addClass(html, 'dark-theme');
-      this.renderer.setAttribute(html, 'data-theme', 'dark');
-      this.renderer.addClass(body, 'dark-theme');
-    } else {
-      this.renderer.removeClass(html, 'dark-theme');
-      this.renderer.setAttribute(html, 'data-theme', 'light');
-      this.renderer.removeClass(body, 'dark-theme');
-    }
+    // Add transition class for smooth animation
+    this.renderer.addClass(html, 'theme-transitioning');
+    this.renderer.addClass(body, 'theme-transitioning');
+
+    // Use requestAnimationFrame to ensure smooth transition
+    requestAnimationFrame(() => {
+      if (theme === 'dark') {
+        this.renderer.addClass(html, 'dark-theme');
+        this.renderer.setAttribute(html, 'data-theme', 'dark');
+        this.renderer.addClass(body, 'dark-theme');
+      } else {
+        this.renderer.removeClass(html, 'dark-theme');
+        this.renderer.setAttribute(html, 'data-theme', 'light');
+        this.renderer.removeClass(body, 'dark-theme');
+      }
+
+      // Remove transition class after animation completes
+      setTimeout(() => {
+        this.renderer.removeClass(html, 'theme-transitioning');
+        this.renderer.removeClass(body, 'theme-transitioning');
+      }, 300);
+    });
   }
 
   /**

@@ -69,13 +69,25 @@
 /* Priority Pills – Soft backgrounds */
 .priority-pill.low,
 .priority-pill.medium {
-  background: #fef3c7;   // amber-100
-  color: #92400e;        // amber-800
+  background: rgba(234, 179, 8, 0.18);
+  color: #eab308;
+
+  [data-theme="dark"] &,
+  .dark-theme & {
+    background: rgba(234, 179, 8, 0.25);
+    color: #fbbf24;
+  }
 }
 
 .priority-pill.high {
-  background: #fee2e2;   // red-100
-  color: #991b1b;        // red-800
+  background: rgba(244, 114, 182, 0.22);
+  color: #ec4899;
+
+  [data-theme="dark"] &,
+  .dark-theme & {
+    background: rgba(244, 114, 182, 0.3);
+    color: #f472b6;
+  }
 }
 
 /* Status Pills – Solid colors */

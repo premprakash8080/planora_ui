@@ -114,5 +114,12 @@
       <h3>No members found</h3>
       <p>Try adjusting your search or filters.</p>
     </div>
+
+    <app-pagination
+      *ngIf="!loading && displayedMembers.length > 0"
+      [config]="paginationConfig"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></app-pagination>
   </app-card>
 </div>

@@ -16,12 +16,14 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(148, 163, 184, 0.5);
+    background-color: var(--color-border);
     border-radius: 999px;
     transition: background-color 0.2s ease;
+    opacity: 0.6;
 
     &:hover {
-      background-color: rgba(148, 163, 184, 0.7);
+      background-color: var(--color-border);
+      opacity: 0.8;
     }
   }
 
@@ -31,7 +33,7 @@
 
   // Firefox scrollbar
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+  scrollbar-color: var(--color-border) transparent;
 }
 
 .mail-item-wrapper {
@@ -40,7 +42,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: var(--color-surface-hover, rgba(37, 99, 235, 0.04));
+    background-color: var(--color-surface-hover);
   }
 
   &:last-child {
@@ -48,8 +50,13 @@
   }
 
   &.unread {
-    background-color: rgba(37, 99, 235, 0.02);
-    border-left: 3px solid var(--color-primary, #2563eb);
+    background-color: rgba(139, 92, 246, 0.05);
+    border-left: 3px solid var(--color-primary);
+
+    [data-theme="dark"] &,
+    .dark-theme & {
+      background-color: rgba(139, 92, 246, 0.1);
+    }
   }
 }
 
@@ -178,7 +185,7 @@
     }
 
     &.starred {
-      color: #fbbf24;
+      color: var(--color-warning);
     }
   }
 }

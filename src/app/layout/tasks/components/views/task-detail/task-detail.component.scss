@@ -5,7 +5,7 @@
   width: min(45vw, 50vw);
   height: 100vh;
   background: var(--color-surface, #ffffff);
-  box-shadow: -24px 0 48px rgba(15, 23, 42, 0.12);
+  box-shadow: var(--shadow-lg);
   transform: translateX(100%);
   transition: transform 240ms ease, box-shadow 240ms ease;
   display: flex;
@@ -53,8 +53,8 @@
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--color-text-body, #374151);
-      background-color: rgba(0, 0, 0, 0.04);
+      color: var(--color-text-body);
+      background-color: var(--color-surface-hover);
     }
   }
 }
@@ -75,12 +75,14 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(148, 163, 184, 0.5);
+    background-color: var(--color-border);
     border-radius: 999px;
     transition: background-color 0.2s ease;
+    opacity: 0.6;
 
     &:hover {
-      background-color: rgba(148, 163, 184, 0.7);
+      background-color: var(--color-border);
+      opacity: 0.8;
     }
   }
 
@@ -90,7 +92,7 @@
 
   // Firefox scrollbar
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+  scrollbar-color: var(--color-border) transparent;
 }
 
 .task-detail__block {
@@ -100,10 +102,10 @@
 }
 
 .task-detail__card {
-  background: #ffffff;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-sm);
   padding: 22px 26px;
 }
 
@@ -115,17 +117,19 @@
     width: 100%;
     min-height: 140px;
     border-radius: 12px;
-    border: 1px solid rgba(148, 163, 184, 0.35);
+    border: 1px solid var(--color-border);
     padding: 14px 16px;
     font-size: 14px;
     line-height: 1.6;
     resize: vertical;
     font-family: 'Inter', 'Roboto', sans-serif;
+    background: var(--color-surface);
+    color: var(--color-text-body);
 
     &:focus {
       outline: none;
-      border-color: rgba(37, 99, 235, 0.55);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
   }
 }
@@ -166,19 +170,19 @@
 
   .task-detail__field-input,
   mat-select {
-    border: 1px solid rgba(148, 163, 184, 0.32);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 12px 14px;
     font-size: 14px;
-    color: var(--color-text-body, #374151);
-    background: var(--color-surface, #ffffff);
+    color: var(--color-text-body);
+    background: var(--color-surface);
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &:focus,
     &:focus-visible {
       outline: none;
-      border-color: rgba(37, 99, 235, 0.55);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
   }
 
@@ -240,21 +244,21 @@
     align-items: center;
     gap: 12px;
     width: 100%;
-    border: 1px solid rgba(148, 163, 184, 0.32);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 10px 14px;
-    background: var(--color-surface, #ffffff);
+    background: var(--color-surface);
     cursor: pointer;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
-      border-color: rgba(37, 99, 235, 0.35);
+      border-color: var(--color-primary);
     }
 
     &:focus-visible {
       outline: none;
-      border-color: rgba(37, 99, 235, 0.55);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
 
     mat-icon {
@@ -304,16 +308,17 @@
 .task-detail__comment {
   display: flex;
   gap: 12px;
-  background: rgba(248, 250, 252, 0.75);
+  background: var(--color-surface-secondary);
   border-radius: 14px;
   padding: 12px 16px;
+  border: 1px solid var(--color-border);
 }
 
 .task-detail__comment-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: #fff;
   display: flex;
   align-items: center;
@@ -370,8 +375,9 @@
   color: var(--color-text-body, #374151);
 
   &:focus {
-    outline: 2px solid rgba(37, 99, 235, 0.25);
-    border-color: var(--color-primary, #2563eb);
+    outline: 2px solid rgba(139, 92, 246, 0.25);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
   }
 }
 

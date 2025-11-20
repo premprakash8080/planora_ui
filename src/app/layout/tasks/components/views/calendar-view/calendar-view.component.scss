@@ -51,7 +51,7 @@
 
   .view-switcher {
     display: inline-flex;
-    background: #f3f4f6;
+    background: var(--color-surface-secondary);
     border-radius: $radius-full;
     padding: 4px;
     button {
@@ -61,11 +61,11 @@
       padding: 4px 12px;
       font-size: font-size(xs);
       cursor: pointer;
-      color: var(--color-muted, #6b7280);
+      color: var(--color-muted);
       &.active {
-        background: #ffffff;
-        color: $color-primary;
-        box-shadow: $shadow-xs;
+        background: var(--color-surface);
+        color: var(--color-primary);
+        box-shadow: var(--shadow-xs);
       }
       &:disabled {
         opacity: 0.4;
@@ -133,12 +133,12 @@
   border: 1px solid transparent;
 
   &.is-outside {
-    background: #f8fafc;
-    color: var(--color-muted, #94a3b8);
+    background: var(--color-surface-secondary);
+    color: var(--color-muted);
   }
 
   &.is-today {
-    border-color: $color-primary;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 1px rgba(255, 115, 0, 0.4) inset;
   }
 }
@@ -175,13 +175,14 @@
   align-items: center;
   gap: 6px;
   border: none;
-  background: rgba(148, 163, 184, 0.15);
+  background: var(--color-surface-secondary);
   border-radius: $radius-md;
   padding: 4px 6px;
   cursor: pointer;
   font-size: font-size(xs);
   text-align: left;
-  color: var(--color-text-body, #1f2937);
+  color: var(--color-text-body);
+  border: 1px solid var(--color-border);
 
   .dot {
     width: 8px;
@@ -198,13 +199,19 @@
 
 .more-pill {
   border: none;
-  background: #ede9fe;
-  color: #7c3aed;
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--color-primary);
   border-radius: $radius-full;
   padding: 2px 10px;
   font-size: font-size(xs);
   cursor: pointer;
   align-self: flex-start;
+
+  [data-theme="dark"] &,
+  .dark-theme & {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+  }
 }
 
 .quick-add {
@@ -215,7 +222,7 @@
 
   input {
     width: 100%;
-    border: 1px solid var(--color-border, #cbd5f5);
+    border: 1px solid var(--color-border);
     border-radius: $radius-md;
     padding: 6px 8px;
     font-size: font-size(sm);

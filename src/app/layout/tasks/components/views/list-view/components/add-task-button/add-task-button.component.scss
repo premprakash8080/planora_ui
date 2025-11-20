@@ -4,19 +4,23 @@
   align-items: center;
   gap: 8px;
   padding: 14px 20px 18px;
-  color: #64748b;
+  color: var(--color-text-subtle);
   background: transparent;
   border: none;
-  border-top: 1px dashed #e5e7eb;
+  border-top: 1px dashed var(--color-border);
   font-size: 14px;
   cursor: pointer;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: #f8fafc;
-    color: #1f2937;
+    background: var(--color-surface-hover);
+    color: var(--color-text-heading);
   }
 
-  mat-icon { font-size: 18px; }
+  mat-icon { 
+    font-size: 18px;
+    color: inherit;
+  }
 }
 
 

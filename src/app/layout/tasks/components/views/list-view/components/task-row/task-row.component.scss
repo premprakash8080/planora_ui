@@ -4,11 +4,17 @@
   align-items: center;
   padding: 0 16px;
   gap: 12px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 .task-grid-row--selected {
-  background: rgba(37, 99, 235, 0.08);
-  box-shadow: inset 3px 0 0 rgba(37, 99, 235, 0.4);
+  background: rgba(var(--color-primary-rgb), 0.08);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+
+  [data-theme="dark"] &,
+  .dark-theme & {
+    background: rgba(var(--color-primary-rgb), 0.15);
+  }
 }
 .grid-cell {
   display: flex;
@@ -17,7 +23,7 @@
   min-width: 0;
   width: 100%;
   padding: 0 12px;
-  border-right: 1px solid rgba(148, 163, 184, 0.18);
+  border-right: 1px solid var(--color-border);
 }
 .grid-cell:last-child {
   border-right: none;
@@ -65,7 +71,7 @@
 .assignee-expand {
   margin-left: auto;
   font-size: 18px;
-  color: #64748b;
+  color: var(--color-text-subtle);
 }
 
 /* Due date column */
@@ -138,5 +144,5 @@
 }
 .grid-cell--comments mat-icon {
   font-size: 18px;
-  color: #64748b;
+  color: var(--color-text-subtle);
 }

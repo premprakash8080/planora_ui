@@ -71,6 +71,14 @@ export class AppSidebarComponent implements OnDestroy {
   }
 
   toggleTheme(): void {
+    // Add a subtle rotation animation to the theme toggle button
+    const themeButton = document.querySelector('.app-sidebar__theme-button');
+    if (themeButton) {
+      themeButton.classList.add('theme-toggle-active');
+      setTimeout(() => {
+        themeButton.classList.remove('theme-toggle-active');
+      }, 400);
+    }
     this.themeService.toggleTheme();
   }
 

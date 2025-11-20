@@ -50,7 +50,7 @@
       }
 
       &.starred {
-        color: #fbbf24;
+        color: var(--color-warning);
       }
     }
 
@@ -67,7 +67,7 @@
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: 12px;
   padding: tokens.space(6);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   gap: tokens.space(5);

@@ -60,12 +60,24 @@
 
   &.active {
     background: rgba(16, 185, 129, 0.12);
-    color: #047857;
+    color: var(--color-accent);
+
+    [data-theme="dark"] &,
+    .dark-theme & {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
   }
 
   &.inactive {
-    background: rgba(148, 163, 184, 0.16);
-    color: #475569;
+    background: var(--color-surface-secondary);
+    color: var(--color-text-subtle);
+
+    [data-theme="dark"] &,
+    .dark-theme & {
+      background: var(--color-surface-tertiary);
+      color: var(--color-muted);
+    }
   }
 }
 
@@ -126,7 +138,8 @@
 
   mat-icon {
     font-size: 64px;
-    color: rgba(37, 99, 235, 0.4);
+    color: var(--color-primary);
+    opacity: 0.4;
   }
 
   h3 {
