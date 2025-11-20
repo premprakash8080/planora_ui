@@ -96,3 +96,32 @@
 
   mat-icon { font-size: 16px; }
 }
+
+.board-loading,
+.board-error,
+.board-empty-state {
+  min-height: 240px;
+  padding: space(6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: space(2);
+  text-align: center;
+  color: var(--color-muted, #64748b);
+}
+
+.board-error {
+  color: var(--color-text-heading, #111827);
+
+  mat-icon {
+    font-size: 36px;
+  }
+}
+
+.board-empty-state {
+  mat-icon {
+    font-size: 48px;
+    color: #cbd5f5;
+  }
+}

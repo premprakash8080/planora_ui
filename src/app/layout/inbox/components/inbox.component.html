@@ -46,9 +46,9 @@
           <!-- Task Info -->
           <div class="task-cell task-info-cell">
             <div class="task-main-info">
-              <div class="task-icon-wrapper" [style.background-color]="getIconBackgroundColor(update.updateType)">
+              <div class="task-icon-wrapper" [style.background-color]="update.iconBackground">
                 <mat-icon 
-                  [style.color]="getIconColor(update.updateType)" 
+                  [style.color]="update.iconColor" 
                   class="task-icon">
                   {{ update.icon }}
                 </mat-icon>
@@ -82,7 +82,7 @@
           <div class="task-cell assignee-cell">
             <div class="assignee-info">
               <div class="assignee-avatar">
-                {{ update.userName.charAt(0) }}
+                {{ update.userInitials || update.userName.charAt(0) }}
               </div>
               <span class="assignee-name">{{ update.userName }}</span>
             </div>
@@ -92,7 +92,7 @@
           <div class="task-cell time-cell">
             <div class="time-info">
               <mat-icon class="time-icon">schedule</mat-icon>
-              <span class="time-text">{{ update.timeAgo }}</span>
+              <span class="time-text">{{ update.timeAgo || update.time }}</span>
             </div>
           </div>
 

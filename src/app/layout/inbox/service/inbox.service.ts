@@ -40,12 +40,14 @@ export interface InboxUpdate {
   projectName: string;
   updateType: 'created' | 'updated' | 'completed' | 'assigned' | 'comment';
   updateDescription: string;
-  time: string;
-  timeAgo: string;
-  userAvatar?: string;
+  time: string | null;
+  timeAgo: string | null;
+  userAvatar?: string | null;
+  userInitials?: string;
   userName: string;
   icon: string;
   iconColor: string;
+  iconBackground: string;
 }
 
 @Injectable({
@@ -57,17 +59,15 @@ export class InboxService {
   /**
    * Get inbox activities
    */
-  getInboxActivities(limit: number = 50, offset: number = 0): Observable<ActivityLog[]> {
+  getInboxActivities(limit: number = 50, offset: number = 0): Observable<InboxUpdate[]> {
     const params = { limit: limit.toString(), offset: offset.toString() };
     return this.httpService.get(ENDPOINTS.getInboxActivities, params).pipe(
       map((response: any) => {
-        // Handle unified response format
         if (response.success && response.data?.activities) {
-          return response.data.activities;
+          return response.data.activities as InboxUpdate[];
         }
-        // Fallback for direct array
         if (Array.isArray(response)) {
-          return response;
+          return response as InboxUpdate[];
         }
         return [];
       }),
@@ -92,104 +92,6 @@ export class InboxService {
         return throwError(() => this.handleError(error));
       })
     );
-  }
-
-  /**
-   * Convert activity log to inbox update format
-   */
-  convertToInboxUpdate(activity: ActivityLog): InboxUpdate {
-    const updateType = this.mapActivityTypeToUpdateType(activity.activity_type);
-    const timeAgo = this.getTimeAgo(activity.created_at);
-    
-    return {
-      id: activity.id.toString(),
-      taskName: activity.task?.title || 'Unknown Task',
-      projectName: activity.project?.name || 'Unknown Project',
-      updateType,
-      updateDescription: activity.description,
-      time: activity.created_at,
-      timeAgo,
-      userName: activity.user?.full_name || 'Unknown User',
-      userAvatar: activity.user?.avatar_url,
-      icon: this.getIconForActivityType(activity.activity_type),
-      iconColor: this.getIconColorForActivityType(activity.activity_type)
-    };
-  }
-
-  /**
-   * Map activity type to update type
-   */
-  private mapActivityTypeToUpdateType(activityType: string): 'created' | 'updated' | 'completed' | 'assigned' | 'comment' {
-    const typeMap: { [key: string]: 'created' | 'updated' | 'completed' | 'assigned' | 'comment' } = {
-      'created': 'created',
-      'completed': 'completed',
-      'assigned': 'assigned',
-      'comment': 'comment',
-      'status_changed': 'updated',
-      'priority_changed': 'updated',
-      'due_date_changed': 'updated',
-      'updated': 'updated'
-    };
-    return typeMap[activityType] || 'updated';
-  }
-
-  /**
-   * Get icon for activity type
-   */
-  private getIconForActivityType(activityType: string): string {
-    const iconMap: { [key: string]: string } = {
-      'created': 'add_circle',
-      'completed': 'check_circle',
-      'assigned': 'person_add',
-      'comment': 'comment',
-      'status_changed': 'swap_horiz',
-      'priority_changed': 'flag',
-      'due_date_changed': 'calendar_today',
-      'updated': 'edit'
-    };
-    return iconMap[activityType] || 'info';
-  }
-
-  /**
-   * Get icon color for activity type
-   */
-  private getIconColorForActivityType(activityType: string): string {
-    const colorMap: { [key: string]: string } = {
-      'created': '#9c27b0',
-      'completed': '#4caf50',
-      'assigned': '#ff9800',
-      'comment': '#3f51b5',
-      'status_changed': '#2196f3',
-      'priority_changed': '#f44336',
-      'due_date_changed': '#00bcd4',
-      'updated': '#2196f3'
-    };
-    return colorMap[activityType] || '#9e9e9e';
-  }
-
-  /**
-   * Get time ago string
-   */
-  private getTimeAgo(dateString: string): string {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-    if (diffInSeconds < 60) {
-      return 'just now';
-    } else if (diffInSeconds < 3600) {
-      const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
-    } else if (diffInSeconds < 86400) {
-      const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
-    } else if (diffInSeconds < 604800) {
-      const days = Math.floor(diffInSeconds / 86400);
-      return `${days} ${days === 1 ? 'day' : 'days'} ago`;
-    } else {
-      const weeks = Math.floor(diffInSeconds / 604800);
-      return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
-    }
   }
 
   /**

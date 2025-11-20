@@ -234,6 +234,61 @@ export class ProjectService {
     );
   }
 
+  /**
+   * Get project overview data
+   */
+  getProjectOverview(projectId: string): Observable<any> {
+    return this.httpService.get(`${this.baseUrl}/${projectId}/overview`).pipe(
+      map((response: any) => {
+        if (response.success && response.data) {
+          return response.data;
+        }
+        throw new Error('Failed to load project overview');
+      }),
+      catchError((error) => {
+        this.snackBarService.showError('Failed to load project overview');
+        return throwError(() => this.handleError(error));
+      })
+    );
+  }
+
+  /**
+   * Get project activities
+   */
+  getProjectActivities(projectId: string, limit: number = 50): Observable<any[]> {
+    return this.httpService.get(`${this.baseUrl}/${projectId}/activities`, { limit }).pipe(
+      map((response: any) => {
+        if (response.success && response.data?.activities) {
+          return response.data.activities;
+        }
+        return [];
+      }),
+      catchError((error) => {
+        console.error('Failed to load project activities:', error);
+        return throwError(() => this.handleError(error));
+      })
+    );
+  }
+
+  /**
+   * Update project overview data
+   */
+  updateProjectOverview(projectId: string, updates: { description?: string; health_status?: string; due_date?: string | null }): Observable<any> {
+    return this.httpService.patch(`${this.baseUrl}/${projectId}/overview`, updates).pipe(
+      map((response: any) => {
+        if (response.success && response.data) {
+          this.snackBarService.showSuccess(response.message || 'Project overview updated successfully');
+          return response.data;
+        }
+        throw new Error('Failed to update project overview');
+      }),
+      catchError((error) => {
+        this.snackBarService.showError('Failed to update project overview');
+        return throwError(() => this.handleError(error));
+      })
+    );
+  }
+
   private handleError(error: any): string {
     if (error?.error?.message) {
       return error.error.message;

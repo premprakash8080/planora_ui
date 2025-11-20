@@ -11,6 +11,10 @@ import { DropdownPopoverItem } from '../../../../../../../shared/ui/dropdown-pop
 export class TaskRowComponent {
   @Input() set task(value: Task) {
     this._task = value;
+    // Sync localNameDraft when task changes (if not currently being edited)
+    if (value && !this.localNameDraft) {
+      this.localNameDraft = value.name ?? '';
+    }
     // Debug: Log task data to verify objects are present
     // if (value) {
     //   console.log('TaskRow - Task received:', {
@@ -31,7 +35,13 @@ export class TaskRowComponent {
   private _task!: Task;
   @Input() section!: TaskSection;
   @Input() selected = false;
-  @Input() nameDraft?: string;
+  @Input() set nameDraft(value: string | undefined) {
+    this.localNameDraft = value ?? this.task?.name ?? '';
+  }
+  get nameDraft(): string {
+    return this.localNameDraft ?? this.task?.name ?? '';
+  }
+  localNameDraft: string = '';
 
   @Input() assigneeItems: DropdownPopoverItem[] = [];
   @Input() priorityItems: DropdownPopoverItem[] = [];

@@ -49,5 +49,16 @@ export const ENDPOINTS = {
   createPriorityLabel: `${environment.apiBaseUrl}/api/priority-labels/create-priority-label`,
   updatePriorityLabel: `${environment.apiBaseUrl}/api/priority-labels/update-priority-label`,
   deletePriorityLabel: `${environment.apiBaseUrl}/api/priority-labels/delete-priority-label`,
+
+  // Board View endpoints
+  getBoardViewData: `${environment.apiBaseUrl}/api/board-view/projects/:projectId/data`,
+  updateBoardViewTask: `${environment.apiBaseUrl}/api/board-view/tasks/:taskId`,
+  createBoardViewSection: `${environment.apiBaseUrl}/api/board-view/projects/:projectId/sections`,
+  updateBoardViewSection: `${environment.apiBaseUrl}/api/board-view/sections/:sectionId`,
+  
+  // Project Overview endpoints
+  getProjectOverview: `${environment.apiBaseUrl}/api/projects/:projectId/overview`,
+  updateProjectOverview: `${environment.apiBaseUrl}/api/projects/:projectId/overview`,
+  getProjectActivities: `${environment.apiBaseUrl}/api/projects/:projectId/activities`,
 };
 

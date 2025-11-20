@@ -358,7 +358,49 @@ export class ListViewComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.currentProjectId) {
       return;
     }
-    this.taskService.updateTask(this.currentProjectId, section.id, task.id, { name: value });
+    
+    // Trim the value and check if it's different from current name
+    const trimmedValue = value.trim();
+    if (trimmedValue === (task.name ?? '').trim()) {
+      // No change, just clear the draft
+      this.nameDrafts.delete(task.id);
+      return;
+    }
+
+    // If empty, don't update
+    if (!trimmedValue) {
+      this.nameDrafts.delete(task.id);
+      return;
+    }
+
+    // Subscribe to the update Observable to ensure the HTTP request is made
+    this.taskService.updateTask(this.currentProjectId, section.id, task.id, { name: trimmedValue })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedTask) => {
+          // Update successful - the task service already updates the state
+          // Clear the draft
+          this.nameDrafts.delete(task.id);
+          
+          // Update selectedTask if it's the same task
+          if (this.selectedTask?.id === updatedTask.id) {
+            this.selectedTask = updatedTask;
+          }
+          
+          // Trigger change detection
+          this.ngZone.run(() => {
+            this.cdr.markForCheck();
+          });
+        },
+        error: (error) => {
+          console.error('Error updating task name:', error);
+          // Revert the draft on error
+          this.nameDrafts.delete(task.id);
+          this.ngZone.run(() => {
+            this.cdr.markForCheck();
+          });
+        }
+      });
   }
 
   /** Track name edits while user is typing */

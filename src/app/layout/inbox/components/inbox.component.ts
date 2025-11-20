@@ -42,9 +42,7 @@ export class InboxComponent implements OnInit, AfterViewInit {
     this.inboxService.getInboxActivities(50, 0).subscribe({
       next: (activities) => {
         this.ngZone.run(() => {
-          this.inboxUpdates = activities.map(activity => 
-            this.inboxService.convertToInboxUpdate(activity)
-          );
+          this.inboxUpdates = activities;
           this.loading = false;
           this.cdr.detectChanges();
         });
@@ -60,62 +58,6 @@ export class InboxComponent implements OnInit, AfterViewInit {
         });
       }
     });
-  }
-
-  /**
-   * Get the appropriate icon based on update type
-   */
-  getUpdateIcon(updateType: string): string {
-    const iconMap: { [key: string]: string } = {
-      'created': 'add_circle',
-      'updated': 'edit',
-      'completed': 'check_circle',
-      'assigned': 'person_add',
-      'comment': 'comment'
-    };
-    return iconMap[updateType] || 'info';
-  }
-
-  /**
-   * Get the appropriate color class based on update type
-   */
-  getUpdateColor(updateType: string): string {
-    const colorMap: { [key: string]: string } = {
-      'created': 'text-purple-500',
-      'updated': 'text-blue-500',
-      'completed': 'text-green-500',
-      'assigned': 'text-orange-500',
-      'comment': 'text-indigo-500'
-    };
-    return colorMap[updateType] || 'text-gray-500';
-  }
-
-  /**
-   * Get icon color based on update type
-   */
-  getIconColor(updateType: string): string {
-    const colorMap: { [key: string]: string } = {
-      'created': '#9c27b0',
-      'updated': '#2196f3',
-      'completed': '#4caf50',
-      'assigned': '#ff9800',
-      'comment': '#3f51b5'
-    };
-    return colorMap[updateType] || '#9e9e9e';
-  }
-
-  /**
-   * Get icon background color based on update type
-   */
-  getIconBackgroundColor(updateType: string): string {
-    const colorMap: { [key: string]: string } = {
-      'created': '#f3e5f5',
-      'updated': '#e3f2fd',
-      'completed': '#e8f5e9',
-      'assigned': '#fff3e0',
-      'comment': '#e8eaf6'
-    };
-    return colorMap[updateType] || '#f5f5f5';
   }
 
   /**

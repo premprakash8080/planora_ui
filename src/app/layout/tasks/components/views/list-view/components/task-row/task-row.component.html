@@ -14,11 +14,11 @@
       <input
         class="task-grid-name"
         [value]="nameDraft"
-        (input)="nameDraft = ($any($event.target)).value"
-        (focus)="nameDraft = nameDraft ?? task.name"
-        (blur)="nameChange.emit(nameDraft ?? task.name ?? '')"
-        (keydown.enter)="$event.preventDefault(); nameChange.emit(nameDraft ?? task.name ?? '')"
-        (keydown.escape)="nameDraft = task.name ?? ''"
+        (input)="localNameDraft = ($any($event.target)).value"
+        (focus)="localNameDraft = localNameDraft || task.name || ''"
+        (blur)="nameChange.emit(localNameDraft || task.name || '')"
+        (keydown.enter)="$event.preventDefault(); nameChange.emit(localNameDraft || task.name || '')"
+        (keydown.escape)="localNameDraft = task.name || ''"
         [style.width.px]="180"
         (click)="$event.stopPropagation()"
       />
