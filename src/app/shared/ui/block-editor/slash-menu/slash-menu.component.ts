@@ -44,15 +44,20 @@ export class SlashMenuComponent implements OnInit {
     onKeydown(event: KeyboardEvent): void {
         if (event.key === 'ArrowDown') {
             event.preventDefault();
+            event.stopPropagation(); // Prevent event from reaching block component
             this.selectedIndex = (this.selectedIndex + 1) % this.items.length;
         } else if (event.key === 'ArrowUp') {
             event.preventDefault();
+            event.stopPropagation(); // Prevent event from reaching block component
             this.selectedIndex = (this.selectedIndex - 1 + this.items.length) % this.items.length;
         } else if (event.key === 'Enter') {
             event.preventDefault();
+            event.stopPropagation(); // CRITICAL: Prevent Enter from creating a new block
+            event.stopImmediatePropagation(); // Stop all handlers
             this.selectItem(this.items[this.selectedIndex]);
         } else if (event.key === 'Escape') {
             event.preventDefault();
+            event.stopPropagation();
             this.close.emit();
         }
     }
@@ -65,6 +70,9 @@ export class SlashMenuComponent implements OnInit {
     }
 
     selectItem(item: MenuItem): void {
-        this.select.emit(item.type);
+        // Add a small delay to ensure any pending events are cleared
+        setTimeout(() => {
+            this.select.emit(item.type);
+        }, 0);
     }
 }

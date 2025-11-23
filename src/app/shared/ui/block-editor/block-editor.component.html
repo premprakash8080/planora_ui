@@ -3,13 +3,24 @@
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
 
         <!-- Drag Handle -->
-        <div class="drag-handle" cdkDragHandle>
+        <div class="drag-handle" 
+             cdkDragHandle
+             (click)="onDragHandleClick(block.id, $event)"
+             (mousedown)="onDragHandleMouseDown(block.id, $event)">
             <mat-icon>drag_indicator</mat-icon>
         </div>
 
-        <app-block [block]="block" [selected]="isBlockSelected(block.id)" (update)="updateBlock(block.id, $event)"
-            (enter)="onBlockEnter(block.id)" (backspace)="onBlockBackspace(block.id)"
-            (navigate)="onBlockNavigate(block.id, $event)" (slash)="onSlashMenuTrigger($event)">
+        <app-block [block]="block" 
+                   [selected]="isBlockSelected(block.id)" 
+                   [focused]="focusedBlockId === block.id"
+                   (update)="updateBlock(block.id, $event)"
+                   (enter)="onBlockEnter(block.id)" 
+                   (backspace)="onBlockBackspace(block.id)"
+                   (navigate)="onBlockNavigate(block.id, $event)" 
+                   (slash)="onSlashMenuTrigger($event)"
+                   (focus)="onBlockFocus(block.id)"
+                   (blur)="onBlockBlur(block.id)"
+                   (paste)="onBlockPaste(block.id, $event)">
         </app-block>
     </div>
 

@@ -1,4 +1,14 @@
-<div class="block-container" [id]="'block-' + block.id" [class.selected]="selected">
+<div class="block-container" 
+     [id]="'block-' + block.id" 
+     [class.selected]="selected"
+     [class.block-h1]="block.type === 'heading1'"
+     [class.block-h2]="block.type === 'heading2'"
+     [class.block-h3]="block.type === 'heading3'"
+     [class.block-quote]="block.type === 'quote'"
+     [class.block-code]="block.type === 'code'"
+     [class.block-bullet]="block.type === 'bullet'"
+     [class.block-ordered]="block.type === 'ordered-list'"
+     [class.block-checklist]="block.type === 'checklist'">
 
     <div class="block-marker" *ngIf="block.type === 'bullet'">•</div>
     <div class="block-marker" *ngIf="block.type === 'ordered-list'">1.</div>
@@ -23,8 +33,17 @@
     </div>
 
     <!-- Content Editable for Text Blocks -->
-    <div *ngIf="block.type !== 'divider' && block.type !== 'image'" #editable class="block-content"
-        [attr.contenteditable]="true" [attr.placeholder]="getPlaceholder()" (input)="onInput($event)"
-        (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+    <div *ngIf="block.type !== 'divider' && block.type !== 'image'" 
+         #editable 
+         class="block-content"
+         [class.has-placeholder]="focused && !block.content"
+         [attr.contenteditable]="true" 
+         [attr.placeholder]="getPlaceholder()" 
+         [attr.data-type]="block.type"
+         (input)="onInput($event)"
+         (keydown)="onKeydown($event)" 
+         (paste)="onPaste($event)"
+         (focus)="onFocus()" 
+         (blur)="onBlur()">
     </div>
 </div>
