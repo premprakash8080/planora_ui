@@ -1,0 +1,22 @@
+@use 'src/styles/tokens' as tokens;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+
+.chat-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: tokens.space(2);
+  padding: tokens.space(2);
+
+  &--collapsed {
+    // Styles for collapsed state if needed
+  }
+}
