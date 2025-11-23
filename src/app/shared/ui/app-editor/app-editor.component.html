@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-1.5">
+    <label *ngIf="label" class="text-sm font-medium text-gray-300">
+        {{ label }} <span *ngIf="required" class="text-red-500">*</span>
+    </label>
+
+    <div class="app-editor-container" [class.has-error]="error">
+        <quill-editor [ngModel]="value" [modules]="modules" [placeholder]="placeholder"
+            [readOnly]="readonly || disabled" (onContentChanged)="onContentChanged($event)"
+            (onEditorCreated)="onEditorCreated($event)" (onBlur)="onTouch()" theme="snow">
+        </quill-editor>
+    </div>
+
+    <div *ngIf="error" class="text-xs text-red-500 mt-0.5">{{ error }}</div>
+    <div *ngIf="hint && !error" class="text-xs text-gray-500 mt-0.5">{{ hint }}</div>
+</div>

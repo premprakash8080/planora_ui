@@ -1,0 +1,22 @@
+<div class="p-8 max-w-4xl mx-auto">
+    <app-page-title title="All Documents" description="Manage your project documentation"></app-page-title>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+        <app-card *ngFor="let doc of docs$ | async" [interactive]="true" [padding]="'md'"
+            [routerLink]="['/docs', doc.id]" class="cursor-pointer group h-full">
+            <div class="text-4xl mb-4">{{ doc.icon || '📄' }}</div>
+            <h3 class="text-xl font-semibold text-gray-200 group-hover:text-white mb-2">{{ doc.title }}</h3>
+            <p class="text-sm text-gray-500">Last updated {{ doc.updatedAt | date:'mediumDate' }}</p>
+        </app-card>
+
+        <!-- New Doc Button -->
+        <button
+            class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-800 rounded-lg hover:border-gray-600 hover:bg-gray-800/50 transition-all text-gray-500 hover:text-gray-300 h-full min-h-[200px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="font-medium">Create New Doc</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+.block-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 4px 0;
+    /* Increased padding */
+    position: relative;
+    border-radius: 4px;
+    transition: background-color 0.1s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.03);
+        /* Subtle hover effect */
+
+        .block-marker {
+            opacity: 1;
+            /* Show marker on hover */
+        }
+    }
+
+    &.selected {
+        background-color: rgba(59, 130, 246, 0.1); // Blue tint for selection
+    }
+}
+
+.block-marker {
+    margin-right: 12px;
+    color: #6b7280;
+    user-select: none;
+    width: 20px;
+    /* Fixed width for alignment */
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.block-content {
+    flex: 1;
+    outline: none;
+    min-height: 1.5em;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+    /* Better line height */
+    color: #e5e7eb;
+    /* Default text color */
+
+    &:empty:before {
+        content: attr(placeholder);
+        color: #4b5563;
+        /* Darker placeholder */
+        pointer-events: none;
+        font-style: italic;
+    }
+}
+
+// Block Types
+.block-h1 .block-content {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.block-h2 .block-content {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.33;
+    margin-top: 0.75em;
+    margin-bottom: 0.5em;
+}
+
+.block-h3 .block-content {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+}
+
+.block-quote {
+    .block-marker {
+        border-left: 3px solid #6b7280;
+        margin-right: 12px;
+        padding-left: 0;
+        width: 0;
+        color: transparent;
+    }
+
+    .block-content {
+        font-style: italic;
+        color: #9ca3af;
+    }
+}
+
+.block-code {
+    background: #1f2937;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: monospace;
+
+    .block-content {
+        color: #e5e7eb;
+    }
+}

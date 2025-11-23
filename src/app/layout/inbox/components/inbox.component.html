@@ -1,8 +1,5 @@
 <div class="page-container inbox-page">
-  <app-page-title
-    title="Inbox"
-    description="Task updates and activity feed"
-  >
+  <app-page-title title="Inbox" description="Task updates and activity feed">
     <ng-container pageActions>
       <app-button variant="ghost" size="sm">
         <mat-icon>filter_list</mat-icon>
@@ -17,27 +14,24 @@
 
   <app-card padding="lg">
     <div class="task-list-container">
-    <!-- List Header -->
-    <div class="list-header">
-      <div class="header-cell checkbox-cell">
-        <mat-checkbox></mat-checkbox>
+      <!-- List Header -->
+      <div class="list-header">
+        <div class="header-cell checkbox-cell">
+          <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="header-cell task-cell">Task</div>
+        <div class="header-cell project-cell">Project</div>
+        <div class="header-cell status-cell">Status</div>
+        <div class="header-cell assignee-cell">Updated By</div>
+        <div class="header-cell time-cell">Time</div>
+        <div class="header-cell actions-cell">Actions</div>
       </div>
-      <div class="header-cell task-cell">Task</div>
-      <div class="header-cell project-cell">Project</div>
-      <div class="header-cell status-cell">Status</div>
-      <div class="header-cell assignee-cell">Updated By</div>
-      <div class="header-cell time-cell">Time</div>
-      <div class="header-cell actions-cell">Actions</div>
-    </div>
 
       <!-- Task List Items -->
-       <!-- make scrollable -->
+      <!-- make scrollable -->
       <div class="task-list" *ngIf="!loading; else loadingTemplate">
-        <div 
-          *ngFor="let update of inboxUpdates" 
-          class="task-list-item"
-          (click)="onUpdateClick(update)">
-          
+        <div *ngFor="let update of inboxUpdates" class="task-list-item" (click)="onUpdateClick(update)">
+
           <!-- Checkbox -->
           <div class="task-cell checkbox-cell">
             <mat-checkbox (click)="$event.stopPropagation()"></mat-checkbox>
@@ -47,9 +41,7 @@
           <div class="task-cell task-info-cell">
             <div class="task-main-info">
               <div class="task-icon-wrapper" [style.background-color]="update.iconBackground">
-                <mat-icon 
-                  [style.color]="update.iconColor" 
-                  class="task-icon">
+                <mat-icon [style.color]="update.iconColor" class="task-icon">
                   {{ update.icon }}
                 </mat-icon>
               </div>
@@ -98,11 +90,7 @@
 
           <!-- Actions -->
           <div class="task-cell actions-cell">
-            <button 
-              mat-icon-button 
-              class="action-button"
-              (click)="$event.stopPropagation()"
-              matTooltip="More options">
+            <button mat-icon-button class="action-button" (click)="$event.stopPropagation()" matTooltip="More options">
               <mat-icon>more_vert</mat-icon>
             </button>
           </div>
@@ -113,11 +101,7 @@
 
   <!-- Loading Template -->
   <ng-template #loadingTemplate>
-    <app-loading 
-      size="lg" 
-      variant="spinner" 
-      message="Loading inbox activities..."
-      [fullScreen]="false">
+    <app-loading size="lg" variant="spinner" message="Loading inbox activities..." [fullScreen]="false">
     </app-loading>
   </ng-template>
 
@@ -133,4 +117,3 @@
       </app-button>
     </div>
   </div>
-</div>

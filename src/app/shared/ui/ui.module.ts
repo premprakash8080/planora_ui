@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppSidebarComponent } from './app-sidebar/app-sidebar.component';
@@ -28,6 +29,13 @@ import { DropdownPopoverComponent } from './dropdown-popover/dropdown-popover.co
 import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.directive';
 import { DropdownContentDirective } from './dropdown-popover/dropdown-content.directive';
 
+import { AppInputComponent } from './app-input/app-input.component';
+import { AppEditorComponent } from './app-editor/app-editor.component';
+import { QuillModule } from 'ngx-quill';
+import { BlockEditorComponent } from './block-editor/block-editor.component';
+import { BlockComponent } from './block-editor/block/block.component';
+import { SlashMenuComponent } from './block-editor/slash-menu/slash-menu.component';
+
 @NgModule({
   declarations: [
     AppHeaderComponent,
@@ -43,7 +51,12 @@ import { DropdownContentDirective } from './dropdown-popover/dropdown-content.di
     AppPaginationComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
-    DropdownContentDirective
+    DropdownContentDirective,
+    AppInputComponent,
+    AppEditorComponent,
+    BlockEditorComponent,
+    BlockComponent,
+    SlashMenuComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +73,9 @@ import { DropdownContentDirective } from './dropdown-popover/dropdown-content.di
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-    OverlayModule
+    OverlayModule,
+    QuillModule.forRoot(),
+    DragDropModule
   ],
   exports: [
     AppHeaderComponent,
@@ -76,8 +91,11 @@ import { DropdownContentDirective } from './dropdown-popover/dropdown-content.di
     AppPaginationComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
-    DropdownContentDirective
+    DropdownContentDirective,
+    AppInputComponent,
+    AppEditorComponent,
+    BlockEditorComponent,
+    DragDropModule
   ]
 })
-export class SharedUiModule {}
-
+export class SharedUiModule { }
