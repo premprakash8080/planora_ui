@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppSidebarComponent } from './app-sidebar/app-sidebar.component';
@@ -28,17 +29,9 @@ import { DropdownPopoverComponent } from './dropdown-popover/dropdown-popover.co
 import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.directive';
 import { DropdownContentDirective } from './dropdown-popover/dropdown-content.directive';
 
-<<<<<<< Updated upstream
-=======
-import { AppInputComponent } from './app-input/app-input.component';
-import { AppEditorComponent } from './app-editor/app-editor.component';
 import { QuillModule } from 'ngx-quill';
-import { BlockEditorComponent } from './block-editor/block-editor.component';
-import { BlockComponent } from './block-editor/block/block.component';
-import { SlashMenuComponent } from './block-editor/slash-menu/slash-menu.component';
 import { AppAsideComponent } from './app-aside/app-aside.component';
 
->>>>>>> Stashed changes
 @NgModule({
   declarations: [
     AppHeaderComponent,
@@ -71,14 +64,10 @@ import { AppAsideComponent } from './app-aside/app-aside.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-<<<<<<< Updated upstream
-    OverlayModule
-=======
     OverlayModule,
     QuillModule.forRoot(),
     DragDropModule,
     AppAsideComponent
->>>>>>> Stashed changes
   ],
   exports: [
     AppHeaderComponent,
@@ -94,16 +83,9 @@ import { AppAsideComponent } from './app-aside/app-aside.component';
     AppPaginationComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
-<<<<<<< Updated upstream
-    DropdownContentDirective
-=======
     DropdownContentDirective,
-    AppInputComponent,
-    AppEditorComponent,
-    BlockEditorComponent,
     AppAsideComponent,
     DragDropModule
->>>>>>> Stashed changes
   ]
 })
 export class SharedUiModule {}
