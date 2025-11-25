@@ -3,6 +3,12 @@
   [class.channel-item--selected]="isSelected"
   [class.channel-item--unread]="hasUnread()"
   (click)="onChannelClick($event)"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="'Select ' + getDisplayName()"
+  [attr.aria-selected]="isSelected"
+  (keydown.enter)="onChannelClick($event)"
+  (keydown.space)="onChannelClick($event)"
 >
   <!-- Channel Icon / Avatar -->
   <div class="channel-item__icon">

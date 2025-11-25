@@ -32,10 +32,8 @@ export class ChatChannelListComponent implements OnChanges {
     this.toggleCollapse.emit();
   }
 
-  onChannelClick(channelId: string, event?: Event): void {
-    if (event) {
-      event.stopPropagation();
-    }
+  onChannelClick(channelId: string): void {
+    console.log(`🖱️ Channel clicked: ${channelId} (${this.title})`);
     this.channelSelected.emit(channelId);
   }
 

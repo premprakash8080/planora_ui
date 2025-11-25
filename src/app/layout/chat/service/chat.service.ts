@@ -131,6 +131,22 @@ export class ChatService {
   }
 
   /**
+   * Get full channel details with members (for channel-details component)
+   */
+  getChannelDetails(channelId: string): Observable<any> {
+    const url = CHAT_ENDPOINTS.getChannelById.replace(':channelId', channelId);
+    return this.httpService.get(url).pipe(
+      map((response: any) => {
+        if (response.success && response.data?.channel) {
+          return response.data.channel;
+        }
+        throw new Error('Channel not found');
+      }),
+      catchError((error) => throwError(() => this.handleError(error)))
+    );
+  }
+
+  /**
    * Create a new channel
    */
   createChannel(request: CreateChannelRequest): Observable<Channel> {
@@ -304,6 +320,69 @@ export class ChatService {
       }),
       catchError((error) => throwError(() => this.handleError(error)))
     );
+  }
+
+  /**
+   * Update channel (name, description, etc.)
+   */
+  updateChannel(channelId: string, updates: { name?: string; description?: string }): Observable<any> {
+    const url = CHAT_ENDPOINTS.updateChannel.replace(':channelId', channelId);
+    return this.httpService.put(url, updates).pipe(
+      map((response: any) => {
+        if (response.success && response.data?.channel) {
+          return response.data.channel;
+        }
+        throw new Error(response.message || 'Failed to update channel');
+      }),
+      catchError((error) => throwError(() => this.handleError(error)))
+    );
+  }
+
+  /**
+   * Remove a member from a channel
+   */
+  removeMember(channelId: string, memberId: string): Observable<any> {
+    const url = CHAT_ENDPOINTS.removeMember
+      .replace(':channelId', channelId)
+      .replace(':memberId', memberId);
+    return this.httpService.delete(url).pipe(
+      map((response: any) => {
+        if (response.success) {
+          return response.data;
+        }
+        throw new Error(response.message || 'Failed to remove member');
+      }),
+      catchError((error) => throwError(() => this.handleError(error)))
+    );
+  }
+
+  /**
+   * Update member role (owner, admin, member)
+   */
+  updateMemberRole(channelId: string, memberId: string, role: 'owner' | 'admin' | 'member'): Observable<any> {
+    const url = CHAT_ENDPOINTS.updateMemberRole
+      .replace(':channelId', channelId)
+      .replace(':memberId', memberId);
+    return this.httpService.patch(url, { role }).pipe(
+      map((response: any) => {
+        if (response.success) {
+          return response.data;
+        }
+        throw new Error(response.message || 'Failed to update member role');
+      }),
+      catchError((error) => throwError(() => this.handleError(error)))
+    );
+  }
+
+  /**
+   * Leave a channel (remove current user as member)
+   */
+  leaveChannel(channelId: string): Observable<any> {
+    const currentUserId = this.getCurrentUserId();
+    if (!currentUserId) {
+      return throwError(() => 'User not authenticated');
+    }
+    return this.removeMember(channelId, currentUserId.toString());
   }
 
   /**

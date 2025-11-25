@@ -1,16 +1,19 @@
 @use 'src/styles/tokens' as tokens;
 
 :host {
-  display: block;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
 }
 
 .chat-messages {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding: tokens.space(4) tokens.space(6);
@@ -172,7 +175,6 @@
 
     .message-actions {
       opacity: 1;
-      pointer-events: auto;
     }
 
     .message-timestamp {

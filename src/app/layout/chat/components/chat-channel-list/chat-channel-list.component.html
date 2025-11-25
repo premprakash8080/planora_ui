@@ -1,9 +1,10 @@
 <div class="channel-list">
   <!-- Section Header -->
-  <div class="channel-list__header" (click)="onToggleCollapse()">
+  <div class="channel-list__header">
     <button 
       class="channel-list__toggle"
       type="button"
+      (click)="onToggleCollapse()"
       [attr.aria-expanded]="!collapsed"
       [attr.aria-label]="(collapsed ? 'Expand' : 'Collapse') + ' ' + title"
     >
@@ -18,8 +19,8 @@
       class="channel-list__add-btn"
       type="button"
       (click)="onAddClick($event)"
-      [attr.aria-label]="'Add to ' + title"
-      [attr.title]="'Add to ' + title"
+      [attr.aria-label]="title === 'Channels' ? 'Create new channel' : 'Start new direct message'"
+      [attr.title]="title === 'Channels' ? 'Create new channel' : 'Start new direct message'"
     >
       <mat-icon>add</mat-icon>
     </button>

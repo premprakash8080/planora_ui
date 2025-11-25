@@ -9,6 +9,9 @@ import { ChatHeaderComponent, ChatHeaderUser, ChatHeaderMember } from '../chat-h
 import { ChatMessagesComponent } from '../chat-messages/chat-messages.component';
 import { ChatMessageInputComponent } from '../chat-message-input/chat-message-input.component';
 import { AddMembersDialogComponent } from '../add-members-dialog/add-members-dialog.component';
+import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
+import { DirectMessageDialogComponent } from '../direct-message-dialog/direct-message-dialog.component';
+import { ChannelDetailsComponent, ChannelDetails } from '../channel-details/channel-details.component';
 import { SharedUiModule } from '../../../../shared/ui/ui.module';
 import { ChatService, User as ApiUser } from '../../service/chat.service';
 import { FirebaseService } from '../../service/firebase.service';
@@ -38,6 +41,9 @@ interface DialogUser {
     ChatMessagesComponent,
     ChatMessageInputComponent,
     AddMembersDialogComponent,
+    CreateChannelDialogComponent,
+    DirectMessageDialogComponent,
+    ChannelDetailsComponent,
     SharedUiModule
   ]
 })
@@ -59,9 +65,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // Dialog state
   showAddMembersDialog = false;
+  showCreateChannelDialog = false;
+  showDirectMessageDialog = false;
   addMembersDialogMode: 'create-channel' | 'create-dm' | 'add-members' = 'create-channel';
   allUsers: DialogUser[] = [];
   currentMembers: string[] = [];
+
+  // Channel details state
+  showChannelDetails = false;
+  channelDetails: ChannelDetails | null = null;
+  channelDetailsLoading = false;
 
   constructor(
     private chatService: ChatService,
@@ -267,6 +280,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     
     // Load messages for this channel
     this.loadMessages(channelId);
+    
+    // Load channel details if panel is open
+    if (this.showChannelDetails) {
+      this.loadChannelDetails(channelId);
+    }
   }
 
   /**
@@ -376,15 +394,80 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onCreateChannel(): void {
-    this.addMembersDialogMode = 'create-channel';
-    this.currentMembers = [];
-    this.showAddMembersDialog = true;
+    this.showCreateChannelDialog = true;
   }
 
   onCreateDirectMessage(): void {
-    this.addMembersDialogMode = 'create-dm';
-    this.currentMembers = [];
-    this.showAddMembersDialog = true;
+    this.showDirectMessageDialog = true;
+  }
+
+  /**
+   * Handle create channel from dialog
+   */
+  onCreateChannelSubmit(event: { name: string; description: string; memberIds: string[] }): void {
+    // Convert string IDs to numbers
+    const memberIds = event.memberIds.map(id => {
+      const numId = parseInt(id, 10);
+      if (isNaN(numId)) {
+        console.error('Invalid user ID:', id);
+        return null;
+      }
+      return numId;
+    }).filter((id): id is number => id !== null);
+    
+    this.chatService.createChannel({
+      name: event.name,
+      description: event.description || undefined,
+      type: 'group',
+      memberIds: memberIds
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (channel) => {
+          this.channels.push(channel);
+          this.selectedChannelId = channel.id;
+          this.onChannelSelected(channel.id);
+          this.showCreateChannelDialog = false;
+          this.snackBarService.showSuccess('Channel created successfully');
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to create channel');
+        }
+      });
+  }
+
+  /**
+   * Handle direct message user selection
+   */
+  onDirectMessageUserSelect(user: DialogUser): void {
+    const userId = parseInt(user.id, 10);
+    if (isNaN(userId)) {
+      this.snackBarService.showError('Invalid user ID');
+      return;
+    }
+    
+    this.chatService.startDirectMessage(userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (channel) => {
+          // Check if DM already exists
+          const existingIndex = this.directMessages.findIndex(dm => dm.id === channel.id);
+          if (existingIndex >= 0) {
+            this.directMessages[existingIndex] = channel;
+          } else {
+            this.directMessages.push(channel);
+          }
+          this.selectedChannelId = channel.id;
+          this.onChannelSelected(channel.id);
+          this.showDirectMessageDialog = false;
+          this.snackBarService.showSuccess('Direct message started');
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to start direct message');
+        }
+      });
   }
 
   onAddMembersDialogClose(): void {
@@ -494,6 +577,10 @@ export class ChatComponent implements OnInit, OnDestroy {
                         this.currentChannel = channel;
                       }
                       this.showAddMembersDialog = false;
+                      // Reload channel details if panel is open
+                      if (this.showChannelDetails && this.selectedChannelId) {
+                        this.loadChannelDetails(this.selectedChannelId);
+                      }
                       if (errors > 0) {
                         this.snackBarService.showSuccess(`Added ${completed} member${completed > 1 ? 's' : ''}, ${errors} failed`);
                       } else {
@@ -523,6 +610,10 @@ export class ChatComponent implements OnInit, OnDestroy {
                         this.currentChannel = channel;
                       }
                       this.showAddMembersDialog = false;
+                      // Reload channel details if panel is open
+                      if (this.showChannelDetails && this.selectedChannelId) {
+                        this.loadChannelDetails(this.selectedChannelId);
+                      }
                       this.snackBarService.showSuccess(`Added ${completed} member${completed > 1 ? 's' : ''}, ${errors} failed`);
                     }
                   });
@@ -536,8 +627,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onHeaderClick(): void {
-    // TODO: Open channel/user details panel
-    console.log('Header clicked');
+    // Toggle channel details panel
+    this.showChannelDetails = !this.showChannelDetails;
+    if (this.showChannelDetails && this.selectedChannelId && !this.channelDetails) {
+      this.loadChannelDetails(this.selectedChannelId);
+    }
   }
 
   onStarClick(): void {
@@ -572,8 +666,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onMembersClick(): void {
-    // TODO: Show members list
-    console.log('Members clicked');
+    // Show channel details panel
+    this.showChannelDetails = true;
+    if (this.selectedChannelId && !this.channelDetails) {
+      this.loadChannelDetails(this.selectedChannelId);
+    }
   }
 
   onSearchClick(): void {
@@ -625,6 +722,8 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.currentChannelMembers = [];
             this.currentDirectMessageUser = undefined;
             this.messages = [];
+            this.channelDetails = null;
+            this.showChannelDetails = false;
           }
           
           this.snackBarService.showSuccess(`Channel "${channelName}" deleted successfully`);
@@ -716,5 +815,236 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.loadMessages(this.selectedChannelId);
     }
     // If using Firestore, the real-time listener will handle the update automatically
+  }
+
+  /**
+   * Load channel details for channel-details component
+   */
+  loadChannelDetails(channelId: string): void {
+    this.channelDetailsLoading = true;
+    this.chatService.getChannelDetails(channelId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (details: any) => {
+          // Map API response to ChannelDetails interface
+          this.channelDetails = {
+            id: details.id?.toString() || '',
+            name: details.name || '',
+            description: details.description || null,
+            type: details.type || 'group',
+            createdBy: {
+              id: details.createdBy?.id?.toString() || '',
+              fullName: details.createdBy?.fullName || details.createdBy?.full_name || '',
+              email: details.createdBy?.email || '',
+              avatarUrl: details.createdBy?.avatarUrl || details.createdBy?.avatar_url || null,
+              avatarColor: details.createdBy?.avatarColor || details.createdBy?.avatar_color || '#3b82f6',
+              initials: details.createdBy?.initials || ''
+            },
+            members: (details.members || []).map((m: any) => ({
+              id: m.id?.toString() || '',
+              fullName: m.fullName || m.full_name || '',
+              email: m.email || '',
+              avatarUrl: m.avatarUrl || m.avatar_url || null,
+              avatarColor: m.avatarColor || m.avatar_color || '#3b82f6',
+              initials: m.initials || '',
+              role: m.role || 'member',
+              lastReadAt: m.lastReadAt || m.last_read_at || '',
+              unreadCount: m.unreadCount || m.unread_count || 0,
+              isMuted: m.isMuted || m.is_muted || false
+            })),
+            memberCount: details.memberCount || details.member_count || 0,
+            myRole: details.myRole || details.my_role || 'member',
+            myUnreadCount: details.myUnreadCount || details.my_unread_count || 0,
+            myLastReadAt: details.myLastReadAt || details.my_last_read_at || '',
+            isArchived: details.isArchived || details.is_archived || false,
+            firestorePath: details.firestorePath || details.firestore_path || '',
+            lastMessageAt: details.lastMessageAt || details.last_message_at || ''
+          };
+          this.channelDetailsLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          console.error('Failed to load channel details:', error);
+          this.snackBarService.showError('Failed to load channel details');
+          this.channelDetailsLoading = false;
+          this.cdr.markForCheck();
+        }
+      });
+  }
+
+  /**
+   * Handle channel name change from inline editing
+   */
+  onChannelNameChange(event: { name: string }): void {
+    if (!this.selectedChannelId || !event.name.trim()) {
+      return;
+    }
+
+    this.chatService.updateChannel(this.selectedChannelId, { name: event.name.trim() })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedChannel) => {
+          // Reload channel details
+          this.loadChannelDetails(this.selectedChannelId!);
+          // Update current channel
+          const index = this.channels.findIndex(c => c.id === this.selectedChannelId);
+          if (index >= 0) {
+            this.channels[index] = { ...this.channels[index], name: event.name.trim() };
+          }
+          if (this.currentChannel?.id === this.selectedChannelId) {
+            this.currentChannel = { ...this.currentChannel, name: event.name.trim() };
+          }
+          this.snackBarService.showSuccess('Channel name updated');
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to update channel name');
+        }
+      });
+  }
+
+  /**
+   * Handle channel description change from inline editing
+   */
+  onChannelDescriptionChange(event: { description: string }): void {
+    if (!this.selectedChannelId) {
+      return;
+    }
+
+    this.chatService.updateChannel(this.selectedChannelId, { description: event.description.trim() || null })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedChannel) => {
+          // Reload channel details
+          this.loadChannelDetails(this.selectedChannelId!);
+          this.snackBarService.showSuccess('Description updated');
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to update description');
+        }
+      });
+  }
+
+  /**
+   * Handle add members from channel details
+   */
+  onAddMembersFromDetails(): void {
+    if (!this.selectedChannelId || !this.channelDetails) {
+      return;
+    }
+    this.addMembersDialogMode = 'add-members';
+    this.currentMembers = this.channelDetails.members.map(m => m.id);
+    this.showAddMembersDialog = true;
+  }
+
+  /**
+   * Handle remove member from channel
+   */
+  onRemoveMember(member: any): void {
+    if (!this.selectedChannelId || !member?.id) {
+      return;
+    }
+
+    const confirmed = confirm(`Are you sure you want to remove ${member.fullName} from this channel?`);
+    if (!confirmed) return;
+
+    this.chatService.removeMember(this.selectedChannelId, member.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          // Reload channel details
+          this.loadChannelDetails(this.selectedChannelId!);
+          // Reload channel list
+          this.loadChannels();
+          this.snackBarService.showSuccess(`${member.fullName} removed from channel`);
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to remove member');
+        }
+      });
+  }
+
+  /**
+   * Handle update member role
+   */
+  onUpdateMemberRole(event: { memberId: string; role: 'owner' | 'admin' | 'member' }): void {
+    if (!this.selectedChannelId || !event.memberId) {
+      return;
+    }
+
+    this.chatService.updateMemberRole(this.selectedChannelId, event.memberId, event.role)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          // Reload channel details
+          this.loadChannelDetails(this.selectedChannelId!);
+          this.snackBarService.showSuccess(`Member role updated to ${event.role}`);
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to update member role');
+        }
+      });
+  }
+
+  /**
+   * Handle leave channel action
+   */
+  onLeaveChannel(): void {
+    if (!this.selectedChannelId) return;
+
+    const confirmed = confirm('Are you sure you want to leave this channel?');
+    if (!confirmed) return;
+
+    this.chatService.leaveChannel(this.selectedChannelId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          // Remove from local arrays
+          this.channels = this.channels.filter(c => c.id !== this.selectedChannelId);
+          this.directMessages = this.directMessages.filter(dm => dm.id !== this.selectedChannelId);
+          
+          // Clear selection
+          this.selectedChannelId = null;
+          this.currentChannel = null;
+          this.currentChannelMembers = [];
+          this.currentDirectMessageUser = undefined;
+          this.messages = [];
+          this.channelDetails = null;
+          this.showChannelDetails = false;
+          
+          this.snackBarService.showSuccess('Left channel successfully');
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBarService.showError(error || 'Failed to leave channel');
+        }
+      });
+  }
+
+  /**
+   * Handle toggle mute for a member
+   */
+  onToggleMute(member: any): void {
+    // TODO: Implement mute/unmute functionality
+    console.log('Toggle mute for member:', member);
+    this.snackBarService.showWarning('Mute functionality coming soon');
+  }
+
+  /**
+   * Handle member click
+   */
+  onMemberClick(member: any): void {
+    // TODO: Show member profile or start DM
+    console.log('Member clicked:', member);
+  }
+
+  /**
+   * Close channel details panel
+   */
+  onCloseChannelDetails(): void {
+    this.showChannelDetails = false;
   }
 }

@@ -41,11 +41,12 @@ export class ChatChannelItemComponent {
   @Output() channelClick = new EventEmitter<string>();
   @Output() channelDelete = new EventEmitter<string>();
 
-  onChannelClick(event?: Event): void {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  onChannelClick(event: Event): void {
+    // Stop propagation to prevent parent handlers from interfering
+    event.stopPropagation();
+    event.preventDefault();
+    
+    // Emit the channel ID
     this.channelClick.emit(this.channel.id);
   }
 

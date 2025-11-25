@@ -43,22 +43,22 @@
   <div class="chat-header__right">
     <!-- Direct Message Actions -->
     <ng-container *ngIf="channelType === 'direct'">
-      <button 
+      <!-- <button 
         class="chat-header__action-btn"
         (click)="onCallClick($event)"
         aria-label="Start audio call"
         title="Start audio call"
       >
         <mat-icon>phone</mat-icon>
-      </button>
-      <button 
+      </button> -->
+      <!-- <button 
         class="chat-header__action-btn"
         (click)="onVideoClick($event)"
         aria-label="Start video call"
         title="Start video call"
       >
         <mat-icon>videocam</mat-icon>
-      </button>
+      </button> -->
       <button 
         class="chat-header__action-btn"
         (click)="onPinClick($event)"
@@ -67,14 +67,14 @@
       >
         <mat-icon>push_pin</mat-icon>
       </button>
-      <button 
+      <!-- <button 
         class="chat-header__action-btn"
         (click)="onAddUserClick($event)"
         aria-label="Add people"
         title="Add people"
       >
         <mat-icon>person_add</mat-icon>
-      </button>
+      </button> -->
       <button 
         class="chat-header__action-btn"
         (click)="onMembersClick($event)"
