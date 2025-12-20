@@ -1,0 +1,22 @@
+:host {
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #191919; // Dark background for the app area
+}
+
+.doc-page-container {
+    max-width: 850px; // Standard document width
+    margin: 0 auto;
+    padding: 3rem 4rem; // Generous padding
+    min-height: 100%;
+    background-color: #191919; // Match background for now, or make it slightly lighter for "paper" effect
+    // box-shadow: 0 0 20px rgba(0,0,0,0.5); // Optional shadow if we want a paper look
+}
+
+// Title Input specific styles
+input[type="text"] {
+    &::placeholder {
+        color: #4b5563;
+    }
+}

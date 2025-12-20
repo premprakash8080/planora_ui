@@ -35,7 +35,7 @@ export class CustomLayoutComponent implements OnInit, OnDestroy {
   mobileSidebarOpen = false;
   private readonly destroy$ = new Subject<void>();
   private readonly projects$ = new BehaviorSubject<Project[]>([]);
-  
+
   sidebarSections$: Observable<SidebarSection[]> = this.projects$.pipe(
     map((projects) => this.buildSidebarSections(projects)),
     shareReplay({ bufferSize: 1, refCount: true })
@@ -50,7 +50,7 @@ export class CustomLayoutComponent implements OnInit, OnDestroy {
     private readonly themeService: ThemeService
   ) {
     this.loadProjects();
-    
+
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -138,6 +138,7 @@ export class CustomLayoutComponent implements OnInit, OnDestroy {
           { label: 'Mails', icon: 'mail', route: '/mails' },
           { label: 'My Tasks', icon: 'task', route: '/my-tasks' },
           { label: 'Chat', icon: 'chat', route: '/chat' },
+          { label: 'Docs', icon: 'book', route: '/docs' },
         ]
       },
       {

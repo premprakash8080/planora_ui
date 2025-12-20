@@ -59,6 +59,10 @@ const routes: Routes = [
         loadChildren: () => import("./layout/settings/settings.module").then((m) => m.SettingsModule),
       },
       {
+        path: "docs",
+        loadChildren: () => import("./layout/doc/docs.module").then((m) => m.DocsModule),
+      },
+      {
         path: "**",
         redirectTo: "dashboard",
         pathMatch: "full",
@@ -67,9 +71,11 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({ imports: [RouterModule.forRoot(routes, {
-  preloadingStrategy: PreloadAllModules,
-  scrollPositionRestoration: 'enabled',
-  anchorScrolling: 'enabled'
-})], exports: [RouterModule] })
-export class AppRoutingModule {}
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules,
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled'
+  })], exports: [RouterModule]
+})
+export class AppRoutingModule { }

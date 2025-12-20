@@ -16,7 +16,6 @@ export const environment = {
     // The format should be: 1:105725094892489987825:web:xxxxxxxxxxxxx
     appId: '1:105725094892489987825:web:dummyAppId' // TODO: Replace with actual app ID from Firebase Console
   }
-
 };
 
 /*

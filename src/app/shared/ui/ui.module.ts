@@ -29,8 +29,12 @@ import { DropdownPopoverComponent } from './dropdown-popover/dropdown-popover.co
 import { DropdownTriggerDirective } from './dropdown-popover/dropdown-trigger.directive';
 import { DropdownContentDirective } from './dropdown-popover/dropdown-content.directive';
 
+import { AppInputComponent } from './app-input/app-input.component';
+import { AppEditorComponent } from './app-editor/app-editor.component';
 import { QuillModule } from 'ngx-quill';
-import { AppAsideComponent } from './app-aside/app-aside.component';
+import { BlockEditorComponent } from './block-editor/block-editor.component';
+import { BlockComponent } from './block-editor/block/block.component';
+import { SlashMenuComponent } from './block-editor/slash-menu/slash-menu.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,12 @@ import { AppAsideComponent } from './app-aside/app-aside.component';
     AppPaginationComponent,
     DropdownPopoverComponent,
     DropdownTriggerDirective,
-    DropdownContentDirective
+    DropdownContentDirective,
+    AppInputComponent,
+    AppEditorComponent,
+    BlockEditorComponent,
+    BlockComponent,
+    SlashMenuComponent
   ],
   imports: [
     CommonModule,
@@ -66,8 +75,7 @@ import { AppAsideComponent } from './app-aside/app-aside.component';
     MatDividerModule,
     OverlayModule,
     QuillModule.forRoot(),
-    DragDropModule,
-    AppAsideComponent
+    DragDropModule
   ],
   exports: [
     AppHeaderComponent,
@@ -84,9 +92,10 @@ import { AppAsideComponent } from './app-aside/app-aside.component';
     DropdownPopoverComponent,
     DropdownTriggerDirective,
     DropdownContentDirective,
-    AppAsideComponent,
+    AppInputComponent,
+    AppEditorComponent,
+    BlockEditorComponent,
     DragDropModule
   ]
 })
-export class SharedUiModule {}
-
+export class SharedUiModule { }

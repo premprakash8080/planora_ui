@@ -1,0 +1,33 @@
+<div class="h-full flex flex-col bg-[#191919]" *ngIf="doc; else notFound">
+    <!-- Header -->
+    <app-doc-header [doc]="doc"></app-doc-header>
+
+    <!-- Editor Content -->
+    <div class="flex-1 overflow-y-auto">
+        <div class="doc-page-container">
+            <!-- Cover Image Placeholder -->
+            <div *ngIf="doc.coverImage" class="h-48 w-full rounded-lg bg-cover bg-center mb-8 group relative"
+                [style.backgroundImage]="'url(' + doc.coverImage + ')'">
+                <!-- Hover actions for cover could go here -->
+            </div>
+
+            <!-- Title Input -->
+            <input type="text" [value]="doc.title"
+                class="w-full bg-transparent text-4xl font-bold text-white placeholder-gray-600 border-none focus:ring-0 p-0 mb-8"
+                placeholder="Untitled">
+
+            <!-- Content Area -->
+            <app-block-editor [initialData]="doc.blocks || []" (change)="onBlocksChange($event)">
+            </app-block-editor>
+        </div>
+    </div>
+</div>
+
+<ng-template #notFound>
+    <div class="h-full flex items-center justify-center text-gray-500">
+        <div class="text-center">
+            <div class="text-4xl mb-4">🔍</div>
+            <p>Document not found</p>
+        </div>
+    </div>
+</ng-template>
